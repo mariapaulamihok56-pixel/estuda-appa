@@ -4,17 +4,23 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const { prompt } = req.body || {};
+    // Garante que o corpo da requisição seja lido corretamente
+    let body = req.body;
+    if (typeof body === 'string') {
+      try { body = JSON.parse(body); } catch (e) {}
+    }
+
+    const prompt = body?.prompt;
     if (!prompt) {
-      return res.status(400).json({ error: 'Prompt is required' });
+      return res.status(400).json({ error: 'Prompt não encontrado na requisição.' });
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: 'GEMINI_API_KEY não configurada nas variáveis de ambiente da Vercel.' });
+      return res.status(500).json({ error: 'GEMINI_API_KEY não configurada na Vercel.' });
     }
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -22,16 +28,16 @@ module.exports = async function handler(req, res) {
       })
     });
 
-    const data = await response.json();
-    
+    const data = await apiResponse.json();
+
     if (data.error) {
-      return res.status(400).json({ error: data.error.message || 'Erro retornado pela API do Google' });
+      return res.status(400).json({ error: `Erro do Google: ${data.error.message || JSON.stringify(data.error)}` });
     }
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sem resposta gerada pela IA.';
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Nenhuma resposta gerada.';
     return res.status(200).json({ text });
+
   } catch (err) {
-    console.error('Erro no servidor:', err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: `Erro interno no servidor: ${err.message}` });
   }
-}
+};
