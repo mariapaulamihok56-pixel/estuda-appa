@@ -4,15 +4,16 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // Garante que o corpo da requisição seja lido corretamente
     let body = req.body;
-    if (typeof body === 'string') {
+    if (Buffer.isBuffer(body)) {
+      body = JSON.parse(body.toString());
+    } else if (typeof body === 'string') {
       try { body = JSON.parse(body); } catch (e) {}
     }
 
     const prompt = body?.prompt;
     if (!prompt) {
-      return res.status(400).json({ error: 'Prompt não encontrado na requisição.' });
+      return res.status(400).json({ error: 'Prompt não encontrado no corpo da requisição.' });
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
@@ -38,6 +39,6 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ text });
 
   } catch (err) {
-    return res.status(500).json({ error: `Erro interno no servidor: ${err.message}` });
+    return res.status(500).json({ error: `Erro interno: ${err.message}` });
   }
 };
