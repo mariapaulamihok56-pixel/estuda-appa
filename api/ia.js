@@ -4,21 +4,28 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    let body = req.body;
-    if (Buffer.isBuffer(body)) {
-      body = JSON.parse(body.toString());
-    } else if (typeof body === 'string') {
-      try { body = JSON.parse(body); } catch (e) {}
+    // Lê o corpo da requisição diretamente do stream para nunca falhar
+    let rawBody = '';
+    await new Promise((resolve) => {
+      req.on('data', chunk => { rawBody += chunk; });
+      req.on('end', resolve);
+    });
+
+    let body = {};
+    try {
+      body = JSON.parse(rawBody || '{}');
+    } catch (e) {
+      body = req.body || {};
     }
 
-    const prompt = body?.prompt;
+    const prompt = body.prompt;
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt não encontrado no corpo da requisição.' });
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: 'GEMINI_API_KEY não configurada na Vercel.' });
+      return res.status(500).json({ error: 'GEMINI_API_KEY não configurada nas variáveis de ambiente da Vercel.' });
     }
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
@@ -32,13 +39,15 @@ module.exports = async function handler(req, res) {
     const data = await apiResponse.json();
 
     if (data.error) {
-      return res.status(400).json({ error: `Erro do Google: ${data.error.message || JSON.stringify(data.error)}` });
+      console.error('Erro retornado pela API do Google:', data.error);
+      return res.status(400).json({ error: `Google API: ${data.error.message || JSON.stringify(data.error)}` });
     }
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Nenhuma resposta gerada.';
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Nenhuma resposta gerada pela IA.';
     return res.status(200).json({ text });
 
   } catch (err) {
+    console.error('Erro interno no servidor:', err);
     return res.status(500).json({ error: `Erro interno: ${err.message}` });
   }
 };
