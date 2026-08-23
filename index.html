@@ -69,7 +69,6 @@ select option {
   padding: 10px;
 }
 
-/* CUSTOM DROPDOWN (SEM AZUL NATIVO) */
 .custom-dropdown { position: relative; display: inline-block; }
 .custom-dropdown-btn {
   background-color: var(--card2);
@@ -147,7 +146,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .eyebrow{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:700;}
 .h1{font-size:36px;line-height:1.15;font-weight:850;letter-spacing:-.04em;margin:6px 0}
 
-/* COMMAND CENTER / TOP BAR GLOBAL TIMER */
 .command-center {
   display: flex; align-items: center; gap: 12px; background: var(--card);
   border: 1px solid var(--line); padding: 6px 14px; border-radius: 14px;
@@ -171,7 +169,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .hero{background:linear-gradient(135deg, #181116 0%, #15151c 60%); border-color:var(--line);min-height:220px; position:relative; overflow:hidden;}
 .hero::before {content:""; position:absolute; top:-50px; right:-50px; width:200px; height:200px; background:var(--blue); filter:blur(100px); opacity:0.12; border-radius:50%;}
 
-.row{display:flex;justify-content:space-between;gap:25px;align-items:center;position:relative;z-index:1;}
 .bar{height:10px;background:var(--card2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--brand-grad);border-radius:10px; transition:width 0.5s ease-out;}
 
@@ -209,7 +206,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .dayhead span{display:block;color:var(--muted);font-weight:normal;margin-top:2px;font-size:11px;}
 .lesson{margin:10px;padding:12px;border-radius:10px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--blue);font-size:12px}
 .lesson.done{background:var(--card2);border-left-color:var(--green); opacity:0.8;}
-.lesson .actions{display:flex;justify-content:flex-end;gap:6px;margin-top:8px}
 .iconbtn{border:0;background:var(--card2);color:var(--muted);cursor:pointer;padding:8px;border-radius:8px;transition:0.2s;}
 .iconbtn:hover{color:var(--txt);background:var(--line);}
 
@@ -244,21 +240,16 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
 .dashList .lesson{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:14px;padding:16px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
 .dashList .lesson b{font-size:14px;letter-spacing:.02em;}
-.dashLessonActions{display:flex;justify-content:flex-end;gap:10px;margin-top:0}
 .dashAction{background:transparent!important;border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:600;transition:.2s;color:var(--txt)}
 .dashAction:hover{background:var(--card2)!important}
 .dashAction.start{border-color:var(--blue);color:var(--blue)}
 .dashAction.start:hover{background:var(--blue)!important; color:white;}
 .dashAction.details{border-color:var(--line);color:var(--muted)}
-.dashAction.finish{border-color:#f43f5e;color:#f43f5e}
 
 .timeDistribution{min-height:150px;display:flex;align-items:center;gap:25px;border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--card2)}
 .fakeDonut{width:100px;height:100px;border-radius:50%;background:conic-gradient(var(--blue) 0 0%,var(--line) 0);position:relative;display:grid;place-items:center;flex:none}
 .fakeDonut:after{content:"";position:absolute;inset:14px;background:var(--card2);border-radius:50%}
 .fakeDonut span{z-index:1;font-weight:850;font-size:18px;}
-
-.cursor-blink::after {content: '|'; animation: blink 1s step-end infinite;}
-@keyframes blink { 50% { opacity: 0; } }
 
 @media(max-width:1000px){
   aside{position:fixed;bottom:0;top:auto;left:0;right:0;width:100%;height:70px;display:flex;flex-direction:row;align-items:center;justify-content:space-around;padding:0 10px;border-right:0;border-top:1px solid var(--line);background:var(--panel);z-index:999}
@@ -345,17 +336,13 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
 <main>
 
-<!-- TOP COMMAND CENTER NAVBAR (RELÓGIO GLOBAL + BOTÃO QUESTÕES + CONCURSO CUSTOMIZADO) -->
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; gap:15px; flex-wrap:wrap;">
-  <!-- CUSTOM CONTEST DROPDOWN (SEM AZUL NATIVO) -->
   <div class="custom-dropdown" id="contestDropdownContainer">
     <div class="custom-dropdown-btn" onclick="toggleContestMenu()">
       <span id="contestSelectedText">Meu Concurso</span>
       <span>▾</span>
     </div>
-    <div class="custom-dropdown-menu" id="contestMenu">
-      <!-- Preenchido via JS -->
-    </div>
+    <div class="custom-dropdown-menu" id="contestMenu"></div>
   </div>
 
   <div style="display:flex; align-items:center; gap:15px;">
@@ -389,7 +376,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
   <div class="dashboardGrid">
     <div class="dashLeft">
-      <!-- MATÉRIAS DO DIA (DINÂMICO ESTILO PROJETO CAVEIRA) -->
       <div class="card hero">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
           <div>
@@ -398,9 +384,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
           </div>
           <span class="badge" id="todayDayBadge">HOJE</span>
         </div>
-        <div id="todayMatériasContainer" style="display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; padding-right:5px;">
-          <!-- Preenchido dinamicamente -->
-        </div>
+        <div id="todayMatériasContainer" style="display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; padding-right:5px;"></div>
       </div>
       <div class="card section"><div class="head"><h3>Próximo estudo</h3><span class="eyebrow">hoje</span></div><div id="today" class="dashList"></div><button class="btn" style="width:100%;margin-top:16px; background:var(--card2); border:1px solid var(--line);" onclick="go('ciclo',document.querySelectorAll('#nav button')[2])">▶ Abrir ciclo completo</button></div>
     </div>
@@ -421,31 +405,21 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   </div>
 </section>
 
-<!-- ABA: ESTUDA AI (COM API REAL DO GEMINI ATUALIZADA) -->
+<!-- ABA: ESTUDA AI (VIA PROXY SEGURO DA VERCEL) -->
 <section id="estudaai" class="page">
-  <div class="top"><div><div class="eyebrow">ASSISTENTE INTELIGENTE</div><div class="h1">Estuda AI Operacional</div><div class="muted">Gere resumos, resumos de leis e estratégias usando a API real da Gemini.</div></div></div>
+  <div class="top"><div><div class="eyebrow">ASSISTENTE INTELIGENTE</div><div class="h1">Estuda AI Operacional</div><div class="muted">Gere resumos e estratégias com IA sem precisar de chave no navegador.</div></div></div>
   <div class="card" style="display:flex; flex-direction:column; gap:20px; min-height:500px;">
-    <!-- Configuração da Chave da API -->
-    <div style="background:var(--panel); border:1px solid var(--line); padding:16px; border-radius:14px; display:flex; flex-direction:column; gap:10px;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <b>🔑 Configuração da Chave Gemini API</b>
-        <button class="btn small secondary" onclick="salvarApiKey()">Salvar Chave</button>
-      </div>
-      <input type="password" id="geminiApiKeyInput" placeholder="Cole sua chave da Gemini API aqui (ex: AIzaSy...)" style="background:var(--card2); border:1px solid var(--line); padding:10px 14px; border-radius:10px; color:var(--txt); outline:none; font-size:14px;">
-      <small class="muted">Sua chave é salva apenas no seu navegador de forma segura para os seus testes.</small>
-    </div>
-
     <div style="background:var(--panel); border:1px solid var(--line); padding:16px; border-radius:14px; display:flex; align-items:center; gap:12px;">
       <div style="background:var(--brand-grad); width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-weight:bold; color:white;">AI</div>
       <div>
-        <b>Estuda AI Conectada</b>
+        <b>Estuda AI Conectada (Segura)</b>
         <p class="muted" style="margin:2px 0 0; font-size:13px;">Pronta para gerar resumos direcionados ao seu edital atual.</p>
       </div>
     </div>
     
     <div id="chatHistoryBox" style="flex:1; display:flex; flex-direction:column; gap:15px; max-height:400px; overflow-y:auto; padding-right:5px;">
       <div class="insight" style="background:var(--card2); border-color:var(--line);">
-        <b>Estuda AI:</b> Olá! Insira sua chave da API acima e digite o que deseja estudar ou resumir hoje.
+        <b>Estuda AI:</b> Olá! Digite abaixo o que você deseja estudar ou resumir hoje.
       </div>
     </div>
 
@@ -456,39 +430,23 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   </div>
 </section>
 
-<!-- NOVA ABA: MEU PERFIL -->
 <section id="perfilpage" class="page">
   <div class="top"><div><div class="eyebrow">CONFIGURAÇÕES</div><div class="h1">Meu Perfil</div><div class="muted">Personalize suas informações e identidade no sistema.</div></div></div>
   <div class="card" style="max-width:600px;">
     <div class="head"><h3>Dados Pessoais</h3></div>
-    <div class="field">
-      <label for="profileUsername">Nome de Usuário</label>
-      <input type="text" id="profileUsername" placeholder="Ex: Maria Concurseira">
-    </div>
-    <div class="field">
-      <label for="profileGender">Sexo / Gênero</label>
-      <select id="profileGender" class="select" style="width:100%">
-        <option value="Feminino">Feminino</option>
-        <option value="Masculino">Masculino</option>
-        <option value="Outro">Outro</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="profileAvatar">URL da Foto de Perfil (Avatar)</label>
-      <input type="text" id="profileAvatar" placeholder="https://exemplo.com/foto.jpg">
-    </div>
-    <div class="actions">
-      <button class="btn" onclick="salvarPerfil()">Salvar Perfil</button>
-    </div>
+    <div class="field"><label for="profileUsername">Nome de Usuário</label><input type="text" id="profileUsername"></div>
+    <div class="field"><label for="profileGender">Sexo / Gênero</label><select id="profileGender" class="select" style="width:100%"><option value="Feminino">Feminino</option><option value="Masculino">Masculino</option><option value="Outro">Outro</option></select></div>
+    <div class="field"><label for="profileAvatar">URL da Foto de Perfil (Avatar)</label><input type="text" id="profileAvatar"></div>
+    <div class="actions"><button class="btn" onclick="salvarPerfil()">Salvar Perfil</button></div>
   </div>
 </section>
 
 <section id="lembretespage" class="page">
-  <div class="top"><div><div class="eyebrow">NOTIFICAÇÕES</div><div class="h1">Meus Lembretes</div><div class="muted">Gerencie seus avisos e alertas importantes.</div></div></div>
+  <div class="top"><div><div class="eyebrow">NOTIFICAÇÕES</div><div class="h1">Meus Lembretes</div></div></div>
   <div class="card">
     <div class="head"><h3>Cadastrar Novo Lembrete</h3></div>
     <div class="formgrid">
-      <div class="field"><label for="pageReminderText">Mensagem (máx. 50 caracteres)</label><input type="text" id="pageReminderText" maxlength="50" placeholder="Ex: Simulado geral no domingo"></div>
+      <div class="field"><label for="pageReminderText">Mensagem (máx. 50 caracteres)</label><input type="text" id="pageReminderText" maxlength="50"></div>
       <div class="field"><label for="pageReminderDate">Data do Lembrete</label><input type="date" id="pageReminderDate" class="select"></div>
     </div>
     <div class="actions"><button class="btn" onclick="savePageReminder()">Salvar Lembrete</button></div>
@@ -512,12 +470,12 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 </section>
 
 <section id="ciclo" class="page">
-  <div class="top"><div><div class="eyebrow">PLANEJAMENTO SEMANAL</div><div class="h1">Agenda de estudos</div><div class="muted">Monte a partir do seu edital ou ajuste manualmente.</div></div><div class="toolbar"><button class="btn secondary" onclick="openCycleGenerator()">✨ Gerar ciclo</button><button class="btn" onclick="openCycle()">+ Bloco</button></div></div>
+  <div class="top"><div><div class="eyebrow">PLANEJAMENTO SEMANAL</div><div class="h1">Agenda de estudos</div></div><div class="toolbar"><button class="btn secondary" onclick="openCycleGenerator()">✨ Gerar ciclo</button><button class="btn" onclick="openCycle()">+ Bloco</button></div></div>
   <div class="card"><div class="agenda" id="agenda"></div></div>
 </section>
 
 <section id="questoes" class="page">
-  <div class="top"><div><div class="eyebrow">BANCO EXTERNO</div><div class="h1">Questões</div><div class="muted">Registre seus números para acompanhar sua evolução.</div></div></div>
+  <div class="top"><div><div class="eyebrow">BANCO EXTERNO</div><div class="h1">Questões</div></div></div>
   <div class="card"><div class="head"><h3>Registrar desempenho</h3><span class="eyebrow">salvo por data</span></div>
     <div class="formgrid">
       <div class="field"><label for="qSubject">Matéria</label><select id="qSubject" onchange="populateQTopics()"></select></div>
@@ -550,34 +508,21 @@ const supabaseKey = 'sb_publishable_xMIVlnfUQEXt20HcFfyNTw_50J0TkgQ';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 const DAYS=['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];
-let STORAGE='estuda_v28';
+let STORAGE='estuda_v29';
 let state={
  theme:'dark', contest:'Meu Concurso',
  profile:{username:'Concurseiro', gender:'Feminino', avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'},
  contests:[{name:'Meu Concurso', subjects:[], cycles:[], questions:[], goalHours:4}],
- checks:{}, study:{}, reminder:{text:'', date:''}, geminiKey:''
+ checks:{}, study:{}, reminder:{text:'', date:''}
 };
 let modalMode='', editingIndex=-1, editalTab='mine', range='today';
 let isRegisterMode = false;
 
-/* GERENCIAR CHAVE API GEMINI */
-function salvarApiKey(){
-  const k = document.getElementById('geminiApiKeyInput').value.trim();
-  if(!k) return alert('Insira uma chave válida.');
-  state.geminiKey = k;
-  save();
-  alert('Chave da API Gemini salva com sucesso!');
-}
-
-/* CHAMADA REAL DA API GEMINI CORRIGIDA PARA O ENDPOINT V1 */
+/* CHAMADA VIA PROXY SEGURO DA VERCEL (/api/ia) */
 async function enviarMensagemEstudaAI() {
   const input = document.getElementById('aiChatInput');
   const txt = input.value.trim();
   if(!txt) return;
-  if(!state.geminiKey) {
-    alert('Por favor, insira e salve sua chave da API Gemini no campo acima.');
-    return;
-  }
   
   const box = document.getElementById('chatHistoryBox');
   box.innerHTML += `<div class="insight" style="background:var(--panel); border-color:var(--line); text-align:right;"><b>Você:</b> ${esc(txt)}</div>`;
@@ -588,13 +533,11 @@ async function enviarMensagemEstudaAI() {
   box.scrollTop = box.scrollHeight;
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${state.geminiKey}`, {
+    const response = await fetch('/api/ia', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{
-          parts: [{ text: `Você é uma IA assistente focada em concursos públicos, auxiliando no edital "${state.contest}". Responda de forma objetiva, tática e estruturada para o estudante: ${txt}` }]
-        }]
+        prompt: `Você é uma IA assistente focada em concursos públicos, auxiliando no edital "${state.contest}". Responda de forma objetiva, tática e estruturada para o estudante: ${txt}`
       })
     });
 
@@ -602,11 +545,10 @@ async function enviarMensagemEstudaAI() {
     document.getElementById(loadingId)?.remove();
 
     if(data.error) {
-      throw new Error(data.error.message || 'Erro na API');
+      throw new Error(data.error);
     }
 
-    const respostaTexto = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sem resposta gerada.';
-    box.innerHTML += `<div class="insight" style="background:var(--card2); border-color:var(--blue); line-height:1.6; white-space:pre-line;"><b>Estuda AI:</b>\n\n${esc(respostaTexto)}</div>`;
+    box.innerHTML += `<div class="insight" style="background:var(--card2); border-color:var(--blue); line-height:1.6; white-space:pre-line;"><b>Estuda AI:</b>\n\n${esc(data.text)}</div>`;
   } catch (err) {
     document.getElementById(loadingId)?.remove();
     box.innerHTML += `<div class="insight" style="background:var(--panel); border-color:var(--red);"><b>Erro ao conectar com a IA:</b> ${esc(err.message)}</div>`;
@@ -614,7 +556,6 @@ async function enviarMensagemEstudaAI() {
   box.scrollTop = box.scrollHeight;
 }
 
-/* CONTROLE DO DROPDOWN CUSTOMIZADO DE CONCURSO */
 function toggleContestMenu(){
   const menu = document.getElementById('contestMenu');
   if(menu) menu.classList.toggle('show');
@@ -642,7 +583,6 @@ function changeContest(v){
   if(menu) menu.classList.remove('show');
 }
 
-/* GLOBAL TIMER NO TOPO INTEGRADO */
 let globalTimerSec = 0, globalRunning = false, globalIntv = null;
 function toggleGlobalTimer(){
   globalRunning = !globalRunning;
@@ -654,9 +594,7 @@ function toggleGlobalTimer(){
       let m = String(Math.floor((globalTimerSec%3600)/60)).padStart(2,'0');
       let s = String(globalTimerSec%60).padStart(2,'0');
       document.getElementById('globalClock').textContent = `${h}:${m}:${s}`;
-      if(globalTimerSec % 60 === 0) {
-        addStudy(60); 
-      }
+      if(globalTimerSec % 60 === 0) { addStudy(60); }
     }, 1000);
   } else { clearInterval(globalIntv); }
 }
@@ -741,8 +679,7 @@ function loadState(){
       contests: Array.isArray(saved.contests) && saved.contests.length ? saved.contests : [{name:'Meu Concurso',subjects:[], cycles:[], questions:[], goalHours:4}],
       checks: saved.checks && typeof saved.checks === 'object' ? saved.checks : {},
       study: saved.study && typeof saved.study === 'object' ? saved.study : {},
-      reminder: saved.reminder && typeof saved.reminder === 'object' ? saved.reminder : {text:'',date:''},
-      geminiKey: saved.geminiKey || ''
+      reminder: saved.reminder && typeof saved.reminder === 'object' ? saved.reminder : {text:'',date:''}
     };
     state.contests.forEach(c=>{ 
       if(!Array.isArray(c.subjects)) c.subjects=[]; 
@@ -751,15 +688,10 @@ function loadState(){
       if(c.goalHours == null) c.goalHours = 4;
     });
     if(!state.contests.some(c=>c.name===state.contest)){ state.contest=state.contests[0].name; }
-    
-    if(document.getElementById('geminiApiKeyInput')) {
-      document.getElementById('geminiApiKeyInput').value = state.geminiKey;
-    }
   }catch(e){ console.error(e); }
 }
 
 function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-
 function currentContest(){
   if(!state.contests) state.contests=[{name:'Meu Concurso',subjects:[], cycles:[], questions:[], goalHours:4}];
   let c=state.contests.find(x=>x.name===state.contest);
@@ -770,11 +702,9 @@ function currentContest(){
   if(c.goalHours == null) c.goalHours = 4;
   return c;
 }
-
 function subjects(){ return currentContest().subjects; }
 function cycles(){ return currentContest().cycles; }
 function questions(){ return currentContest().questions; }
-
 function key(s,t,c){return state.contest+'|'+s+'|'+t+'|'+c}
 function saoPauloNow(){return new Date(new Date().toLocaleString('en-US',{timeZone:'America/Sao_Paulo'}))}
 function todayKey(){let d=saoPauloNow();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
@@ -792,7 +722,6 @@ function deleteContest(){
   save();renderAll();
 }
 
-/* PERFIL */
 function renderPerfilPage(){
   if(!state.profile) state.profile = {username:'Concurseiro', gender:'Feminino', avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'};
   document.getElementById('profileUsername').value = state.profile.username || '';
@@ -804,9 +733,7 @@ function salvarPerfil(){
   state.profile.username = document.getElementById('profileUsername').value.trim() || 'Concurseiro';
   state.profile.gender = document.getElementById('profileGender').value;
   state.profile.avatar = document.getElementById('profileAvatar').value.trim() || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100';
-  save();
-  updateNavProfile();
-  alert('Perfil atualizado com sucesso!');
+  save(); updateNavProfile(); alert('Perfil atualizado com sucesso!');
 }
 function updateNavProfile(){
   const av = document.getElementById('navAvatar');
@@ -821,51 +748,46 @@ function openContest(){
   document.getElementById('modalBody').innerHTML=`
     <div class="field"><label for="mContest">Nome do Concurso / Edital</label><input id="mContest" placeholder="Ex.: Agente PCPR 2026"></div>
     <div class="field"><label for="mGoalHours">Meta Diária de Estudo (Ex: 4 horas)</label><input id="mGoalHours" type="number" min="1" max="12" value="4"></div>
-    <div class="field"><label for="mSessionDuration">Duração de cada Sessão de Estudo (minutos)</label><select id="mSessionDuration" class="select" style="width:100%"><option value="50">50 minutos</option><option value="60" selected>1 hora (60 min)</option><option value="90">1 hora e meia (90 min)</option></select></div>
   `;
   document.getElementById('modal').style.display='grid';
 }
-
 function cleanManualTopics(text){
   let raw=String(text||'').replace(/\r/g, '').replace(/[•●▪◦☐☑□✓]/g,'\n');
   return raw.split(/\n+/).map(x=>String(x).replace(/\s+/g,' ').trim())
     .map(x=>x.replace(/^[•●▪◦☐☑□✓\-–—]+\s*/,'').replace(/^\d+(?:\.\d+)*[.)]?\s*/,'').trim())
     .filter(x=>x.length>1);
 }
-function openSubject(){modalMode='subject';editingIndex=-1;document.getElementById('modalTitle').textContent='Adicionar matéria';document.getElementById('modalBody').innerHTML=`<div class="field"><label for="mName">Nome da matéria</label><input id="mName"></div><div class="field"><label for="mImportance">Importância (0 a 10)</label><input id="mImportance" type="number" min="0" max="10" value="5"></div><div class="field"><label for="mTopics">Assuntos (um por linha)</label><textarea id="mTopics" rows="10" placeholder="1.1 Tópico um&#10;1.2 Tópico dois..."></textarea></div>`;document.getElementById('modal').style.display='grid'}
+function openSubject(){modalMode='subject';editingIndex=-1;document.getElementById('modalTitle').textContent='Adicionar matéria';document.getElementById('modalBody').innerHTML=`<div class="field"><label for="mName">Nome da matéria</label><input id="mName"></div><div class="field"><label for="mImportance">Importância (0 a 10)</label><input id="mImportance" type="number" min="0" max="10" value="5"></div><div class="field"><label for="mTopics">Assuntos (um por linha)</label><textarea id="mTopics" rows="10"></textarea></div>`;document.getElementById('modal').style.display='grid'}
 function editSubject(i){modalMode='subjectEdit';editingIndex=i;let s=subjects()[i];document.getElementById('modalTitle').textContent='Editar matéria';document.getElementById('modalBody').innerHTML=`<div class="field"><label for="mName">Nome</label><input id="mName" value="${esc(s.name)}"></div><div class="field"><label for="mImportance">Importância (0 a 10)</label><input id="mImportance" type="number" min="0" max="10" value="${s.importance??5}"></div><div class="field"><label for="mTopics">Assuntos</label><textarea id="mTopics" rows="10">${esc(s.topics.join('\n'))}</textarea></div>`;document.getElementById('modal').style.display='grid'}
-
 function openPersonalizeEditalModal(){
   modalMode='personalizeEdital';
   let subs = subjects();
   document.getElementById('modalTitle').textContent='⚙ Personalizar Meu Edital';
   document.getElementById('modalBody').innerHTML=`
-    <p class="muted" style="margin-bottom:15px;">Gerencie e visualize as matérias cadastradas no concurso <b>${esc(state.contest)}</b>:</p>
+    <p class="muted" style="margin-bottom:15px;">Gerencie as matérias cadastradas no concurso <b>${esc(state.contest)}</b>:</p>
     <div style="display:flex; flex-direction:column; gap:10px; max-height:300px; overflow-y:auto; padding-right:5px;">
       ${subs.length ? subs.map((s,i)=>`
         <div style="display:flex; justify-content:space-between; align-items:center; background:var(--panel); padding:10px 14px; border-radius:10px; border:1px solid var(--line);">
-          <div><b>${esc(s.name)}</b> <span class="badge">Peso ${s.importance}</span> <small class="muted">(${s.topics.length} assuntos)</small></div>
+          <div><b>${esc(s.name)}</b> <span class="badge">Peso ${s.importance}</span></div>
           <div style="display:flex; gap:6px;">
             <button class="btn small secondary" onclick="editSubject(${i})">Editar</button>
             <button class="btn small danger" onclick="deleteSubject(${i}); openPersonalizeEditalModal();">Excluir</button>
           </div>
         </div>
-      `).join('') : '<p class="muted">Nenhuma matéria cadastrada neste edital.</p>'}
+      `).join('') : '<p class="muted">Nenhuma matéria cadastrada.</p>'}
     </div>
     <button class="btn secondary" style="width:100%; margin-top:15px;" onclick="openSubject()">+ Adicionar Nova Matéria</button>
   `;
   document.getElementById('modalSave').textContent = 'Concluir';
   document.getElementById('modal').style.display='grid';
 }
-
 function saveModal(){
  if(modalMode==='personalizeEdital'){ closeModal(); return; }
  if(modalMode==='import'){ doImport(); return; }
  if(modalMode==='contest'){
    let n=document.getElementById('mContest').value.trim();
    let gh=+document.getElementById('mGoalHours').value||4;
-   if(!n)return alert('Informe o nome do concurso.');
-   if(state.contests.some(c=>c.name===n)) return alert('Já existe um concurso com esse nome.');
+   if(!n)return alert('Informe o nome.');
    state.contests.push({name:n, subjects:[], cycles:[], questions:[], goalHours:gh});
    state.contest=n;
  }
@@ -885,34 +807,17 @@ function saveModal(){
  else if(modalMode==='cycleEdit'){
    Object.assign(cycles()[editingIndex],{d:document.getElementById('mDay').value,s:document.getElementById('mSub').value,topic:document.getElementById('mTopic').value,m:+document.getElementById('mMin').value||60});
  }
- else if(modalMode==='cycleGenerate'){
-   generateCycle(); return;
- }
  save();closeModal();renderAll();
 }
-
 function deleteSubject(i){
-  i = Number(i);
   let subs = subjects();
-  if(i < 0 || i >= subs.length) return;
-  const subject = subs[i];
-  if(!window.confirm('Excluir a matéria "' + subject.name + '" e seus assuntos?')) return;
   subs.splice(i, 1);
-  Object.keys(state.checks || {}).forEach(k=>{
-    const parts = k.split('|');
-    if(parts[0] === state.contest && parts[1] === String(i)){ delete state.checks[k]; }
-  });
   save(); renderAll();
 }
 window.deleteSubject = deleteSubject; 
-
 function toggleSubjectOpen(i){
   let subs = subjects();
-  if(subs[i]){
-    subs[i].open = subs[i].open === false ? true : false;
-    save();
-    renderEdital();
-  }
+  if(subs[i]){ subs[i].open = subs[i].open === false ? true : false; save(); renderEdital(); }
 }
 window.toggleSubjectOpen = toggleSubjectOpen;
 
@@ -924,135 +829,102 @@ async function showIntro(i){
     <div class="eyebrow" style="color:var(--p2)">${esc(c.s)}</div>
     <h2 style="margin:6px 0 16px; font-weight:800;">${esc(c.topic||'Geral')}</h2>
     <div class="insight" style="font-size:15px;line-height:1.7; min-height:120px;" id="aiContentBox">
-      <span class="muted">Consultando a API Gemini...</span>
+      <span class="muted">Consultando IA via servidor...</span>
     </div>`;
   document.querySelector('#modal .actions').style.display='none';
   document.getElementById('modal').style.display='grid';
 
   try {
-    if(!state.geminiKey) {
-      document.getElementById('aiContentBox').innerHTML = '⚠️ Insira sua chave da API Gemini na aba <b>Estuda AI</b> para gerar resumos automáticos.';
-      return;
-    }
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${state.geminiKey}`, {
+    const response = await fetch('/api/ia', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: `Crie um resumo tático objetivo de estudo para o concurso ${state.contest}, focado na matéria "${c.s}" e assunto "${c.topic}". Dê diretrizes de lei seca, jurisprudência e foco em questões.` }] }]
-      })
+      body: JSON.stringify({ prompt: `Crie um resumo tático de estudo para o concurso ${state.contest}, focado na matéria "${c.s}" e assunto "${c.topic}".` })
     });
     const data = await response.json();
-    const txt = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Sem conteúdo gerado.';
-    document.getElementById('aiContentBox').innerHTML = `<div style="white-space:pre-line; line-height:1.6;">${esc(txt)}</div>`;
+    document.getElementById('aiContentBox').innerHTML = `<div style="white-space:pre-line; line-height:1.6;">${esc(data.text || data.error)}</div>`;
   } catch(e) {
-    document.getElementById('aiContentBox').innerHTML = `Erro ao carregar resumo via API: ${esc(e.message)}`;
+    document.getElementById('aiContentBox').innerHTML = `Erro: ${esc(e.message)}`;
   }
 }
 
-function openImport(){modalMode='import';document.getElementById('modalTitle').textContent='Importar edital';document.getElementById('modalBody').innerHTML=`<div class="drop"><b>📄 Selecione PDF, TXT ou JSON</b><p class="muted" style="margin-top:10px;">O sistema vai ler e organizar as matérias para você!</p><input id="file" type="file" accept=".pdf,.csv,.txt,.json,.xlsx,.xls" style="margin-top:15px;"></div>`;document.getElementById('modal').style.display='grid'}
-
+function openImport(){modalMode='import';document.getElementById('modalTitle').textContent='Importar edital';document.getElementById('modalBody').innerHTML=`<div class="drop"><b>📄 Selecione PDF, TXT ou JSON</b><input id="file" type="file" accept=".pdf,.csv,.txt,.json,.xlsx,.xls" style="margin-top:15px;"></div>`;document.getElementById('modal').style.display='grid'}
 async function importFile(file){
   const name = file.name.toLowerCase();
   try {
     if(name.endsWith('.json')){
       const obj = JSON.parse(await file.text());
-      const raw = Array.isArray(obj) ? obj : (obj.subjects || obj.disciplinas || []);
-      return normalizeImportedSubjects(raw);
+      return normalizeImportedSubjects(Array.isArray(obj)?obj:(obj.subjects||obj.disciplinas||[]));
     }
-    if(name.endsWith('.xlsx') || name.endsWith('.xls')){
-      if(typeof XLSX === 'undefined') { alert('Aguarde carregar a biblioteca.'); return null; }
+    if(name.endsWith('.xlsx')||name.endsWith('.xls')){
       const wb = XLSX.read(await file.arrayBuffer(), {type:'array'});
       const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header:1, defval:''});
-      return parseLines(rows.flat().map(x => String(x)));
+      return parseLines(rows.flat().map(x=>String(x)));
     }
     if(name.endsWith('.pdf')){
       const typedarray = new Uint8Array(await file.arrayBuffer());
       const pdf = await pdfjsLib.getDocument(typedarray).promise;
       let lines = [];
-      for(let n = 1; n <= pdf.numPages; n++){
+      for(let n=1; n<=pdf.numPages; n++){
         const page = await pdf.getPage(n);
         const content = await page.getTextContent();
-        lines.push(...content.items.map(x => x.str));
+        lines.push(...content.items.map(x=>x.str));
       }
       return parseLines(lines);
     }
     return parseLines((await file.text()).split(/\r?\n/));
-  } catch (err) {
-    console.error(err);
-    alert('Erro ao ler o arquivo.');
-    return null;
-  }
+  }catch(err){ alert('Erro ao ler arquivo.'); return null; }
 }
-
 function normalizeImportedSubjects(raw){
   if(!Array.isArray(raw)) return [];
   return raw.map(s=>{
-    if(typeof s === 'string'){ return {name:s.trim().toUpperCase(),topics:['Assunto principal'],importance:5,open:true}; }
-    const name = String(s?.name || s?.nome || s?.subject || s?.disciplina || '').trim();
-    const topics = Array.isArray(s?.topics) ? s.topics.map(x=>String(x).trim()).filter(Boolean) : Array.isArray(s?.assuntos) ? s.assuntos.map(x=>String(x).trim()).filter(Boolean) : [];
-    return { name:name.toUpperCase(), topics:topics.length ? topics : ['Assunto principal'], importance:Math.max(0,Math.min(10,Number(s?.importance ?? s?.importancia ?? 5) || 5)), open:s?.open !== false };
+    if(typeof s==='string') return {name:s.trim().toUpperCase(),topics:['Assunto principal'],importance:5,open:true};
+    const name = String(s?.name||s?.nome||s?.subject||s?.disciplina||'').trim();
+    const topics = Array.isArray(s?.topics)?s.topics.map(x=>String(x).trim()).filter(Boolean):[];
+    return {name:name.toUpperCase(), topics:topics.length?topics:['Assunto principal'], importance:5, open:true};
   }).filter(s=>s.name);
 }
-
 function parseLines(lines){
-  let out = [], cur = null;
+  let out=[], cur=null;
   for(let raw of lines){
-    let line = String(raw || '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
-    if(!line || line.length < 3) continue;
-    if(line.includes('EDITAL VERTICALIZADO')) continue;
-    let isUpperSubject = (line === line.toUpperCase() && line.length <= 60 && !/^\d+$/.test(line));
-    let isNumberedSubject = /^\d+[\s.-]+[A-ZÁÀÂÃÉÊÍÓÔÕÚÇ]{3,}/.test(line);
-    if(isUpperSubject || isNumberedSubject){
-      let subjName = line.replace(/^\d+[\s.-]*/, '').trim();
-      cur = { name: subjName, topics: [], open: true };
-      out.push(cur);
-    } else {
-      if(cur) cur.topics.push(line);
-    }
+    let line = String(raw||'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim();
+    if(!line||line.length<3) continue;
+    if(line.toUpperCase()===line && line.length<=60){
+      cur={name:line, topics:[], open:true}; out.push(cur);
+    }else if(cur){ cur.topics.push(line); }
   }
-  return out.filter(x => x.name && x.topics.length);
+  return out.filter(x=>x.name&&x.topics.length);
 }
-
 async function doImport(){
   let f = document.getElementById('file').files[0];
   if(!f) return alert('Selecione um arquivo.');
-  document.getElementById('modalTitle').textContent = 'Processando IA...';
   let result = await importFile(f);
-  result = normalizeImportedSubjects(result);
-  if(!result.length) {
-    document.getElementById('modalTitle').textContent = 'Importar edital';
-    return alert('Não foi possível identificar disciplinas neste arquivo.');
-  }
+  if(!result||!result.length) return alert('Não foi possível ler as disciplinas.');
   currentContest().subjects = result;
   save(); closeModal(); renderAll();
-  alert('Edital importado e isolado com sucesso para este concurso!');
+  alert('Edital importado com sucesso!');
 }
-
 document.addEventListener('click', function(e) {
   const delBtn = e.target.closest('.btn-del-subject');
-  if (delBtn) { const idx = delBtn.getAttribute('data-index'); if (idx !== null) { deleteSubject(idx); } }
+  if(delBtn) deleteSubject(delBtn.getAttribute('data-index'));
   const editBtn = e.target.closest('.btn-edit-subject');
-  if (editBtn) { const idx = editBtn.getAttribute('data-index'); if (idx !== null) { editSubject(Number(idx)); } }
+  if(editBtn) editSubject(Number(editBtn.getAttribute('data-index')));
 });
 
 function renderEdital(){
   let q=(document.getElementById('search')?.value||'').toLowerCase(),arr=subjects();
   let h='<div class="v headrow"><div>DISCIPLINA / ASSUNTO</div><div>TEORIA</div><div>1ª REVISÃO</div><div>2ª REVISÃO</div><div>APROVEITAMENTO</div></div>';
-  
   arr.forEach((s,i)=>{
     let sm=s.name.toLowerCase().includes(q),vis=s.topics.map((t,tj)=>({t,tj})).filter(x=>!q||sm||x.t.toLowerCase().includes(q));
     if(q&&!sm&&!vis.length)return;
     let sd=s.topics.filter((_,t)=>done(i,t)).length,sp=s.topics.length?Math.round(sd/s.topics.length*100):0;
-    
-    let isOpen = s.open !== false;
+    let isOpen = s.open!==false;
     h+=`<div class="v"><div class="discipline" onclick="toggleSubjectOpen(${i})">
-      <span>${isOpen ? '▼' : '▶'} &nbsp; ${esc(s.name)}</span>
-      <span style="color:var(--p2)">⭐ ${s.importance??5}/10 &nbsp; <span style="color:var(--muted)">|</span> &nbsp; ${sp}% &nbsp; 
+      <span>${isOpen?'▼':'▶'} &nbsp; ${esc(s.name)}</span>
+      <span style="color:var(--p2)">⭐ ${s.importance??5}/10 &nbsp; | &nbsp; ${sp}% &nbsp; 
         <button type="button" class="iconbtn btn-edit-subject" data-index="${i}" onclick="event.stopPropagation()">✎</button> 
         <button type="button" class="iconbtn btn-del-subject" data-index="${i}" style="color:var(--red);" onclick="event.stopPropagation()">🗑</button>
       </span>
     </div></div>`;
-    
     if(!isOpen) return;
     vis.forEach(x=>{
       let qs = questions().filter(item => item.subject === s.name && item.topic === x.t);
@@ -1075,7 +947,7 @@ function renderEdital(){
   document.getElementById('counts').textContent=doneAll+' de '+all+' tópicos';
 }
 function setCheck(s,t,c,v){state.checks[key(s,t,c)]=v;save();renderEdital();renderDashboard()}
-function resetChecks(){if(confirm('Zerar marcações deste edital?')){Object.keys(state.checks).filter(k=>k.startsWith(state.contest+'|')).forEach(k=>delete state.checks[k]);save();renderAll()}}
+function resetChecks(){if(confirm('Zerar marcações?')){Object.keys(state.checks).filter(k=>k.startsWith(state.contest+'|')).forEach(k=>delete state.checks[k]);save();renderAll()}}
 
 function renderDashboardMatériasDoDia(){
   const container = document.getElementById('todayMatériasContainer');
@@ -1083,35 +955,25 @@ function renderDashboardMatériasDoDia(){
   const td = todayDay();
   document.getElementById('todayDayBadge').textContent = td;
   const items = cycles().map((c,i)=>({c,i})).filter(x=>x.c.d===td);
-
-  if(!items.length) {
-    container.innerHTML = `<p class="muted" style="padding:15px; text-align:center;">Nenhuma matéria programada para hoje neste concurso.</p>`;
-    return;
-  }
-
-  container.innerHTML = items.map(({c,i})=>{
-    return `
-      <div style="background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; display:flex; justify-content:space-between; align-items:center;">
-        <div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <b style="font-size:14px;">${esc(c.s)}</b>
-            <span class="badge">${c.m} min</span>
-          </div>
-          <div class="cycleTopic" style="margin-top:4px;">${esc(c.topic||'Geral')}</div>
-        </div>
-        <div style="display:flex; gap:6px;">
-          <button class="dashAction details" style="border-color:var(--p2);color:var(--p2)" onclick="showIntro(${i})">📖 Intro</button>
-          <button class="dashAction start" onclick="go('questoes', document.querySelectorAll('#nav button')[3]); populateQ(); document.getElementById('qSubject').value='${esc(c.s)}'; populateQTopics(); document.getElementById('qTopic').value='${esc(c.topic||'')}';">✓ Questões</button>
-        </div>
+  if(!items.length) { container.innerHTML = `<p class="muted" style="padding:15px; text-align:center;">Nenhuma matéria para hoje.</p>`; return; }
+  container.innerHTML = items.map(({c,i})=>`
+    <div style="background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="display:flex; align-items:center; gap:10px;"><b>${esc(c.s)}</b><span class="badge">${c.m} min</span></div>
+        <div class="cycleTopic" style="margin-top:4px;">${esc(c.topic||'Geral')}</div>
       </div>
-    `;
-  }).join('');
+      <div style="display:flex; gap:6px;">
+        <button class="dashAction details" style="border-color:var(--p2);color:var(--p2)" onclick="showIntro(${i})">📖 Intro</button>
+        <button class="dashAction start" onclick="go('questoes', document.querySelectorAll('#nav button')[3]); populateQ(); document.getElementById('qSubject').value='${esc(c.s)}'; populateQTopics(); document.getElementById('qTopic').value='${esc(c.topic||'')}';">✓ Questões</button>
+      </div>
+    </div>
+  `).join('');
 }
 
 function renderSmartInsights(){
   const el=document.getElementById('smartInsights');if(!el)return;
   const qs=questions(),arr=subjects();
-  if(!arr.length){el.innerHTML='<p class="muted">Importe o edital deste concurso.</p>';return}
+  if(!arr.length){el.innerHTML='<p class="muted">Importe o edital.</p>';return}
   let topics=[];
   arr.forEach((s,si)=>s.topics.forEach((topic,ti)=>{
     const q=qs.filter(x=>x.subject===s.name&&x.topic===topic);
@@ -1123,7 +985,7 @@ function renderSmartInsights(){
   let blocks=[];
   if(weak.length)blocks.push('<div class="insight" style="border-color:var(--red);"><b>🔴 Revisão Urgente</b><div class="muted" style="margin-top:5px;">'+weak.map(x=>esc(x.s)+' ('+x.pct+'% acertos)').join('<br>')+'</div></div>');
   if(untouched.length)blocks.push('<div class="insight" style="border-color:var(--blue);"><b>📚 Próximos na Fila</b><div class="muted" style="margin-top:5px;">'+untouched.map(x=>esc(x.s)+' → '+esc(x.topic)).join('<br>')+'</div></div>');
-  if(!weak.length&&!untouched.length)blocks.push('<div class="insight"><b>🟢 Tudo sob controle!</b></div>');
+  if(!blocks.length)blocks.push('<div class="insight"><b>🟢 Tudo sob controle!</b></div>');
   el.innerHTML=blocks.join('');
 }
 
@@ -1132,57 +994,39 @@ function renderDashboard(){
   const hora = saoPauloNow().getHours();
   let saudacao = "Bom dia"; if (hora >= 12 && hora < 18) saudacao = "Boa tarde"; else if (hora >= 18) saudacao = "Boa noite";
   document.getElementById('greetingTitle').innerHTML = `${saudacao}! Vamos estudar? 👋`;
-
-  if(!state.reminder) state.reminder = {text:'', date:''};
-  document.getElementById('reminderText').value = state.reminder.text || '';
-  document.getElementById('reminderDate').value = state.reminder.date || '';
-
-  const alertBox = document.getElementById('reminderAlertContainer');
-  if(state.reminder.text && state.reminder.date && state.reminder.date <= todayKey()) {
-    alertBox.innerHTML = `<div class="insight" style="border-color:var(--blue);background:linear-gradient(90deg, #88133722, transparent);margin-bottom:20px; font-size:16px;"><b>🔔 Alerta:</b> ${esc(state.reminder.text)}</div>`;
-  } else { alertBox.innerHTML = ''; }
-
   const q=questions().filter(x=>x.date===todayKey()),tot=q.reduce((a,x)=>a+x.total,0),cor=q.reduce((a,x)=>a+x.correct,0);
   let allTopics=subjects().reduce((a,s)=>a+s.topics.length,0);
   let doneTopics=subjects().reduce((a,s)=>a+s.topics.filter((_,t)=>done(subjects().indexOf(s),t)).length,0);
-
   document.getElementById('dashQ').textContent=tot;
   document.getElementById('dashA').textContent=(tot?Math.round(cor/tot*100):0)+'%';
   document.getElementById('dashTopics').textContent=(allTopics?Math.round(doneTopics/allTopics*100):0)+'%';
   document.getElementById('dashStreak').textContent=streak()+'d';
-  
-  const timeTotal=Object.values(state.study||{}).reduce((a,v)=>a+(+v||0),0);
-  const timePct=timeTotal?100:0;
-  const tp=document.getElementById('dashTimePct'); if(tp)tp.textContent=timePct+'%';
-  const fd=document.querySelector('.fakeDonut'); if(fd)fd.style.background=`conic-gradient(var(--blue) ${timePct*3.6}deg,var(--line) 0)`;
-  const tt=document.getElementById('dashTimeTitle'); if(tt)tt.textContent=timeTotal?'Seu tempo de foco':'Ainda sem dados';
-  
   renderSmartInsights();
   renderDashboardMatériasDoDia();
   updateNavProfile();
 }
 
-function openCycle(i=-1){modalMode=i<0?'cycle':'cycleEdit';editingIndex=i;let subs=subjects();if(!subs.length) return alert('Cadastre o edital primeiro.');let c=i<0?{d:todayDay(),s:subs[0]?.name||'',topic:subs[0]?.topics?.[0]||'',m:60}:cycles()[i];let sub=subs.find(x=>x.name===c.s)||subs[0], topics=sub?.topics||[];document.getElementById('modalTitle').textContent=i<0?'Adicionar bloco':'Editar bloco';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="mDay">Dia</label><select id="mDay">${DAYS.map(d=>`<option ${d===c.d?'selected':''}>${d}</option>`).join('')}</select></div><div class="field"><label for="mSub">Matéria</label><select id="mSub" onchange="cycleTopicOptions()">${subs.map(x=>`<option ${x.name===c.s?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div><div class="field"><label for="mTopic">Assunto</label><select id="mTopic">${topics.map(t=>`<option ${t===c.topic?'selected':''}>${esc(t)}</option>`).join('')}</select></div><div class="field"><label for="mMin">Minutos</label><input id="mMin" type="number" min="10" value="${c.m}"></div>`;document.getElementById('modal').style.display='grid'}
+function openCycle(i=-1){modalMode=i<0?'cycle':'cycleEdit';editingIndex=i;let subs=subjects();if(!subs.length) return alert('Cadastre o edital.');let c=i<0?{d:todayDay(),s:subs[0]?.name||'',topic:subs[0]?.topics?.[0]||'',m:60}:cycles()[i];let sub=subs.find(x=>x.name===c.s)||subs[0], topics=sub?.topics||[];document.getElementById('modalTitle').textContent=i<0?'Adicionar bloco':'Editar bloco';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="mDay">Dia</label><select id="mDay">${DAYS.map(d=>`<option ${d===c.d?'selected':''}>${d}</option>`).join('')}</select></div><div class="field"><label for="mSub">Matéria</label><select id="mSub" onchange="cycleTopicOptions()">${subs.map(x=>`<option ${x.name===c.s?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div><div class="field"><label for="mTopic">Assunto</label><select id="mTopic">${topics.map(t=>`<option ${t===c.topic?'selected':''}>${esc(t)}</option>`).join('')}</select></div><div class="field"><label for="mMin">Minutos</label><input id="mMin" type="number" min="10" value="${c.m}"></div>`;document.getElementById('modal').style.display='grid'}
 function cycleTopicOptions(){let s=subjects().find(x=>x.name===document.getElementById('mSub').value),sel=document.getElementById('mTopic');sel.innerHTML=(s?.topics||[]).map(t=>`<option>${esc(t)}</option>`).join('')}
-function openCycleGenerator(){if(!subjects().length)return alert('Adicione o edital.');modalMode='cycleGenerate';let activeConcert=currentContest();let defaultMins=(activeConcert.goalHours||4)*60;document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="gDays">Dias de estudo/sem</label><input id="gDays" type="number" min="1" max="7" value="6"></div><div class="field"><label for="gMinutes">Minutos diários</label><input id="gMinutes" type="number" min="30" value="${defaultMins}"></div></div><div class="field"><label for="gMode">Estratégia de distribuição</label><select id="gMode"><option value="weighted">Dar peso às mais importantes</option><option value="balanced">Equilibrar todas as matérias</option></select></div>`;document.getElementById('modal').style.display='grid'}
-function generateCycle(){const days=Math.max(1,Math.min(7,+document.getElementById('gDays').value||6));let activeConcert=currentContest();const mins=Math.max(30,+document.getElementById('gMinutes').value||((activeConcert.goalHours||4)*60));const mode=document.getElementById('gMode').value;const dayNames=DAYS.slice(0,days);const arr=subjects().filter(s=>Array.isArray(s.topics)&&s.topics.length);if(!arr.length)return alert('Sem assuntos.');const slots=[];dayNames.forEach(d=>{let used=0;while(used<mins){const m=Math.min(60,mins-used);slots.push({d,m});used+=m;}});const weights=arr.map((s,i)=>({s,i,w:mode==='balanced'?1:Math.max(0.5,Number(s.importance??5))}));const totalWeight=weights.reduce((a,x)=>a+x.w,0)||1;let quotas=weights.map(x=>({i:x.i,raw:(slots.length*x.w/totalWeight),count:0}));quotas.forEach(q=>q.count=Math.floor(q.raw));if(slots.length>=arr.length)quotas.forEach(q=>{if(q.count===0)q.count=1});let used=quotas.reduce((a,q)=>a+q.count,0);while(used<slots.length){const q=quotas.slice().sort((a,b)=>(b.raw-b.count)-(a.raw-a.count))[0];q.count++;used++;}while(used>slots.length){const q=quotas.filter(q=>q.count>1).sort((a,b)=>(b.raw-b.count)-(a.raw-a.count))[0];if(!q)break;q.count--;used--;}const remaining=new Map(quotas.map(q=>[q.i,q.count]));const topicCursor=new Map(arr.map((s,i)=>[i,0]));const dayUsed=new Map(dayNames.map(d=>[d,new Set()]));let last=-1,result=[];slots.forEach(slot=>{const candidates=arr.map((s,i)=>i).filter(i=>(remaining.get(i)||0)>0);candidates.sort((a,b)=>{const aUsed=dayUsed.get(slot.d).has(a)?1:0, bUsed=dayUsed.get(slot.d).has(b)?1:0;if(aUsed!==bUsed)return aUsed-bUsed;if(a===last)return 1;if(b===last)return -1;return (remaining.get(b)||0)-(remaining.get(a)||0) || Number(arr[b].importance??5)-Number(arr[a].importance??5);});let pick=candidates[0];if(pick===last && candidates.length>1)pick=candidates[1];const s=arr[pick],ti=topicCursor.get(pick)||0,topic=s.topics[ti%s.topics.length];topicCursor.set(pick,ti+1);remaining.set(pick,(remaining.get(pick)||1)-1);dayUsed.get(slot.d).add(pick);last=pick;result.push({d:slot.d,s:s.name,topic,m:slot.m,done:false});});currentContest().cycles=result;save();closeModal();renderAgenda();renderDashboard();alert('Ciclo gerado para este concurso!');}
-function deleteCycle(i){if(confirm('Excluir bloco?')){cycles().splice(i,1);save();renderAgenda()}}
+function openCycleGenerator(){if(!subjects().length)return alert('Adicione o edital.');modalMode='cycleGenerate';let activeConcert=currentContest();let defaultMins=(activeConcert.goalHours||4)*60;document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="gDays">Dias de estudo/sem</label><input id="gDays" type="number" min="1" max="7" value="6"></div><div class="field"><label for="gMinutes">Minutos diários</label><input id="gMinutes" type="number" min="30" value="${defaultMins}"></div></div><div class="field"><label for="gMode">Estratégia</label><select id="gMode"><option value="weighted">Dar peso às mais importantes</option><option value="balanced">Equilibrar todas</option></select></div>`;document.getElementById('modal').style.display='grid'}
+function generateCycle(){const days=Math.max(1,Math.min(7,+document.getElementById('gDays').value||6));let activeConcert=currentContest();const mins=Math.max(30,+document.getElementById('gMinutes').value||((activeConcert.goalHours||4)*60));const dayNames=DAYS.slice(0,days);const arr=subjects().filter(s=>Array.isArray(s.topics)&&s.topics.length);if(!arr.length)return alert('Sem assuntos.');const slots=[];dayNames.forEach(d=>{let used=0;while(used<mins){const m=Math.min(60,mins-used);slots.push({d,m});used+=m;}});let result=[];slots.forEach((slot,idx)=>{let s=arr[idx%arr.length];let topic=s.topics[Math.floor(idx/arr.length)%s.topics.length];result.push({d:slot.d,s:s.name,topic,m:slot.m,done:false});});currentContest().cycles=result;save();closeModal();renderAgenda();renderDashboard();alert('Ciclo gerado!');}
+function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}}
 function toggleCycle(i){cycles()[i].done=!cycles()[i].done;save();renderAgenda();renderDashboard()}
-function renderAgenda(){let now=saoPauloNow(), base=new Date(now.getFullYear(),now.getMonth(),now.getDate());let dates=DAYS.map((_,i)=>{let d=new Date(base);let current=base.getDay()===0?6:base.getDay()-1;d.setDate(base.getDate()+i-current);return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`});document.getElementById('agenda').innerHTML=DAYS.map((d,i)=>`<div class="day"><div class="dayhead">${d}<span>${dates[i]}${d===todayDay()?' • HOJE':''}</span></div>${cycles().map((c,j)=>({c,j})).filter(x=>x.c.d===d).map(x=>{return `<div class="lesson ${x.c.done?'done':''}"><div style="display:flex;align-items:center;gap:8px"><b>${esc(x.c.s)}</b><span class="badge">${x.c.m}m</span></div><div class="cycleTopic">${esc(x.c.topic||'Geral')}</div><div class="cycleControls" style="display:flex;gap:5px;margin-top:10px;"><button class="iconbtn" title="Intro da Matéria" onclick="showIntro(${x.j})">📖</button><button class="iconbtn" onclick="toggleCycle(${x.j})">✓</button><button class="iconbtn" onclick="openCycle(${x.j})">✎</button><button class="iconbtn" style="color:var(--red);" onclick="deleteCycle(${x.j})">🗑</button></div></div>`;}).join('')||'<div class="muted" style="text-align:center;padding:20px;">—</div>'}</div>`).join('');}
+function renderAgenda(){let now=saoPauloNow(), base=new Date(now.getFullYear(),now.getMonth(),now.getDate());let dates=DAYS.map((_,i)=>{let d=new Date(base);let current=base.getDay()===0?6:base.getDay()-1;d.setDate(base.getDate()+i-current);return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`});document.getElementById('agenda').innerHTML=DAYS.map((d,i)=>`<div class="day"><div class="dayhead">${d}<span>${dates[i]}${d===todayDay()?' • HOJE':''}</span></div>${cycles().map((c,j)=>({c,j})).filter(x=>x.c.d===d).map(x=>`<div class="lesson ${x.c.done?'done':''}"><div style="display:flex;align-items:center;gap:8px"><b>${esc(x.c.s)}</b><span class="badge">${x.c.m}m</span></div><div class="cycleTopic">${esc(x.c.topic||'Geral')}</div><div style="display:flex;gap:5px;margin-top:10px;"><button class="iconbtn" title="Intro" onclick="showIntro(${x.j})">📖</button><button class="iconbtn" onclick="toggleCycle(${x.j})">✓</button><button class="iconbtn" onclick="openCycle(${x.j})">✎</button><button class="iconbtn" style="color:var(--red);" onclick="deleteCycle(${x.j})">🗑</button></div></div>`).join('')||'<div class="muted" style="text-align:center;padding:20px;">—</div>'}</div>`).join('');}
 function saveReminder(){const text=document.getElementById('reminderText').value.slice(0, 50);const date=document.getElementById('reminderDate').value;state.reminder={text, date};save();const status=document.getElementById('reminderStatus');status.textContent='Salvo!';setTimeout(()=>{status.textContent='Salvo';},1000);renderDashboard();}
 function clearReminder(){state.reminder={text:'', date:''};save();document.getElementById('reminderText').value='';document.getElementById('reminderDate').value='';renderDashboard();renderLembretesPage();alert('Limpo!');}
-function renderLembretesPage(){const box=document.getElementById('activeReminderBox');if(!state.reminder||!state.reminder.text){box.innerHTML='<p class="muted">Nenhum lembrete cadastrado.</p>';document.getElementById('pageReminderText').value='';document.getElementById('pageReminderDate').value='';}else{box.innerHTML=`<b>Data:</b> ${state.reminder.date}<br><b style="font-size:16px">${esc(state.reminder.text)}</b>`;document.getElementById('pageReminderText').value=state.reminder.text;document.getElementById('pageReminderDate').value=state.reminder.date;}}
+function renderLembretesPage(){const box=document.getElementById('activeReminderBox');if(!state.reminder||!state.reminder.text){box.innerHTML='<p class="muted">Nenhum lembrete.</p>';document.getElementById('pageReminderText').value='';document.getElementById('pageReminderDate').value='';}else{box.innerHTML=`<b>Data:</b> ${state.reminder.date}<br><b style="font-size:16px">${esc(state.reminder.text)}</b>`;document.getElementById('pageReminderText').value=state.reminder.text;document.getElementById('pageReminderDate').value=state.reminder.date;}}
 function savePageReminder(){const text=document.getElementById('pageReminderText').value.slice(0, 50);const date=document.getElementById('pageReminderDate').value;if(!text||!date)return alert('Preencha mensagem e data.');state.reminder={text, date};save();renderLembretesPage();renderDashboard();alert('Salvo!');}
-function openQuestionSite(){let u=document.getElementById('qLink').value.trim();if(u)window.open(u,'_blank');else window.open('https://www.qconcursos.com/','_blank')}
+function openQuestionSite(){window.open('https://www.qconcursos.com/','_blank')}
 function saveQuestions(){let date=document.getElementById('qDate').value||todayKey(),total=+document.getElementById('qTotal').value||0,correct=+document.getElementById('qCorrect').value||0,wrong=+document.getElementById('qWrong').value||0;if(correct+wrong>total)total=correct+wrong;questions().push({date,subject:document.getElementById('qSubject').value,topic:document.getElementById('qTopic').value||'Geral',total,correct,wrong,link:document.getElementById('qLink').value.trim()});save();renderQuestions();renderDashboard();drawPerformance();alert('Registrado!');}
 function populateQ(){let old=document.getElementById('qSubject').value;let subs=subjects();document.getElementById('qSubject').innerHTML=subs.map(s=>`<option>${esc(s.name)}</option>`).join('');if(old&&subs.some(s=>s.name===old))document.getElementById('qSubject').value=old;populateQTopics();let qd=document.getElementById('qDate');if(qd) qd.value=todayKey();}
 function populateQTopics(){let s=subjects().find(x=>x.name===document.getElementById('qSubject').value),sel=document.getElementById('qTopic');if(!sel)return;sel.innerHTML=(s?.topics||[]).map(t=>`<option>${esc(t)}</option>`).join('')||'<option>Geral</option>';}
 function renderQuestions(){populateQ();let h=questions().slice().sort((a,b)=>b.date.localeCompare(a.date)).map(x=>{let idx=questions().indexOf(x);return `<div class="subjectrow" style="grid-template-columns:28px 1fr 100px 80px"><div style="color:var(--green);font-weight:bold;">✓</div><div><b>${esc(x.subject)}</b><br><span class="cycleTopic">${esc(x.topic)}</span><br><small class="muted">${x.date}</small></div><strong style="font-size:16px;">${x.correct}/${x.total}</strong><small>${x.total?Math.round(x.correct/x.total*100):0}% <button class="iconbtn" style="color:var(--red);margin-left:5px;" onclick="delQ(${idx})">🗑</button></small></div>`;}).join('');let qh=document.getElementById('qHistory');if(qh) qh.innerHTML=h||'<div class="empty">Sem registros.</div>';}
 function delQ(i){questions().splice(i,1);save();renderQuestions();drawPerformance();renderDashboard()}
-function clearQuestionData(){if(confirm('Apagar histórico de questões deste edital?')){currentContest().questions=[];save();renderQuestions();drawPerformance();renderDashboard()}}
+function clearQuestionData(){if(confirm('Apagar histórico?')){currentContest().questions=[];save();renderQuestions();drawPerformance();renderDashboard()}}
 function setRange(r,b){range=r;document.querySelectorAll('#desempenho .tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('customRange').style.display=r==='custom'?'block':'none';drawPerformance()}
 function datesForRange(){let end=saoPauloNow(),start=saoPauloNow();if(range==='today')start=end;else if(range==='15')start.setDate(end.getDate()-14);else if(range==='month')start=new Date(end.getFullYear(),end.getMonth(),1);else start=new Date((document.getElementById('fromDate').value||todayKey())+'T00:00:00'),end=new Date((document.getElementById('toDate').value||todayKey())+'T00:00:00');let a=[];for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1))a.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`);return a}
-function drawPerformance(){let dates=datesForRange(),ctx=document.getElementById('chart').getContext('2d'),cv=document.getElementById('chart');let w=cv.clientWidth||700,h=cv.clientHeight||300,ratio=devicePixelRatio||1;cv.width=w*ratio;cv.height=h*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,h);let vals=dates.map(d=>{let q=questions().filter(x=>x.date===d),t=q.reduce((a,x)=>a+x.total,0),c=q.reduce((a,x)=>a+x.correct,0);return t?Math.round(c/t*100):0});ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--line');ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--muted');ctx.font='12px Inter';for(let i=0;i<5;i++){let y=20+i*(h-55)/4;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(w-15,y);ctx.stroke();ctx.fillText((100-i*25)+'%',5,y+4)}ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--blue');ctx.lineWidth=4;ctx.beginPath();vals.forEach((v,i)=>{let x=50+(i*(w-70)/Math.max(1,vals.length-1)),y=20+(100-v)*(h-55)/100;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--pink');vals.forEach((v,i)=>{let x=50+(i*(w-70)/Math.max(1,vals.length-1)),y=20+(100-v)*(h-55)/100;ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill()});let qs=questions().filter(x=>dates.includes(x.date)),t=qs.reduce((a,x)=>a+x.total,0),c=qs.reduce((a,x)=>a+x.correct,0),wr=qs.reduce((a,x)=>a+x.wrong,0),mins=dates.reduce((a,d)=>a+(state.study[d]||0),0);document.getElementById('pTotal').textContent=t;document.getElementById('pCorrect').textContent=(t?Math.round(c/t*100):0)+'%';document.getElementById('pWrong').textContent=(t?Math.round(wr/t*100):0)+'%';document.getElementById('pHours').textContent=Math.floor(mins/60)+'h '+mins%60+'m'}
+function drawPerformance(){let dates=datesForRange(),ctx=document.getElementById('chart').getContext('2d'),cv=document.getElementById('chart');let w=cv.clientWidth||700,h=cv.clientHeight||300,ratio=devicePixelRatio||1;cv.width=w*ratio;cv.height=h*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,h);let vals=dates.map(d=>{let q=questions().filter(x=>x.date===d),t=q.reduce((a,x)=>a+x.total,0),c=q.reduce((a,x)=>a+x.correct,0);return t?Math.round(c/t*100):0});ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--line');ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--muted');ctx.font='12px Inter';for(let i=0;i<5;i++){let y=20+i*(h-55)/4;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(w-15,y);ctx.stroke();ctx.fillText((100-i*25)+'%',5,y+4)}ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--blue');ctx.lineWidth=4;ctx.beginPath();vals.forEach((v,i)=>{let x=50+(i*(w-70)/Math.max(1,vals.length-1)),y=20+(100-v)*(h-55)/100;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();let qs=questions().filter(x=>dates.includes(x.date)),t=qs.reduce((a,x)=>a+x.total,0),c=qs.reduce((a,x)=>a+x.correct,0),wr=qs.reduce((a,x)=>a+x.wrong,0),mins=dates.reduce((a,d)=>a+(state.study[d]||0),0);document.getElementById('pTotal').textContent=t;document.getElementById('pCorrect').textContent=(t?Math.round(c/t*100):0)+'%';document.getElementById('pWrong').textContent=(t?Math.round(wr/t*100):0)+'%';document.getElementById('pHours').textContent=Math.floor(mins/60)+'h '+mins%60+'m'}
 function streak(){let n=0,d=new Date();while(true){let k=d.toISOString().slice(0,10);if((state.study[k]||0)>0||questions().some(q=>q.date===k)){n++;d.setDate(d.getDate()-1)}else break}return n}
 
 function closeModal(){
@@ -1191,7 +1035,6 @@ function closeModal(){
   document.getElementById('modalSave').textContent='Salvar';
   modalMode='';
 }
-
 function addStudy(mins){
   if(mins<=0)return;
   state.study[todayKey()]=(state.study[todayKey()]||0)+mins;
@@ -1199,7 +1042,6 @@ function addStudy(mins){
 }
 function renderAll(){populateContest();renderDashboard();renderEdital();renderAgenda();renderQuestions();drawPerformance();renderLembretesPage();renderPerfilPage();}
 document.getElementById('modalSave').addEventListener('click',async()=>{if(modalMode==='intro')return closeModal();saveModal();});
-
 document.documentElement.dataset.theme=state.theme;
 </script>
 </body>
