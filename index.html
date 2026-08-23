@@ -408,7 +408,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 <!-- ABA: ESTUDA AI (VIA PROXY SEGURO DA VERCEL) -->
 <section id="estudaai" class="page">
   <div class="top"><div><div class="eyebrow">ASSISTENTE INTELIGENTE</div><div class="h1">Estuda AI Operacional</div><div class="muted">Gere resumos e estratégias com IA sem precisar de chave no navegador.</div></div></div>
-  <div class="card" style="display:flex; flex-direction:column; gap:20px; min-height:500px;">
+  <div class="card" style="display:flex; flex-direction:column; gap:20px; min-height:calc(100vh - 200px);">
     <div style="background:var(--panel); border:1px solid var(--line); padding:16px; border-radius:14px; display:flex; align-items:center; gap:12px;">
       <div style="background:var(--brand-grad); width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-weight:bold; color:white;">AI</div>
       <div>
@@ -417,14 +417,14 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
       </div>
     </div>
     
-    <div id="chatHistoryBox" style="flex:1; display:flex; flex-direction:column; gap:15px; max-height:400px; overflow-y:auto; padding-right:5px;">
-      <div class="insight" style="background:var(--card2); border-color:var(--line);">
+    <div id="chatHistoryBox" style="flex:1; display:flex; flex-direction:column; gap:18px; overflow-y:auto; padding-right:5px; font-size:17px; line-height:1.7;">
+      <div class="insight" style="background:var(--card2); border-color:var(--line); padding:18px 20px;">
         <b>Estuda AI:</b> Olá! Digite abaixo o que você deseja estudar ou resumir hoje.
       </div>
     </div>
 
     <div style="display:flex; gap:10px; margin-top:auto;">
-      <input type="text" id="aiChatInput" placeholder="Ex: Crie um resumo sobre Inquérito Policial para o meu edital..." style="flex:1; background:var(--panel); border:1px solid var(--line); color:var(--txt); border-radius:12px; padding:14px; outline:none;" onkeydown="if(event.key==='Enter')enviarMensagemEstudaAI()">
+      <input type="text" id="aiChatInput" placeholder="Ex: Crie um resumo sobre Inquérito Policial para o meu edital..." style="flex:1; background:var(--panel); border:1px solid var(--line); color:var(--txt); border-radius:12px; padding:16px; font-size:15px; outline:none;" onkeydown="if(event.key==='Enter')enviarMensagemEstudaAI()">
       <button class="btn" onclick="enviarMensagemEstudaAI()">Enviar ➔</button>
     </div>
   </div>
