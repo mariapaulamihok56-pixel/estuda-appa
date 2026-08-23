@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>ESTUDA. • Cronograma de Estudos</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2313111c'/><rect x='6' y='6' width='88' height='88' rx='16' fill='none' stroke='%23a855f7' stroke-width='6'/><text x='50' y='65' font-family='Inter, sans-serif' font-weight='900' font-size='42' fill='%23ffffff' text-anchor='middle'>EK</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2309090b'/><rect x='6' y='6' width='88' height='88' rx='16' fill='none' stroke='%239f1239' stroke-width='6'/><text x='50' y='65' font-family='Inter, sans-serif' font-weight='900' font-size='42' fill='%23ffffff' text-anchor='middle'>EK</text></svg>">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -15,22 +15,25 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
+/* TEMA PROFISSIONAL: PRETO, CINZA E VINHO (BURGUNDY) */
 :root{
-  --bg: #09090b;
-  --panel: #111116;
-  --card: #151520;
-  --card2: #1c1c2a;
-  --line: #2d2a3f;
-  --txt: #f8fafc;
-  --muted: #8b89a4;
-  --brand-grad: linear-gradient(90deg, #9333ea, #ec4899);
-  --blue: #a855f7;
-  --p2: #d946ef;
-  --pink: #ec4899;
-  --green: #10b981;
-  --red: #f43f5e;
-  --cyan: #8b5cf6;
-  --shadow: 0 15px 45px rgba(0,0,0,0.4);
+  --bg: #09090b;          
+  --panel: #111116;       
+  --card: #15151c;        
+  --card2: #1c1c24;       
+  --line: #272732;        
+  --txt: #f8fafc;         
+  --muted: #94a3b8;       
+  
+  /* Cores de Ação em Vinho / Burgundy Corporativo */
+  --brand-grad: linear-gradient(90deg, #881337, #4c0519);
+  --blue: #e11d48;        /* Destaque principal em tom vinho/rosa escuro elegante */
+  --p2: #fb7185;          
+  --pink: #9f1239;        
+  --green: #10b981;       
+  --red: #f43f5e;         
+  
+  --shadow: 0 15px 45px rgba(0,0,0,0.5);
 }
 
 [data-theme=light]{
@@ -41,13 +44,12 @@
   --line:#e2e8f0;
   --txt:#0f172a;
   --muted:#64748b;
-  --brand-grad: linear-gradient(90deg, #7e22ce, #db2777);
-  --blue:#9333ea;
-  --p2:#c026d3;
-  --pink:#db2777;
+  --brand-grad: linear-gradient(90deg, #881337, #9f1239);
+  --blue:#be123c;
+  --p2:#9f1239;
+  --pink:#881337;
   --green:#059669;
   --red:#e11d48;
-  --cyan:#7c3aed;
   --shadow:0 12px 35px rgba(15,23,42,0.08);
 }
 
@@ -55,7 +57,6 @@
 body{margin:0;background:var(--bg);color:var(--txt);font:15px Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;letter-spacing:.01em;-webkit-tap-highlight-color:transparent}
 button,input,textarea,select{font:inherit}
 
-/* ESTILIZAÇÃO CUSTOMIZADA PARA SELECTS E OPTIONS (SEM AZUL PADRÃO) */
 select, select.select {
   background-color: var(--card2) !important;
   color: var(--txt) !important;
@@ -75,7 +76,7 @@ select option {
 .login-box .field {text-align:left;margin-bottom:18px;}
 .login-box .field label {display:block;color:var(--muted);font-size:13px;margin-bottom:8px; font-weight:500;}
 .login-box .field input {width:100%;background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:14px;font-size:15px;transition:0.2s; outline:none;}
-.login-box .field input:focus {border-color:var(--blue); box-shadow:0 0 0 3px rgba(168, 85, 247, 0.2);}
+.login-box .field input:focus {border-color:var(--blue); box-shadow:0 0 0 3px rgba(136, 19, 55, 0.2);}
 .auth-switch {margin-top:24px;font-size:14px;color:var(--muted);}
 .auth-switch span {color:var(--p2);cursor:pointer;font-weight:700;}
 .auth-switch span:hover {text-decoration:underline;}
@@ -85,9 +86,8 @@ select option {
 aside{position:fixed;inset:0 auto 0 0;width:260px;background:var(--panel);border-right:1px solid var(--line);padding:25px 18px;z-index:10;transition:.2s}
 .brand{font-weight:950;font-size:30px;letter-spacing:-.05em;padding:4px 10px}
 .brand span{color:var(--pink);}
-.subtitle{color:var(--muted);font-size:10px;margin:4px 10px 30px;text-transform:uppercase;letter-spacing:.15em; font-weight:600;}
 
-nav button{display:flex;align-items:center;width:100%;border:1px solid transparent;background:transparent;color:var(--muted);padding:13px 16px;border-radius:12px;text-align:left;cursor:pointer;margin:5px 0;font-size:14px; font-weight:500; transition:.2s}
+nav button{display:flex;align-items:center;width:100%;border:1px solid transparent;background:transparent;color:var(--muted);padding:12px 16px;border-radius:12px;text-align:left;cursor:pointer;margin:4px 0;font-size:14px; font-weight:500; transition:.2s}
 nav button.active{background:var(--card2);border-color:var(--line);color:var(--txt);box-shadow:inset 4px 0 var(--blue)}
 nav button:hover:not(.active){background:var(--card);color:var(--txt)}
 nav b{display:inline-block;width:32px;color:var(--blue);font-size:17px}
@@ -104,8 +104,15 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .eyebrow{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:700;}
 .h1{font-size:36px;line-height:1.15;font-weight:850;letter-spacing:-.04em;margin:6px 0}
 
-.btn{border:0;border-radius:12px;padding:12px 20px;background:var(--brand-grad);color:white;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 25px rgba(147,51,234,0.25);transition:.2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(147,51,234,0.35);filter:brightness(1.05)}
+/* COMMAND CENTER / TOP BAR GLOBAL TIMER */
+.command-center {
+  display: flex; align-items: center; gap: 15px; background: var(--card);
+  border: 1px solid var(--line); padding: 8px 16px; border-radius: 14px;
+}
+.command-clock { font-weight: 800; font-size: 16px; font-family: monospace; color: var(--txt); }
+
+.btn{border:0;border-radius:12px;padding:12px 20px;background:var(--brand-grad);color:white;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 25px rgba(136,19,55,0.25);transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(136,19,55,0.35);filter:brightness(1.05)}
 .btn.secondary{background:var(--card2);border:1px solid var(--line);color:var(--txt);box-shadow:none}
 .btn.secondary:hover{background:var(--line);}
 .btn.danger{background:#f43f5e15;color:var(--red);border:1px solid #f43f5e44;box-shadow:none}
@@ -118,13 +125,13 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
 
-.hero{background:linear-gradient(135deg, #1e1136 0%, #151520 60%); border-color:var(--line);min-height:220px; position:relative; overflow:hidden;}
-.hero::before {content:""; position:absolute; top:-50px; right:-50px; width:200px; height:200px; background:var(--blue); filter:blur(100px); opacity:0.15; border-radius:50%;}
+.hero{background:linear-gradient(135deg, #181116 0%, #15151c 60%); border-color:var(--line);min-height:220px; position:relative; overflow:hidden;}
+.hero::before {content:""; position:absolute; top:-50px; right:-50px; width:200px; height:200px; background:var(--blue); filter:blur(100px); opacity:0.12; border-radius:50%;}
 
 .row{display:flex;justify-content:space-between;gap:25px;align-items:center;position:relative;z-index:1;}
 .bar{height:10px;background:var(--card2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--brand-grad);border-radius:10px; transition:width 0.5s ease-out;}
-.ring{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--blue) 0 0%,var(--card2) 0);display:grid;place-items:center;position:relative;flex:none;box-shadow:0 0 35px rgba(168,85,247,0.15)}
+.ring{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--blue) 0 0%,var(--card2) 0);display:grid;place-items:center;position:relative;flex:none;box-shadow:0 0 35px rgba(136,19,55,0.15)}
 .ring:after{content:"";position:absolute;inset:12px;background:var(--card);border-radius:50%}
 .ringin{z-index:1;text-align:center}
 .ringin strong{font-size:32px; font-weight:850; letter-spacing:-0.03em;}
@@ -139,7 +146,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .subjectrow{display:grid;grid-template-columns:28px 1fr 60px 70px;align-items:center;gap:12px;padding:14px;background:var(--card2);border:1px solid var(--line);border-radius:14px;margin:8px 0}
 .tabs{display:flex;gap:10px;flex-wrap:wrap}
 .tab{padding:10px 16px;border:1px solid var(--line);background:var(--card2);border-radius:12px;color:var(--muted);cursor:pointer;font-weight:600;font-size:13px;transition:0.2s}
-.tab.active{color:white;background:var(--brand-grad);border-color:transparent;box-shadow:0 6px 15px rgba(147,51,234,0.2);}
+.tab.active{color:white;background:var(--brand-grad);border-color:transparent;box-shadow:0 6px 15px rgba(136,19,55,0.2);}
 .tab:hover:not(.active){background:var(--line);color:var(--txt)}
 
 .toolbar{display:flex;gap:10px;flex-wrap:wrap}
@@ -168,9 +175,9 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .iconbtn:hover{color:var(--txt);background:var(--line);}
 
 .dashStats{margin:0 0 20px;grid-template-columns:repeat(4,1fr);display:grid;gap:15px;}
-.dashStats .stat:nth-child(1) {background: linear-gradient(135deg, #2a1147 0%, #151520 100%); border-color:#4a227d;}
-.dashStats .stat:nth-child(2) {background: linear-gradient(135deg, #112847 0%, #151520 100%); border-color:#20487d;}
-.dashStats .stat:nth-child(3) {background: linear-gradient(135deg, #471128 0%, #151520 100%); border-color:#7d2048;}
+.dashStats .stat:nth-child(1) {background: linear-gradient(135deg, #301016 0%, #15151c 100%); border-color:#5a1422;}
+.dashStats .stat:nth-child(2) {background: linear-gradient(135deg, #102430 0%, #15151c 100%); border-color:#143d5a;}
+.dashStats .stat:nth-child(3) {background: linear-gradient(135deg, #301810 0%, #15151c 100%); border-color:#5a2c14;}
 .dashStats .stat:nth-child(4) {background: var(--card2);}
 .stat{background:var(--card);border:1px solid var(--line);padding:20px;border-radius:16px;min-height:110px}
 .stat strong{display:block;font-size:34px;margin-top:8px;letter-spacing:-.04em;font-weight:850;}
@@ -214,15 +221,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .cursor-blink::after {content: '|'; animation: blink 1s step-end infinite;}
 @keyframes blink { 50% { opacity: 0; } }
 
-.fab-ai {
-  position: fixed; bottom: 30px; right: 30px; background: var(--brand-grad);
-  color: white; border: none; border-radius: 50px; padding: 15px 25px;
-  font-size: 16px; font-weight: 700; cursor: pointer; display: flex;
-  align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(168,85,247,0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease; z-index: 100;
-}
-.fab-ai:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(236,72,153,0.5); }
-
 @media(max-width:1000px){
   aside{position:fixed;bottom:0;top:auto;left:0;right:0;width:100%;height:70px;display:flex;flex-direction:row;align-items:center;justify-content:space-around;padding:0 10px;border-right:0;border-top:1px solid var(--line);background:var(--panel);z-index:999}
   .brand,.subtitle,.sidebottom{display:none}
@@ -238,7 +236,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   .top>.toolbar{width:100%;justify-content:space-between;flex-wrap:wrap}
   .h1{font-size:28px}
   .formgrid{grid-template-columns:1fr}
-  .fab-ai{ bottom: 90px; right: 20px; }
 }
 </style>
 </head>
@@ -248,8 +245,8 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   <div class="login-box">
     <div style="display:flex; justify-content:center; margin-bottom:15px;">
       <svg width="65" height="65" viewBox="0 0 100 100">
-        <rect width="100" height="100" rx="22" fill="#13111c"/>
-        <rect x="6" y="6" width="88" height="88" rx="16" fill="none" stroke="#a855f7" stroke-width="6"/>
+        <rect width="100" height="100" rx="22" fill="#09090b"/>
+        <rect x="6" y="6" width="88" height="88" rx="16" fill="none" stroke="#9f1239" stroke-width="6"/>
         <text x="50" y="65" font-family="Inter, sans-serif" font-weight="900" font-size="42" fill="#ffffff" text-anchor="middle">EK</text>
       </svg>
     </div>
@@ -281,18 +278,13 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 </div>
 
 <aside>
-  <div style="display:flex; align-items:center; gap:12px; padding:4px 10px; margin-bottom:5px;">
+  <div style="display:flex; align-items:center; gap:12px; padding:4px 10px; margin-bottom:15px;">
     <svg width="36" height="36" viewBox="0 0 100 100">
-      <rect width="100" height="100" rx="22" fill="#151520"/>
-      <rect x="6" y="6" width="88" height="88" rx="16" fill="none" stroke="#a855f7" stroke-width="6"/>
+      <rect width="100" height="100" rx="22" fill="#15151c"/>
+      <rect x="6" y="6" width="88" height="88" rx="16" fill="none" stroke="#9f1239" stroke-width="6"/>
       <text x="50" y="65" font-family="Inter, sans-serif" font-weight="900" font-size="42" fill="#ffffff" text-anchor="middle">EK</text>
     </svg>
     <div class="brand" style="padding:0">ESTUDA<span>.</span></div>
-  </div>
-  
-  <div style="margin:4px 10px 30px;">
-    <div style="color:var(--muted);font-size:11px;font-weight:500;">seu cronograma de estudos</div>
-    <div style="color:var(--pink);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">by nhok</div>
   </div>
   
   <nav id="nav">
@@ -303,6 +295,8 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
     <button onclick="go('timerpage',this)"><b>◴</b><span>Cronômetro</span></button>
     <button onclick="go('desempenho',this)"><b>↗</b><span>Desempenho</span></button>
     <button onclick="go('lembretespage',this)"><b>🔔</b><span>Avisos</span></button>
+    <button onclick="go('estudaai',this)"><b>🤖</b><span>Estuda AI</span></button>
+    <button onclick="go('perfilpage',this)"><b>👤</b><span>Meu Perfil</span></button>
   </nav>
 
   <div class="sidebottom">
@@ -312,6 +306,21 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 </aside>
 
 <main>
+
+<!-- TOP COMMAND CENTER NAVBAR (RELÓGIO GLOBAL) -->
+<div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:20px; gap:15px;">
+  <div class="command-center">
+    <span style="font-size:12px; color:var(--muted)">⏱ Foco Global:</span>
+    <span class="command-clock" id="globalClock">00:00:00</span>
+    <button class="iconbtn small" id="globalPlayBtn" onclick="toggleGlobalTimer()">▶</button>
+    <button class="iconbtn small" onclick="resetGlobalTimer()">↺</button>
+  </div>
+  <div id="userProfileBadge" style="display:flex; align-items:center; gap:8px; background:var(--card); border:1px solid var(--line); padding:6px 14px; border-radius:14px;">
+    <img id="navAvatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">
+    <span id="navUsername" style="font-size:13px; font-weight:700;">Concurseiro</span>
+  </div>
+</div>
+
 <section id="dashboard" class="page active">
   <div class="top">
     <div><div class="eyebrow">MEU PAINEL</div><div class="h1" id="greetingTitle">Boa tarde! Vamos estudar? 👋</div><div class="muted">Pronta para mais um dia de conquistas?</div></div>
@@ -366,6 +375,58 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
       </div>
       <div class="card section"><div class="head"><h3>🧠 Análise inteligente</h3><span class="eyebrow">edital + questões</span></div><div id="smartInsights"></div></div>
       <div class="card section"><div class="head"><h3>Distribuição do tempo</h3><span class="link" onclick="go('desempenho',document.querySelectorAll('#nav button')[5])">Ver todas →</span></div><div class="timeDistribution"><div class="fakeDonut"><span id="dashTimePct">0%</span></div><div><b id="dashTimeTitle">Ainda sem dados</b><p class="muted" style="margin:7px 0 0">Seu tempo de estudo aparecerá aqui.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NOVA ABA: ESTUDA AI (OPERACIONAL) -->
+<section id="estudaai" class="page">
+  <div class="top"><div><div class="eyebrow">ASSISTENTE INTELIGENTE</div><div class="h1">Estuda AI Operacional</div><div class="muted">Gere resumos, resumos de leis e estratégias sob medida para o seu concurso.</div></div></div>
+  <div class="card" style="display:flex; flex-direction:column; gap:20px; min-height:500px;">
+    <div style="background:var(--panel); border:1px solid var(--line); padding:16px; border-radius:14px; display:flex; align-items:center; gap:12px;">
+      <div style="background:var(--brand-grad); width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-weight:bold; color:white;">AI</div>
+      <div>
+        <b>Estuda AI Online</b>
+        <p class="muted" style="margin:2px 0 0; font-size:13px;">Pronta para gerar resumos de Direito Penal, Processo Penal, Português e Legislação.</p>
+      </div>
+    </div>
+    
+    <div id="chatHistoryBox" style="flex:1; display:flex; flex-direction:column; gap:15px; max-height:400px; overflow-y:auto; padding-right:5px;">
+      <div class="insight" style="background:var(--card2); border-color:var(--line);">
+        <b>Estuda AI:</b> Olá! Selecionei o edital atual (<b>${state.contest}</b>). O que você gostaria que eu resumisse ou estruturasse hoje?
+      </div>
+    </div>
+
+    <div style="display:flex; gap:10px; margin-top:auto;">
+      <input type="text" id="aiChatInput" placeholder="Ex: Crie um resumo médio sobre Inquérito Policial para a PCPR..." style="flex:1; background:var(--panel); border:1px solid var(--line); color:var(--txt); border-radius:12px; padding:14px; outline:none;" onkeydown="if(event.key==='Enter')enviarMensagemEstudaAI()">
+      <button class="btn" onclick="enviarMensagemEstudaAI()">Enviar ➔</button>
+    </div>
+  </div>
+</section>
+
+<!-- NOVA ABA: MEU PERFIL -->
+<section id="perfilpage" class="page">
+  <div class="top"><div><div class="eyebrow">CONFIGURAÇÕES</div><div class="h1">Meu Perfil</div><div class="muted">Personalize suas informações e identidade no sistema.</div></div></div>
+  <div class="card" style="max-width:600px;">
+    <div class="head"><h3>Dados Pessoais</h3></div>
+    <div class="field">
+      <label for="profileUsername">Nome de Usuário</label>
+      <input type="text" id="profileUsername" placeholder="Ex: Maria Concurseira">
+    </div>
+    <div class="field">
+      <label for="profileGender">Sexo / Gênero</label>
+      <select id="profileGender" class="select" style="width:100%">
+        <option value="Feminino">Feminino</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Outro">Outro</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="profileAvatar">URL da Foto de Perfil (Avatar)</label>
+      <input type="text" id="profileAvatar" placeholder="https://exemplo.com/foto.jpg">
+    </div>
+    <div class="actions">
+      <button class="btn" onclick="salvarPerfil()">Salvar Perfil</button>
     </div>
   </div>
 </section>
@@ -432,8 +493,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   <div class="card"><div class="statgrid"><div class="stat"><span class="kpi">Questões</span><strong id="pTotal">0</strong></div><div class="stat"><span class="kpi">Acertos</span><strong id="pCorrect">0%</strong></div><div class="stat"><span class="kpi">Erros</span><strong id="pWrong">0%</strong></div><div class="stat"><span class="kpi">Horas</span><strong id="pHours">0h</strong></div></div><div class="chartbox"><canvas id="chart" class="chart"></canvas></div></div>
 </section>
 
-<button class="fab-ai" onclick="openAI()">✨ Estuda AI</button>
-
 </main>
 
 <div class="modalbg" id="modal" onclick="if(event.target===this)closeModal()"><div class="modal"><h3 id="modalTitle">Adicionar</h3><div id="modalBody"></div><div class="actions"><button class="btn secondary" onclick="closeModal()">Cancelar</button><button class="btn" id="modalSave" onclick="saveModal()">Salvar</button></div></div></div>
@@ -444,14 +503,37 @@ const supabaseKey = 'sb_publishable_xMIVlnfUQEXt20HcFfyNTw_50J0TkgQ';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 const DAYS=['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];
-let STORAGE='estuda_v21';
+let STORAGE='estuda_v22';
 let state={
  theme:'dark', contest:'Meu Concurso',
- contests:[{name:'Meu Concurso', subjects:[], cycles:[], questions:[]}],
- checks:{}, study:{}, goal:240, reminder:{text:'', date:''}
+ profile:{username:'Concurseiro', gender:'Feminino', avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'},
+ contests:[{name:'Meu Concurso', subjects:[], cycles:[], questions:[], goalHours:4}],
+ checks:{}, study:{}, reminder:{text:'', date:''}
 };
 let modalMode='', editingIndex=-1, editalTab='mine', timer=3000, running=false, intv=null, range='today';
 let isRegisterMode = false;
+
+/* GLOBAL TIMER NO TOPO */
+let globalTimerSec = 0, globalRunning = false, globalIntv = null;
+function toggleGlobalTimer(){
+  globalRunning = !globalRunning;
+  document.getElementById('globalPlayBtn').textContent = globalRunning ? 'Ⅱ' : '▶';
+  if(globalRunning){
+    globalIntv = setInterval(()=>{
+      globalTimerSec++;
+      let h = String(Math.floor(globalTimerSec/3600)).padStart(2,'0');
+      let m = String(Math.floor((globalTimerSec%3600)/60)).padStart(2,'0');
+      let s = String(globalTimerSec%60).padStart(2,'0');
+      document.getElementById('globalClock').textContent = `${h}:${m}:${s}`;
+    }, 1000);
+  } else { clearInterval(globalIntv); }
+}
+function resetGlobalTimer(){
+  globalRunning = false; clearInterval(globalIntv);
+  globalTimerSec = 0;
+  document.getElementById('globalClock').textContent = '00:00:00';
+  document.getElementById('globalPlayBtn').textContent = '▶';
+}
 
 function alternarModoAuth() {
   isRegisterMode = !isRegisterMode;
@@ -523,7 +605,8 @@ function loadState(){
     state = {
       ...state,
       ...saved,
-      contests: Array.isArray(saved.contests) && saved.contests.length ? saved.contests : [{name:'Meu Concurso',subjects:[], cycles:[], questions:[]}],
+      profile: saved.profile && typeof saved.profile === 'object' ? saved.profile : state.profile,
+      contests: Array.isArray(saved.contests) && saved.contests.length ? saved.contests : [{name:'Meu Concurso',subjects:[], cycles:[], questions:[], goalHours:4}],
       checks: saved.checks && typeof saved.checks === 'object' ? saved.checks : {},
       study: saved.study && typeof saved.study === 'object' ? saved.study : {},
       reminder: saved.reminder && typeof saved.reminder === 'object' ? saved.reminder : {text:'',date:''}
@@ -532,6 +615,7 @@ function loadState(){
       if(!Array.isArray(c.subjects)) c.subjects=[]; 
       if(!Array.isArray(c.cycles)) c.cycles=[]; 
       if(!Array.isArray(c.questions)) c.questions=[]; 
+      if(c.goalHours == null) c.goalHours = 4;
     });
     if(!state.contests.some(c=>c.name===state.contest)){ state.contest=state.contests[0].name; }
   }catch(e){ console.error(e); }
@@ -540,12 +624,13 @@ function loadState(){
 function esc(x){return String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 
 function currentContest(){
-  if(!state.contests) state.contests=[{name:'Meu Concurso',subjects:[], cycles:[], questions:[]}];
+  if(!state.contests) state.contests=[{name:'Meu Concurso',subjects:[], cycles:[], questions:[], goalHours:4}];
   let c=state.contests.find(x=>x.name===state.contest);
   if(!c){c=state.contests[0];state.contest=c.name;}
   if(!Array.isArray(c.subjects)) c.subjects=[];
   if(!Array.isArray(c.cycles)) c.cycles=[];
   if(!Array.isArray(c.questions)) c.questions=[];
+  if(c.goalHours == null) c.goalHours = 4;
   return c;
 }
 
@@ -559,7 +644,7 @@ function todayKey(){let d=saoPauloNow();return `${d.getFullYear()}-${String(d.ge
 function saoPauloDayIndex(){return saoPauloNow().getDay()}
 function todayDay(){return DAYS[saoPauloDayIndex()===0?6:saoPauloDayIndex()-1]}
 function done(s,t,c='teoria'){return !!state.checks[key(s,t,c)]}
-function go(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active');if(id==='dashboard')renderDashboard();if(id==='disciplinas')renderEdital();if(id==='ciclo')renderAgenda();if(id==='questoes')renderQuestions();if(id==='desempenho')drawPerformance();if(id==='lembretespage')renderLembretesPage();}
+function go(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active');if(id==='dashboard')renderDashboard();if(id==='disciplinas')renderEdital();if(id==='ciclo')renderAgenda();if(id==='questoes')renderQuestions();if(id==='desempenho')drawPerformance();if(id==='lembretespage')renderLembretesPage();if(id==='perfilpage')renderPerfilPage();}
 function theme(t){state.theme=t;document.documentElement.dataset.theme=t;save()}
 function populateContest(){
   let sel=document.getElementById('contest');
@@ -583,35 +668,69 @@ function setCustomDashTimer() {
   alert('Tempo do bloco atualizado para ' + mins + ' minutos!');
 }
 
-/* IA OPERACIONAL */
-function openAI() {
-  modalMode = 'ai';
-  document.getElementById('modalTitle').textContent = '✨ Estuda AI Operacional';
-  document.getElementById('modalBody').innerHTML = `
-      <div style="display:flex; flex-direction:column; gap:15px;">
-          <div class="insight" style="border-color:var(--blue); background:var(--card2);">
-              Olá! Sou sua assistente para este concurso (${esc(state.contest)}). Peça resumos, dicas de leis ou estratégias para o seu edital!
-          </div>
-          <textarea id="aiPrompt" rows="4" placeholder="Ex: Crie um resumo focado na PCPR sobre Direito Penal ou Português..." style="width:100%;background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:14px;outline:none;font-family:inherit;"></textarea>
-          <div id="aiResponseContainer"></div>
-      </div>
-  `;
-  document.getElementById('modalSave').textContent = 'Gerar Resumo';
-  document.getElementById('modal').style.display = 'grid';
+/* ESTUDA AI (OPERACIONAL) */
+function enviarMensagemEstudaAI() {
+  const input = document.getElementById('aiChatInput');
+  const txt = input.value.trim();
+  if(!txt) return;
+  const box = document.getElementById('chatHistoryBox');
+  
+  box.innerHTML += `<div class="insight" style="background:var(--panel); border-color:var(--line); text-align:right;"><b>Você:</b> ${esc(txt)}</div>`;
+  input.value = '';
+  
+  setTimeout(() => {
+    let resposta = gerarResumoOperacionalIA(txt);
+    box.innerHTML += `<div class="insight" style="background:var(--card2); border-color:var(--blue); line-height:1.6; white-space:pre-line;"><b>Estuda AI:</b>\n\n${esc(resposta)}</div>`;
+    box.scrollTop = box.scrollHeight;
+  }, 1000);
 }
 
-function gerarRespostaIAOperacional(prompt) {
+function gerarResumoOperacionalIA(prompt) {
   const p = prompt.toLowerCase();
-  if (p.includes('pcpr') || p.includes('policia civil') || p.includes('polícia civil')) {
-    return `🎯 **Resumo Estratégico - Concurso PCPR / Policial**:\n\n1. **Legislação Institucional**: Foco total no Estatuto dos Policiais Civis e Lei Orgânica.\n2. **Direito Penal & Processo Penal**: Estude aprofundado prisões cautelares, inquérito policial e crimes contra a Administração Pública.\n3. **Português e Informática**: Costumam representar mais de 45% da prova objetiva. Priorize interpretação de texto e comandos de shell/SO.`;
+  if (p.includes('inquérito') || p.includes('inquerito')) {
+    return `📄 **Resumo: Inquérito Policial (CPP)**\n\n1. **Conceito**: Procedimento administrativo preparatório, informativo, escrito e sigiloso, conduzido pela polícia judiciária.\n2. **Características**:\n   • **Dispensabilidade**: O Ministério Público pode oferecer a denúncia sem IP se já tiver elementos suficientes.\n   • **Sigilo**: O sigilo atinge o indiciado e terceiros, mas o STF garante ao advogado acesso a todos os elementos já documentados (Súmula Vinculante 14).\n   • **Inquisitorialidade**: Não há contraditório nem ampla defesa plenos, pois não há acusado em juízo.`;
   }
-  if (p.includes('portugues') || p.includes('crase') || p.includes('sintaxe')) {
-    return `💡 **Foco em Língua Portuguesa**:\n\n• **Crase**: Lembre-se que antes de palavra masculina ou verbo não há crase. Atenção aos pronomes relativos 'cujo' (nunca aceita artigo/crase).\n• **Sintaxe**: Identifique primeiro o verbo para achar o sujeito e os complementos (Objeto Direto vs Indireto).`;
+  if (p.includes('crase') || p.includes('portugues') || p.includes('português')) {
+    return `💡 **Resumo Tático: Emprego da Crase**\n\n• **Regra Geral**: Fusão da preposição 'a' com o artigo feminino 'a' (ou pronome demonstrativo).\n• **Casos Proibidos**: Nunca ocorre crase antes de palavra masculina, verbos, pronomes pessoais e pronomes de tratamento (exceto dona, senhora e senhorita).\n• **Locuções Adverbiais Femininas**: Sempre levam crase (à tarde, à noite, à vontade).`;
   }
-  return `🤖 **Orientação de Estudo para "${esc(prompt)}"**:\n\n1. **Estudo Ativo**: Faça anotações em tópicos curtos (flashcards).\n2. **Lei Seca**: Destaque os prazos e exceções nos artigos principais.\n3. **Resolução de Questões**: Resolva ao menos 20 questões da banca do concurso ${esc(state.contest)} hoje mesmo!`;
+  return `🤖 **Análise Operacional para "${esc(prompt)}"**:\n\nPara dominar este tópico no concurso **${esc(state.contest)}**:\n1. **Foco na Lei Seca**: Memorize os prazos e exceções previstos na legislação.\n2. **Jurisprudência Vinculante**: Bancas policiais cobram súmulas atualizadas do STF e STJ.\n3. **Carga Horária**: Dedique ao menos 2 sessões de estudo focadas exclusivamente neste assunto e finalize com 25 questões comentadas.`;
 }
 
-function openContest(){modalMode='contest';document.getElementById('modalTitle').textContent='Novo concurso';document.getElementById('modalBody').innerHTML=`<div class="field"><label for="mContest">Nome</label><input id="mContest" placeholder="Ex.: PCPR / PF"></div><div class="field"><label for="mGoal">Meta diária (min)</label><input id="mGoal" type="number" value="${state.goal}"></div>`;document.getElementById('modal').style.display='grid'}
+/* PERFIL */
+function renderPerfilPage(){
+  if(!state.profile) state.profile = {username:'Concurseiro', gender:'Feminino', avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'};
+  document.getElementById('profileUsername').value = state.profile.username || '';
+  document.getElementById('profileGender').value = state.profile.gender || 'Feminino';
+  document.getElementById('profileAvatar').value = state.profile.avatar || '';
+  updateNavProfile();
+}
+function salvarPerfil(){
+  state.profile.username = document.getElementById('profileUsername').value.trim() || 'Concurseiro';
+  state.profile.gender = document.getElementById('profileGender').value;
+  state.profile.avatar = document.getElementById('profileAvatar').value.trim() || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100';
+  save();
+  updateNavProfile();
+  alert('Perfil atualizado com sucesso!');
+}
+function updateNavProfile(){
+  const av = document.getElementById('navAvatar');
+  const un = document.getElementById('navUsername');
+  if(av && state.profile?.avatar) av.src = state.profile.avatar;
+  if(un && state.profile?.username) un.textContent = state.profile.username;
+}
+
+/* NOVO FLUXO DE CONCURSO (META EM HORAS E SESSÕES) */
+function openContest(){
+  modalMode='contest';
+  document.getElementById('modalTitle').textContent='Novo Concurso / Cronograma';
+  document.getElementById('modalBody').innerHTML=`
+    <div class="field"><label for="mContest">Nome do Concurso / Edital</label><input id="mContest" placeholder="Ex.: Agente PCPR 2026"></div>
+    <div class="field"><label for="mGoalHours">Meta Diária de Estudo (Ex: 4 horas)</label><input id="mGoalHours" type="number" min="1" max="12" value="4"></div>
+    <div class="field"><label for="mSessionDuration">Duração de cada Sessão de Estudo (minutos)</label><select id="mSessionDuration" class="select" style="width:100%"><option value="50">50 minutos</option><option value="60" selected>1 hora (60 min)</option><option value="90">1 hora e meia (90 min)</option></select></div>
+  `;
+  document.getElementById('modal').style.display='grid';
+}
+
 function cleanManualTopics(text){
   let raw=String(text||'').replace(/\r/g, '').replace(/[•●▪◦☐☑□✓]/g,'\n');
   return raw.split(/\n+/).map(x=>String(x).replace(/\s+/g,' ').trim())
@@ -621,7 +740,6 @@ function cleanManualTopics(text){
 function openSubject(){modalMode='subject';editingIndex=-1;document.getElementById('modalTitle').textContent='Adicionar matéria';document.getElementById('modalBody').innerHTML=`<div class="field"><label for="mName">Nome da matéria</label><input id="mName"></div><div class="field"><label for="mImportance">Importância (0 a 10)</label><input id="mImportance" type="number" min="0" max="10" value="5"></div><div class="field"><label for="mTopics">Assuntos (um por linha)</label><textarea id="mTopics" rows="10" placeholder="1.1 Tópico um&#10;1.2 Tópico dois..."></textarea></div>`;document.getElementById('modal').style.display='grid'}
 function editSubject(i){modalMode='subjectEdit';editingIndex=i;let s=subjects()[i];document.getElementById('modalTitle').textContent='Editar matéria';document.getElementById('modalBody').innerHTML=`<div class="field"><label for="mName">Nome</label><input id="mName" value="${esc(s.name)}"></div><div class="field"><label for="mImportance">Importância (0 a 10)</label><input id="mImportance" type="number" min="0" max="10" value="${s.importance??5}"></div><div class="field"><label for="mTopics">Assuntos</label><textarea id="mTopics" rows="10">${esc(s.topics.join('\n'))}</textarea></div>`;document.getElementById('modal').style.display='grid'}
 
-/* NOVO: Modal Personalizar Edital */
 function openPersonalizeEditalModal(){
   modalMode='personalizeEdital';
   let subs = subjects();
@@ -646,27 +764,16 @@ function openPersonalizeEditalModal(){
 }
 
 function saveModal(){
- if(modalMode==='ai') {
-   const p = document.getElementById('aiPrompt').value.trim();
-   if(!p) return;
-   const container = document.getElementById('aiResponseContainer');
-   container.innerHTML = `<div class="insight" style="margin-top:10px; border-color:var(--pink);"><span class="cursor-blink">Consultando IA e editais...</span></div>`;
-   setTimeout(() => {
-       const resposta = gerarRespostaIAOperacional(p);
-       container.innerHTML = `<div class="insight" style="margin-top:10px; border-color:var(--green); line-height:1.6; white-space:pre-line;">${esc(resposta)}</div>`;
-       document.getElementById('aiPrompt').value = '';
-   }, 1200);
-   return;
- }
  if(modalMode==='personalizeEdital'){ closeModal(); return; }
  if(modalMode==='import'){ doImport(); return; }
  if(modalMode==='contest'){
    let n=document.getElementById('mContest').value.trim();
-   if(!n)return alert('Informe o nome.');
+   let gh=+document.getElementById('mGoalHours').value||4;
+   if(!n)return alert('Informe o nome do concurso.');
    if(state.contests.some(c=>c.name===n)) return alert('Já existe um concurso com esse nome.');
-   state.contests.push({name:n, subjects:[], cycles:[], questions:[]});
+   state.contests.push({name:n, subjects:[], cycles:[], questions:[], goalHours:gh});
    state.contest=n;
-   state.goal=Math.max(30,+document.getElementById('mGoal').value||240);
+   state.goal = gh * 60; // Converte horas para minutos para o restante do app
  }
  else if(modalMode==='subject'||modalMode==='subjectEdit'){
    let n=document.getElementById('mName').value.trim(),
@@ -708,7 +815,7 @@ window.deleteSubject = deleteSubject;
 async function showIntro(i){
   const c=cycles()[i];if(!c)return;
   modalMode='intro';
-  document.getElementById('modalTitle').textContent='✨ Resumo Inteligente';
+  document.getElementById('modalTitle').textContent='✨ Resumo Tático Inteligente';
   document.getElementById('modalBody').innerHTML=`
     <div class="eyebrow" style="color:var(--p2)">${esc(c.s)}</div>
     <h2 style="margin:6px 0 16px; font-weight:800;">${esc(c.topic||'Geral')}</h2>
@@ -730,16 +837,7 @@ async function showIntro(i){
 }
 
 function gerarTextoIAFalso(materia, assunto) {
-  const m = materia.toLowerCase();
-  const a = (assunto || '').toLowerCase();
-  
-  if (m.includes('portuguesa') || m.includes('português')) {
-    return `Ao estudar "${assunto}", o foco central é a compreensão textual e coesão. Em concursos, atenção redobrada à regência verbal, colocação pronominal e pontuação. Revisar a teoria e aplicar em 15 questões é a chave para fixar.`;
-  }
-  if (m.includes('direito') || m.includes('lei')) {
-    return `O tópico "${assunto}" exige o rigor da Lei Seca conjugada com a jurisprudência recente dos tribunais superiores (STF/STJ). Memorize os prazos processuais e as excludentes de ilicitude ou competências.`;
-  }
-  return `Para dominar "${assunto}", construa mapas mentais com os conceitos fundamentais e faça o registro dos erros no seu painel de questões para otimizar sua revisão contínua.`;
+  return `• **Foco Estratégico no Tópico**: "${assunto}" dentro de ${materia}.\n• **Diretriz de Estudo**: Priorize a leitura atenta da lei seca combinada com jurisprudência sumulada. Em provas objetivas e discursivas, bancas cobram os prazos processuais e exceções expressas.\n• **Meta**: Resolva pelo menos 15 questões focadas neste tópico para consolidar o aprendizado.`;
 }
 
 function typeWriterEffect(elementId, text) {
@@ -770,7 +868,7 @@ async function importFile(file){
       return normalizeImportedSubjects(raw);
     }
     if(name.endsWith('.xlsx') || name.endsWith('.xls')){
-      if(typeof XLSX === 'undefined') { alert('Aguarde carregar a biblioteca de planilhas.'); return null; }
+      if(typeof XLSX === 'undefined') { alert('Aguarde carregar a biblioteca.'); return null; }
       const wb = XLSX.read(await file.arrayBuffer(), {type:'array'});
       const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header:1, defval:''});
       return parseLines(rows.flat().map(x => String(x)));
@@ -917,21 +1015,24 @@ function renderDashboard(){
 
   const alertBox = document.getElementById('reminderAlertContainer');
   if(state.reminder.text && state.reminder.date && state.reminder.date <= todayKey()) {
-    alertBox.innerHTML = `<div class="insight" style="border-color:var(--blue);background:linear-gradient(90deg, #a855f722, transparent);margin-bottom:20px; font-size:16px;"><b>🔔 Alerta:</b> ${esc(state.reminder.text)}</div>`;
+    alertBox.innerHTML = `<div class="insight" style="border-color:var(--blue);background:linear-gradient(90deg, #88133722, transparent);margin-bottom:20px; font-size:16px;"><b>🔔 Alerta:</b> ${esc(state.reminder.text)}</div>`;
   } else { alertBox.innerHTML = ''; }
 
   const q=questions().filter(x=>x.date===todayKey()),tot=q.reduce((a,x)=>a+x.total,0),cor=q.reduce((a,x)=>a+x.correct,0);
   let allTopics=subjects().reduce((a,s)=>a+s.topics.length,0);
   let doneTopics=subjects().reduce((a,s)=>a+s.topics.filter((_,t)=>done(subjects().indexOf(s),t)).length,0);
 
+  let activeConcert = currentContest();
+  let targetMins = (activeConcert.goalHours || 4) * 60;
+
   document.getElementById('dashQ').textContent=tot;
   document.getElementById('dashA').textContent=(tot?Math.round(cor/tot*100):0)+'%';
   document.getElementById('dashTopics').textContent=(allTopics?Math.round(doneTopics/allTopics*100):0)+'%';
   document.getElementById('dashStreak').textContent=streak()+'d';
   document.getElementById('todayMinutes').textContent=state.study[todayKey()]||0;
-  document.getElementById('goalMinutes').textContent=state.goal;
-  document.getElementById('studyBar').style.width=Math.min(100,Math.round((state.study[todayKey()]||0)/state.goal*100))+'%';
-  document.getElementById('goalText').textContent=Math.floor(state.goal/60)+' horas de estudo';
+  document.getElementById('goalMinutes').textContent=targetMins;
+  document.getElementById('studyBar').style.width=Math.min(100,Math.round((state.study[todayKey()]||0)/targetMins*100))+'%';
+  document.getElementById('goalText').textContent=(activeConcert.goalHours || 4) + ' horas de estudo';
   
   const timeTotal=Object.values(state.study||{}).reduce((a,v)=>a+(+v||0),0);
   const timePct=timeTotal?100:0;
@@ -941,12 +1042,13 @@ function renderDashboard(){
   
   renderSmartInsights();
   renderDashboardToday();
+  updateNavProfile();
 }
 
 function openCycle(i=-1){modalMode=i<0?'cycle':'cycleEdit';editingIndex=i;let subs=subjects();if(!subs.length) return alert('Cadastre o edital primeiro.');let c=i<0?{d:todayDay(),s:subs[0]?.name||'',topic:subs[0]?.topics?.[0]||'',m:60}:cycles()[i];let sub=subs.find(x=>x.name===c.s)||subs[0], topics=sub?.topics||[];document.getElementById('modalTitle').textContent=i<0?'Adicionar bloco':'Editar bloco';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="mDay">Dia</label><select id="mDay">${DAYS.map(d=>`<option ${d===c.d?'selected':''}>${d}</option>`).join('')}</select></div><div class="field"><label for="mSub">Matéria</label><select id="mSub" onchange="cycleTopicOptions()">${subs.map(x=>`<option ${x.name===c.s?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div><div class="field"><label for="mTopic">Assunto</label><select id="mTopic">${topics.map(t=>`<option ${t===c.topic?'selected':''}>${esc(t)}</option>`).join('')}</select></div><div class="field"><label for="mMin">Minutos</label><input id="mMin" type="number" min="10" value="${c.m}"></div>`;document.getElementById('modal').style.display='grid'}
 function cycleTopicOptions(){let s=subjects().find(x=>x.name===document.getElementById('mSub').value),sel=document.getElementById('mTopic');sel.innerHTML=(s?.topics||[]).map(t=>`<option>${esc(t)}</option>`).join('')}
-function openCycleGenerator(){if(!subjects().length)return alert('Adicione o edital.');modalMode='cycleGenerate';document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="gDays">Dias de estudo/sem</label><input id="gDays" type="number" min="1" max="7" value="6"></div><div class="field"><label for="gMinutes">Minutos diários</label><input id="gMinutes" type="number" min="30" value="${state.goal}"></div></div><div class="field"><label for="gMode">Estratégia de distribuição</label><select id="gMode"><option value="weighted">Dar peso às mais importantes</option><option value="balanced">Equilibrar todas as matérias</option></select></div>`;document.getElementById('modal').style.display='grid'}
-function generateCycle(){const days=Math.max(1,Math.min(7,+document.getElementById('gDays').value||6));const mins=Math.max(30,+document.getElementById('gMinutes').value||state.goal);const mode=document.getElementById('gMode').value;const dayNames=DAYS.slice(0,days);const arr=subjects().filter(s=>Array.isArray(s.topics)&&s.topics.length);if(!arr.length)return alert('Sem assuntos.');const slots=[];dayNames.forEach(d=>{let used=0;while(used<mins){const m=Math.min(60,mins-used);slots.push({d,m});used+=m;}});const weights=arr.map((s,i)=>({s,i,w:mode==='balanced'?1:Math.max(0.5,Number(s.importance??5))}));const totalWeight=weights.reduce((a,x)=>a+x.w,0)||1;let quotas=weights.map(x=>({i:x.i,raw:(slots.length*x.w/totalWeight),count:0}));quotas.forEach(q=>q.count=Math.floor(q.raw));if(slots.length>=arr.length)quotas.forEach(q=>{if(q.count===0)q.count=1});let used=quotas.reduce((a,q)=>a+q.count,0);while(used<slots.length){const q=quotas.slice().sort((a,b)=>(b.raw-b.count)-(a.raw-a.count))[0];q.count++;used++;}while(used>slots.length){const q=quotas.filter(q=>q.count>1).sort((a,b)=>(b.raw-b.count)-(a.raw-a.count))[0];if(!q)break;q.count--;used--;}const remaining=new Map(quotas.map(q=>[q.i,q.count]));const topicCursor=new Map(arr.map((s,i)=>[i,0]));const dayUsed=new Map(dayNames.map(d=>[d,new Set()]));let last=-1,result=[];slots.forEach(slot=>{const candidates=arr.map((s,i)=>i).filter(i=>(remaining.get(i)||0)>0);candidates.sort((a,b)=>{const aUsed=dayUsed.get(slot.d).has(a)?1:0, bUsed=dayUsed.get(slot.d).has(b)?1:0;if(aUsed!==bUsed)return aUsed-bUsed;if(a===last)return 1;if(b===last)return -1;return (remaining.get(b)||0)-(remaining.get(a)||0) || Number(arr[b].importance??5)-Number(arr[a].importance??5);});let pick=candidates[0];if(pick===last && candidates.length>1)pick=candidates[1];const s=arr[pick],ti=topicCursor.get(pick)||0,topic=s.topics[ti%s.topics.length];topicCursor.set(pick,ti+1);remaining.set(pick,(remaining.get(pick)||1)-1);dayUsed.get(slot.d).add(pick);last=pick;result.push({d:slot.d,s:s.name,topic,m:slot.m,done:false});});currentContest().cycles=result;save();closeModal();renderAgenda();renderDashboard();alert('Ciclo gerado para este concurso!');}
+function openCycleGenerator(){if(!subjects().length)return alert('Adicione o edital.');modalMode='cycleGenerate';let activeConcert=currentContest();let defaultMins=(activeConcert.goalHours||4)*60;document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="gDays">Dias de estudo/sem</label><input id="gDays" type="number" min="1" max="7" value="6"></div><div class="field"><label for="gMinutes">Minutos diários</label><input id="gMinutes" type="number" min="30" value="${defaultMins}"></div></div><div class="field"><label for="gMode">Estratégia de distribuição</label><select id="gMode"><option value="weighted">Dar peso às mais importantes</option><option value="balanced">Equilibrar todas as matérias</option></select></div>`;document.getElementById('modal').style.display='grid'}
+function generateCycle(){const days=Math.max(1,Math.min(7,+document.getElementById('gDays').value||6));let activeConcert=currentContest();const mins=Math.max(30,+document.getElementById('gMinutes').value||((activeConcert.goalHours||4)*60));const mode=document.getElementById('gMode').value;const dayNames=DAYS.slice(0,days);const arr=subjects().filter(s=>Array.isArray(s.topics)&&s.topics.length);if(!arr.length)return alert('Sem assuntos.');const slots=[];dayNames.forEach(d=>{let used=0;while(used<mins){const m=Math.min(60,mins-used);slots.push({d,m});used+=m;}});const weights=arr.map((s,i)=>({s,i,w:mode==='balanced'?1:Math.max(0.5,Number(s.importance??5))}));const totalWeight=weights.reduce((a,x)=>a+x.w,0)||1;let quotas=weights.map(x=>({i:x.i,raw:(slots.length*x.w/totalWeight),count:0}));quotas.forEach(q=>q.count=Math.floor(q.raw));if(slots.length>=arr.length)quotas.forEach(q=>{if(q.count===0)q.count=1});let used=quotas.reduce((a,q)=>a+q.count,0);while(used<slots.length){const q=quotas.slice().sort((a,b)=>(b.raw-b.count)-(a.raw-a.count))[0];q.count++;used++;}while(used>slots.length){const q=quotas.filter(q=>q.count>1).sort((a,b)=>(b.raw-b.count)-(a.raw-a.count))[0];if(!q)break;q.count--;used--;}const remaining=new Map(quotas.map(q=>[q.i,q.count]));const topicCursor=new Map(arr.map((s,i)=>[i,0]));const dayUsed=new Map(dayNames.map(d=>[d,new Set()]));let last=-1,result=[];slots.forEach(slot=>{const candidates=arr.map((s,i)=>i).filter(i=>(remaining.get(i)||0)>0);candidates.sort((a,b)=>{const aUsed=dayUsed.get(slot.d).has(a)?1:0, bUsed=dayUsed.get(slot.d).has(b)?1:0;if(aUsed!==bUsed)return aUsed-bUsed;if(a===last)return 1;if(b===last)return -1;return (remaining.get(b)||0)-(remaining.get(a)||0) || Number(arr[b].importance??5)-Number(arr[a].importance??5);});let pick=candidates[0];if(pick===last && candidates.length>1)pick=candidates[1];const s=arr[pick],ti=topicCursor.get(pick)||0,topic=s.topics[ti%s.topics.length];topicCursor.set(pick,ti+1);remaining.set(pick,(remaining.get(pick)||1)-1);dayUsed.get(slot.d).add(pick);last=pick;result.push({d:slot.d,s:s.name,topic,m:slot.m,done:false});});currentContest().cycles=result;save();closeModal();renderAgenda();renderDashboard();alert('Ciclo gerado para este concurso!');}
 function deleteCycle(i){if(confirm('Excluir bloco?')){cycles().splice(i,1);save();renderAgenda()}}
 function toggleCycle(i){cycles()[i].done=!cycles()[i].done;save();renderAgenda();renderDashboard()}
 function renderAgenda(){let now=saoPauloNow(), base=new Date(now.getFullYear(),now.getMonth(),now.getDate());let dates=DAYS.map((_,i)=>{let d=new Date(base);let current=base.getDay()===0?6:base.getDay()-1;d.setDate(base.getDate()+i-current);return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`});document.getElementById('agenda').innerHTML=DAYS.map((d,i)=>`<div class="day"><div class="dayhead">${d}<span>${dates[i]}${d===todayDay()?' • HOJE':''}</span></div>${cycles().map((c,j)=>({c,j})).filter(x=>x.c.d===d).map(x=>{const active=activeStudy&&activeStudy.index===x.j;const controls=active?`<div class="cycleControls" style="display:flex;gap:5px;margin-top:10px;"><span style="color:var(--blue);font-weight:bold;align-self:center;margin-right:5px;">${formatClock(activeStudy.remaining)}</span><button class="iconbtn" style="color:#eab308" onclick="pauseResumeStudy(${x.j})">${activeStudy.running?'Ⅱ':'▶'}</button><button class="iconbtn" style="color:#f43f5e" onclick="finishStudy(${x.j})">⏹</button></div>`:`<div class="cycleControls" style="display:flex;gap:5px;margin-top:10px;"><button class="iconbtn" title="Iniciar Foco" onclick="startStudy(${x.j})">◷</button><button class="iconbtn" title="Intro da Matéria" onclick="showIntro(${x.j})">📖</button><button class="iconbtn" onclick="toggleCycle(${x.j})">✓</button><button class="iconbtn" onclick="openCycle(${x.j})">✎</button><button class="iconbtn" style="color:var(--red);" onclick="deleteCycle(${x.j})">🗑</button></div>`;return `<div class="lesson ${x.c.done?'done':''} ${active?'activeStudy':''}"><div style="display:flex;align-items:center;gap:8px"><b>${esc(x.c.s)}</b><span class="badge">${x.c.m}m</span></div><div class="cycleTopic">${esc(x.c.topic||'Geral')}</div>${controls}</div>`;}).join('')||'<div class="muted" style="text-align:center;padding:20px;">—</div>'}</div>`).join('');if(activeStudy) updateMiniTimer();}
@@ -985,7 +1087,7 @@ function addStudy(sec){let mins=Math.floor(sec/60);if(mins<=0)return;state.study
 function toggleTimer(){running=!running;document.getElementById('timerBtn').textContent=running?'Ⅱ Pausar':'▶ Iniciar';document.getElementById('timerStatus').textContent=running?'estudando...':'pausado';if(running){intv=setInterval(()=>{timer--;if(timer<=0){timer=0;clearInterval(intv);running=false;addStudy(3000);alert('Bloco concluído!')}showTimer()},1000)}else{clearInterval(intv);addStudy(3000-timer)}}
 function resetTimer(){clearInterval(intv);running=false;timer=3000;showTimer();document.getElementById('timerBtn').textContent='▶ Iniciar';document.getElementById('timerStatus').textContent='pronto para começar';}
 function continueTodayStudy(){const td=todayDay();const i=cycles().findIndex(c=>c.d===td&&!c.done);if(i<0)return alert('Nenhum bloco agendado para hoje.');startStudy(i);}
-function renderAll(){populateContest();renderDashboard();renderEdital();renderAgenda();renderQuestions();drawPerformance();renderLembretesPage();}
+function renderAll(){populateContest();renderDashboard();renderEdital();renderAgenda();renderQuestions();drawPerformance();renderLembretesPage();renderPerfilPage();}
 document.getElementById('modalSave').addEventListener('click',async()=>{if(modalMode==='intro')return closeModal();saveModal();});
 
 document.documentElement.dataset.theme=state.theme;
