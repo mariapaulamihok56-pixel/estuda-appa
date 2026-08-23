@@ -193,7 +193,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .search:focus{border-color:var(--blue);}
 
 .vertical{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;background:var(--card2);}
-.v{display:grid;grid-template-columns:minmax(300px,1fr) repeat(4,60px);min-width:600px}
+.v{display:grid;grid-template-columns:minmax(300px,1fr) 75px 85px 85px 110px;min-width:650px}
 .v>div{min-height:54px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;place-items:center;padding:8px}
 .v .topic{display:block;text-align:left;padding:12px 16px;line-height:1.45}
 .headrow>div{background:var(--panel);color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;}
@@ -540,7 +540,7 @@ const supabaseKey = 'sb_publishable_xMIVlnfUQEXt20HcFfyNTw_50J0TkgQ';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 const DAYS=['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];
-let STORAGE='estuda_v25';
+let STORAGE='estuda_v27';
 let state={
  theme:'dark', contest:'Meu Concurso',
  profile:{username:'Concurseiro', gender:'Feminino', avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'},
@@ -1009,7 +1009,7 @@ document.addEventListener('click', function(e) {
 
 function renderEdital(){
   let q=(document.getElementById('search')?.value||'').toLowerCase(),arr=subjects();
-  let h='<div class="v headrow"><div>DISCIPLINA / ASSUNTO</div><div>MATERIAIS</div><div>TEORIA</div><div>1ª</div><div>2ª</div></div>';
+  let h='<div class="v headrow"><div>DISCIPLINA / ASSUNTO</div><div>TEORIA</div><div>1ª REVISÃO</div><div>2ª REVISÃO</div><div>APROVEITAMENTO</div></div>';
   
   arr.forEach((s,i)=>{
     let sm=s.name.toLowerCase().includes(q),vis=s.topics.map((t,tj)=>({t,tj})).filter(x=>!q||sm||x.t.toLowerCase().includes(q));
@@ -1027,8 +1027,17 @@ function renderEdital(){
     
     if(!isOpen) return;
     vis.forEach(x=>{
+      // Calcular aproveitamento (meu) para este assunto específico
+      let qs = questions().filter(item => item.subject === s.name && item.topic === x.t);
+      let totQ = qs.reduce((acc, cur) => acc + cur.total, 0);
+      let corQ = qs.reduce((acc, cur) => acc + cur.correct, 0);
+      let apPct = totQ > 0 ? Math.round((corQ / totQ) * 100) : null;
+      let apText = apPct !== null ? `${apPct}%` : '—';
+      let apColor = apPct !== null ? (apPct >= 70 ? 'var(--green)' : 'var(--red)') : 'var(--muted)';
+
       h+=`<div class="v ${done(i,x.tj)?'done':''}"><div class="topic">${i+1}.${x.tj+1} ${esc(x.t)}</div>`;
-      ['material','teoria','r1','r2'].forEach(c=>h+=`<div><input class="check" type="checkbox" ${done(i,x.tj,c)?'checked':''} onchange="setCheck(${i},${x.tj},'${c}',this.checked)"></div>`);
+      ['teoria','r1','r2'].forEach(c=>h+=`<div><input class="check" type="checkbox" ${done(i,x.tj,c)?'checked':''} onchange="setCheck(${i},${x.tj},'${c}',this.checked)"></div>`);
+      h+=`<div style="font-weight:700; color:${apColor}; font-size:13px;">${apText}</div>`;
       h+='</div>';
     });
   });
