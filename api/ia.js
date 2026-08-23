@@ -3,7 +3,6 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
   try {
-    // Lê o corpo da requisição diretamente do stream para nunca falhar
     let rawBody = '';
     await new Promise((resolve) => {
       req.on('data', chunk => { rawBody += chunk; });
@@ -27,7 +26,16 @@ module.exports = async function handler(req, res) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
+        contents: [{ parts: [{ text: prompt }] }],
+        systemInstruction: {
+          parts: [{
+            text: 'Responda sempre em texto corrido, em português, sem nenhuma formatação Markdown. Não use asteriscos (*), hashtags (#), traços de lista, nem qualquer símbolo de formatação. Para separar tópicos, use apenas quebras de linha e frases claras.'
+          }]
+        },
+        generationConfig: {
+          thinkingConfig: { thinkingLevel: "low" },
+          maxOutputTokens: 2048
+        }
       })
     });
     const data = await apiResponse.json();
@@ -44,16 +52,16 @@ module.exports = async function handler(req, res) {
   }
 };
 
-// Remove formatação Markdown comum, deixando só o texto puro
+// Reforço de segurança: remove qualquer símbolo Markdown que ainda passar
 function limparMarkdown(texto) {
   return texto
-    .replace(/^#{1,6}\s+/gm, '')          // remove ### títulos
-    .replace(/\*\*(.*?)\*\*/g, '$1')      // remove **negrito**
-    .replace(/\*(.*?)\*/g, '$1')          // remove *itálico*
-    .replace(/__(.*?)__/g, '$1')          // remove __negrito__
-    .replace(/_(.*?)_/g, '$1')            // remove _itálico_
-    .replace(/`{1,3}(.*?)`{1,3}/g, '$1')  // remove `código`
-    .replace(/^\s*[-*+]\s+/gm, '• ')      // troca marcadores de lista por •
-    .replace(/\n{3,}/g, '\n\n')           // limita quebras de linha excessivas
+    .replace(/^#{1,6}\s*/gm, '')
+    .replace(/\*{1,3}([^*]+?)\*{1,3}/g, '$1')
+    .replace(/__([^_]+?)__/g, '$1')
+    .replace(/_([^_]+?)_/g, '$1')
+    .replace(/`{1,3}([^`]+?)`{1,3}/g, '$1')
+    .replace(/^\s*[-*+]\s+/gm, '• ')
+    .replace(/[#*_`]/g, '')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
