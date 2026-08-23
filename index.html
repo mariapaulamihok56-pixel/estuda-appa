@@ -15,25 +15,21 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
-/* TEMA BASEADO NAS IMAGENS (DARK PURPLE / MAGENTA) */
 :root{
-  --bg: #09090b;          /* Fundo super escuro */
-  --panel: #111116;       /* Fundo da barra lateral */
-  --card: #151520;        /* Fundo dos painéis principais */
-  --card2: #1c1c2a;       /* Fundo de itens internos / secundários */
-  --line: #2d2a3f;        /* Bordas divisórias */
-  --txt: #f8fafc;         /* Texto principal branco/gelo */
-  --muted: #8b89a4;       /* Texto secundário acinzentado */
-  
-  /* Cores de Ação baseadas no seu Gradient */
+  --bg: #09090b;
+  --panel: #111116;
+  --card: #151520;
+  --card2: #1c1c2a;
+  --line: #2d2a3f;
+  --txt: #f8fafc;
+  --muted: #8b89a4;
   --brand-grad: linear-gradient(90deg, #9333ea, #ec4899);
-  --blue: #a855f7;        /* Roxo primário (botões, timers) */
-  --p2: #d946ef;          /* Magenta (links, icones) */
-  --pink: #ec4899;        /* Rosa intenso */
-  --green: #10b981;       /* Verde sucesso */
-  --red: #f43f5e;         /* Vermelho perigo */
-  --cyan: #8b5cf6;        /* Substituindo ciano por lilás para manter a paleta */
-  
+  --blue: #a855f7;
+  --p2: #d946ef;
+  --pink: #ec4899;
+  --green: #10b981;
+  --red: #f43f5e;
+  --cyan: #8b5cf6;
   --shadow: 0 15px 45px rgba(0,0,0,0.4);
 }
 
@@ -59,7 +55,6 @@
 body{margin:0;background:var(--bg);color:var(--txt);font:15px Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;letter-spacing:.01em;-webkit-tap-highlight-color:transparent}
 button,input,textarea,select{font:inherit}
 
-/* LOGIN SCREEN ESTILIZADO */
 #loginScreen {position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
 .login-box {background:var(--card);border:1px solid var(--line);padding:40px 30px;border-radius:24px;width:100%;max-width:420px;text-align:center;box-shadow:var(--shadow);}
 .login-box .brand {font-size:38px;margin-bottom:10px;justify-content:center;display:flex; font-weight:950; letter-spacing:-0.05em;}
@@ -110,7 +105,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
 
-/* Card Hero baseado na imagem com gradient escuro */
 .hero{background:linear-gradient(135deg, #1e1136 0%, #151520 60%); border-color:var(--line);min-height:220px; position:relative; overflow:hidden;}
 .hero::before {content:""; position:absolute; top:-50px; right:-50px; width:200px; height:200px; background:var(--blue); filter:blur(100px); opacity:0.15; border-radius:50%;}
 
@@ -163,7 +157,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .iconbtn:hover{color:var(--txt);background:var(--line);}
 
 .dashStats{margin:0 0 20px;grid-template-columns:repeat(4,1fr);display:grid;gap:15px;}
-/* Cores específicas dos cards de estatísticas (baseado na imagem) */
 .dashStats .stat:nth-child(1) {background: linear-gradient(135deg, #2a1147 0%, #151520 100%); border-color:#4a227d;}
 .dashStats .stat:nth-child(2) {background: linear-gradient(135deg, #112847 0%, #151520 100%); border-color:#20487d;}
 .dashStats .stat:nth-child(3) {background: linear-gradient(135deg, #471128 0%, #151520 100%); border-color:#7d2048;}
@@ -207,9 +200,17 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .fakeDonut:after{content:"";position:absolute;inset:14px;background:var(--card2);border-radius:50%}
 .fakeDonut span{z-index:1;font-weight:850;font-size:18px;}
 
-/* Efeito de Cursor para IA */
 .cursor-blink::after {content: '|'; animation: blink 1s step-end infinite;}
 @keyframes blink { 50% { opacity: 0; } }
+
+.fab-ai {
+  position: fixed; bottom: 30px; right: 30px; background: var(--brand-grad);
+  color: white; border: none; border-radius: 50px; padding: 15px 25px;
+  font-size: 16px; font-weight: 700; cursor: pointer; display: flex;
+  align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(168,85,247,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; z-index: 100;
+}
+.fab-ai:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 35px rgba(236,72,153,0.5); }
 
 @media(max-width:1000px){
   aside{position:fixed;bottom:0;top:auto;left:0;right:0;width:100%;height:70px;display:flex;flex-direction:row;align-items:center;justify-content:space-around;padding:0 10px;border-right:0;border-top:1px solid var(--line);background:var(--panel);z-index:999}
@@ -226,12 +227,12 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   .top>.toolbar{width:100%;justify-content:space-between;flex-wrap:wrap}
   .h1{font-size:28px}
   .formgrid{grid-template-columns:1fr}
+  .fab-ai{ bottom: 90px; right: 20px; }
 }
 </style>
 </head>
 <body>
 
-<!-- TELA DE LOGIN ATIVADA E FUNCIONAL -->
 <div id="loginScreen">
   <div class="login-box">
     <div style="display:flex; justify-content:center; margin-bottom:15px;">
@@ -277,7 +278,11 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
     </svg>
     <div class="brand" style="padding:0">ESTUDA<span>.</span></div>
   </div>
-  <div class="subtitle">CONCURSEIRO • PLANEJAMENTO</div>
+  
+  <div style="margin:4px 10px 30px;">
+    <div style="color:var(--muted);font-size:11px;font-weight:500;">seu cronograma de estudos</div>
+    <div style="color:var(--pink);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">by nhok</div>
+  </div>
   
   <nav id="nav">
     <button class="active" onclick="go('dashboard',this)"><b>⌂</b><span>Início</span></button>
@@ -304,7 +309,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
   <div id="reminderAlertContainer"></div>
 
-  <!-- Cards baseados na paleta do print -->
   <div class="statgrid dashStats">
     <div class="stat"><span class="kpi">Questões hoje</span><strong id="dashQ">0</strong><span class="muted">questões registradas</span></div>
     <div class="stat"><span class="kpi">Aproveitamento</span><strong id="dashA">0%</strong><span class="muted">acertos hoje</span></div>
@@ -314,7 +318,28 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
   <div class="dashboardGrid">
     <div class="dashLeft">
-      <div class="card hero"><div class="row"><div style="flex:1"><div class="eyebrow" style="color:var(--p2); margin-bottom:8px;">FOCO DE HOJE</div><h2 id="goalText" style="font-size:28px;margin:8px 0; font-weight:800;">4 horas de estudo</h2><p class="muted" style="font-size:15px; margin-bottom:25px;">O tempo do cronômetro entra automaticamente no seu progresso diário.</p><div class="bar"><i id="studyBar"></i></div><div style="margin-top:12px" class="muted"><span id="todayMinutes">0</span> min estudados • meta <span id="goalMinutes">240</span> min</div><button class="btn" style="margin-top:20px; padding:12px 24px;" onclick="continueTodayStudy()">▶ Continuar estudando</button></div><div class="ring" id="dashRing"><div class="ringin"><strong id="ring">50:00</strong><br><small style="color:var(--muted)">próximo bloco</small></div></div></div></div>
+      <div class="card hero">
+        <div class="row">
+          <div style="flex:1">
+            <div class="eyebrow" style="color:var(--p2); margin-bottom:8px;">FOCO DE HOJE</div>
+            <h2 id="goalText" style="font-size:28px;margin:8px 0; font-weight:800;">4 horas de estudo</h2>
+            <p class="muted" style="font-size:15px; margin-bottom:15px;">O tempo do cronômetro entra automaticamente no seu progresso diário.</p>
+            
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; background:rgba(0,0,0,0.2); padding:10px; border-radius:12px; width:fit-content; border:1px solid var(--line);">
+              <label style="font-size:12px; color:var(--muted);">Tempo (min):</label>
+              <input type="number" id="dashCustomTimerInput" value="50" min="1" max="300" style="background:var(--panel); border:1px solid var(--line); color:var(--txt); border-radius:8px; padding:6px 10px; width:70px; outline:none; font-weight:bold; text-align:center;">
+              <button class="btn small secondary" onclick="setCustomDashTimer()">Definir</button>
+            </div>
+
+            <div class="bar"><i id="studyBar"></i></div>
+            <div style="margin-top:12px" class="muted"><span id="todayMinutes">0</span> min estudados • meta <span id="goalMinutes">240</span> min</div>
+            <button class="btn" style="margin-top:20px; padding:12px 24px;" onclick="continueTodayStudy()">▶ Continuar estudando</button>
+          </div>
+          <div class="ring" id="dashRing">
+            <div class="ringin"><strong id="ring">50:00</strong><br><small style="color:var(--muted)">próximo bloco</small></div>
+          </div>
+        </div>
+      </div>
       <div class="card section"><div class="head"><h3>Próximo estudo</h3><span class="eyebrow">hoje</span></div><div id="today" class="dashList"></div><button class="btn" style="width:100%;margin-top:16px; background:var(--card2); border:1px solid var(--line);" onclick="go('ciclo',document.querySelectorAll('#nav button')[2])">▶ Abrir ciclo completo</button></div>
     </div>
     
@@ -390,14 +415,14 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   <div class="card" id="customRange" style="display:none"><div class="formgrid"><div class="field"><label for="fromDate">De</label><input id="fromDate" type="date"></div><div class="field"><label for="toDate">Até</label><input id="toDate" type="date"></div></div><button class="btn small" onclick="drawPerformance()">Aplicar</button></div>
   <div class="card"><div class="statgrid"><div class="stat"><span class="kpi">Questões</span><strong id="pTotal">0</strong></div><div class="stat"><span class="kpi">Acertos</span><strong id="pCorrect">0%</strong></div><div class="stat"><span class="kpi">Erros</span><strong id="pWrong">0%</strong></div><div class="stat"><span class="kpi">Horas</span><strong id="pHours">0h</strong></div></div><div class="chartbox"><canvas id="chart" class="chart"></canvas></div></div>
 </section>
+
+<button class="fab-ai" onclick="openAI()">✨ Estuda AI</button>
+
 </main>
 
 <div class="modalbg" id="modal" onclick="if(event.target===this)closeModal()"><div class="modal"><h3 id="modalTitle">Adicionar</h3><div id="modalBody"></div><div class="actions"><button class="btn secondary" onclick="closeModal()">Cancelar</button><button class="btn" id="modalSave" onclick="saveModal()">Salvar</button></div></div></div>
 
 <script>
-// ==========================================
-// ESTADO E VARIÁVEIS GLOBAIS
-// ==========================================
 const supabaseUrl = 'https://otvoarwzylbjuzomudkv.supabase.co';
 const supabaseKey = 'sb_publishable_xMIVlnfUQEXt20HcFfyNTw_50J0TkgQ';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
@@ -412,9 +437,6 @@ let state={
 let modalMode='', editingIndex=-1, editalTab='mine', timer=3000, running=false, intv=null, range='today';
 let isRegisterMode = false;
 
-// ==========================================
-// AUTENTICAÇÃO E LOGIN (RESTAUROU AS FUNÇÕES)
-// ==========================================
 function alternarModoAuth() {
   isRegisterMode = !isRegisterMode;
   document.getElementById('authSubtitle').textContent = isRegisterMode ? "Crie sua conta para começar." : "Faça login para acessar seu painel.";
@@ -447,7 +469,6 @@ async function realizarAcessoSupabase() {
     } else {
       const { data, error } = await supabaseClient.auth.signInWithPassword({email, password: pass});
       if(error) throw error;
-      // Sucesso!
       checkAuthSession();
     }
   } catch (err) {
@@ -467,20 +488,15 @@ async function checkAuthSession() {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (session) {
     document.getElementById('loginScreen').style.display = 'none';
-    loadState(); // Carrega os dados salvos do usuário
+    loadState();
     renderAll();
   } else {
     document.getElementById('loginScreen').style.display = 'flex';
   }
 }
 
-// Iniciar verificando se o usuário está logado
 checkAuthSession();
 
-
-// ==========================================
-// CORE / STORAGE
-// ==========================================
 function save(){ try { localStorage.setItem(STORAGE, JSON.stringify(state)); } catch(e) {} }
 
 function loadState(){
@@ -541,9 +557,29 @@ function deleteContest(){
   save();renderAll();
 }
 
-// ==========================================
-// EDIÇÃO DE MATÉRIAS
-// ==========================================
+function setCustomDashTimer() {
+  let mins = parseInt(document.getElementById('dashCustomTimerInput').value) || 50;
+  timer = mins * 60;
+  showTimer();
+  alert('Tempo do bloco atualizado para ' + mins + ' minutos!');
+}
+
+function openAI() {
+  modalMode = 'ai';
+  document.getElementById('modalTitle').textContent = '✨ Estuda AI';
+  document.getElementById('modalBody').innerHTML = `
+      <div style="display:flex; flex-direction:column; gap:15px;">
+          <div class="insight" style="border-color:var(--blue); background:var(--card2);">
+              Olá! Sou sua assistente de estudos. Como posso te ajudar com o seu planejamento ou conteúdos hoje?
+          </div>
+          <textarea id="aiPrompt" rows="4" placeholder="Ex: Crie um resumo sobre Direitos Humanos focado na PMESP..." style="width:100%;background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:14px;outline:none;font-family:inherit;"></textarea>
+          <div id="aiResponseContainer"></div>
+      </div>
+  `;
+  document.getElementById('modalSave').textContent = 'Enviar';
+  document.getElementById('modal').style.display = 'grid';
+}
+
 function openContest(){modalMode='contest';document.getElementById('modalTitle').textContent='Novo concurso';document.getElementById('modalBody').innerHTML=`<div class="field"><label for="mContest">Nome</label><input id="mContest" placeholder="Ex.: PF / PCPR"></div><div class="field"><label for="mGoal">Meta diária (min)</label><input id="mGoal" type="number" value="${state.goal}"></div>`;document.getElementById('modal').style.display='grid'}
 function cleanManualTopics(text){
   let raw=String(text||'').replace(/\r/g, '').replace(/[•●▪◦☐☑□✓]/g,'\n');
@@ -555,6 +591,17 @@ function openSubject(){modalMode='subject';editingIndex=-1;document.getElementBy
 function editSubject(i){modalMode='subjectEdit';editingIndex=i;let s=subjects()[i];document.getElementById('modalTitle').textContent='Editar matéria';document.getElementById('modalBody').innerHTML=`<div class="field"><label for="mName">Nome</label><input id="mName" value="${esc(s.name)}"></div><div class="field"><label for="mImportance">Importância (0 a 10)</label><input id="mImportance" type="number" min="0" max="10" value="${s.importance??5}"></div><div class="field"><label for="mTopics">Assuntos</label><textarea id="mTopics" rows="10">${esc(s.topics.join('\n'))}</textarea></div>`;document.getElementById('modal').style.display='grid'}
 
 function saveModal(){
+ if(modalMode==='ai') {
+   const p = document.getElementById('aiPrompt').value.trim();
+   if(!p) return;
+   const container = document.getElementById('aiResponseContainer');
+   container.innerHTML = `<div class="insight" style="margin-top:10px; border-color:var(--pink);"><span class="cursor-blink">Gerando resposta...</span></div>`;
+   setTimeout(() => {
+       container.innerHTML = `<div class="insight" style="margin-top:10px; border-color:var(--green);"><b>IA:</b> Ainda estou em versão de testes, mas em breve poderei te ajudar com dúvidas de português, leis e muito mais. Pergunta recebida: "${esc(p)}"</div>`;
+       document.getElementById('aiPrompt').value = '';
+   }, 1500);
+   return;
+ }
  if(modalMode==='import'){ doImport(); return; }
  if(modalMode==='contest'){
    let n=document.getElementById('mContest').value.trim();
@@ -601,12 +648,8 @@ function deleteSubject(i){
   });
   save(); renderAll();
 }
-window.deleteSubject = deleteSubject; // Garante delegação de evento
+window.deleteSubject = deleteSubject; 
 
-// ==========================================
-// IA: INTRODUÇÃO AOS TEMAS
-// ==========================================
-// Simula a antiga Inteligência artificial para introdução gerando textos bonitos de forma procedural
 async function showIntro(i){
   const c=state.cycles[i];if(!c)return;
   modalMode='intro';
@@ -620,7 +663,6 @@ async function showIntro(i){
   document.querySelector('#modal .actions').style.display='none';
   document.getElementById('modal').style.display='grid';
 
-  // O Efeito "Typing" focado no tema (Simulador de IA)
   setTimeout(() => {
     const box = document.getElementById('aiContentBox');
     if(box) {
@@ -648,7 +690,6 @@ function gerarTextoIAFalso(materia, assunto) {
   if (m.includes('tecnologia') || m.includes('informática')) {
     return `A área de ${materia} é muito dinâmica. No tópico "${assunto}", preste muita atenção nos conceitos modernos, siglas, protocolos e atalhos. As bancas adoram fazer confusão entre termos técnicos parecidos ou perguntar sobre os caminhos específicos nos sistemas operacionais e pacotes Office.`;
   }
-  // Fallback padrão
   return `Este é um tópico de altíssima relevância estratégica. Para dominar "${assunto}", comece construindo uma base sólida dos conceitos principais e, logo após a teoria, parta diretamente para a resolução massiva de questões da sua banca. Faça marcações e resumos (flashcards) apenas dos pontos onde o seu índice de erro for superior a 30%.`;
 }
 
@@ -656,7 +697,7 @@ function typeWriterEffect(elementId, text) {
   const el = document.getElementById(elementId);
   if(!el) return;
   let i = 0;
-  const speed = 25; // Velocidade da digitação
+  const speed = 25;
   
   function type() {
     if (i < text.length) {
@@ -670,10 +711,6 @@ function typeWriterEffect(elementId, text) {
   type();
 }
 
-
-// ==========================================
-// IMPORTAÇÃO
-// ==========================================
 function openImport(){modalMode='import';document.getElementById('modalTitle').textContent='Importar edital';document.getElementById('modalBody').innerHTML=`<div class="drop"><b>📄 Selecione PDF, TXT ou JSON</b><p class="muted" style="margin-top:10px;">O sistema vai ler e organizar as matérias para você!</p><input id="file" type="file" accept=".pdf,.csv,.txt,.json,.xlsx,.xls" style="margin-top:15px;"></div>`;document.getElementById('modal').style.display='grid'}
 
 async function importFile(file){
@@ -760,9 +797,6 @@ async function doImport(){
   alert('Edital lido com sucesso pela nossa inteligência!');
 }
 
-// ==========================================
-// RENDERIZAÇÃO PRINCIPAL / EVENTOS
-// ==========================================
 document.addEventListener('click', function(e) {
   const delBtn = e.target.closest('.btn-del-subject');
   if (delBtn) { const idx = delBtn.getAttribute('data-index'); if (idx !== null) { deleteSubject(idx); } }
@@ -806,7 +840,7 @@ function renderDashboardToday(){
     let actions=active
       ? `<div class="dashLessonActions"><span class="timerMini" id="dashTimer-${i}" style="align-self:center;margin-right:10px;color:var(--blue);font-weight:bold;">${formatClock(activeStudy.remaining)}</span><button class="dashAction start" style="border-color:#eab308;color:#eab308" onclick="pauseResumeStudy(${i})">${activeStudy.running?'Ⅱ Pausar':'▶ Retomar'}</button><button class="dashAction finish" onclick="finishStudy(${i})">⏹ Encerrar</button></div>`
       : `<div class="dashLessonActions"><button class="dashAction details" style="border-color:var(--p2);color:var(--p2)" onclick="showIntro(${i})">📖 Intro</button><button class="dashAction start" onclick="startStudy(${i})">▶ Iniciar</button></div>`;
-         
+          
     return `<div class="lesson ${c.done?'done':''} ${active?'activeStudy':''}"><div style="flex: 1; padding-right: 15px;"><b>${esc(c.s)}</b><div style="display:flex; align-items:center; gap:20px; margin-top:5px;"><span class="cycleTopic">${esc(c.topic||'Geral')}</span><span class="badge">${c.m} min</span></div></div>${c.done?'<div class="kpi" style="color:var(--green)">✓ FEITO</div>':actions}</div>`;
   }).join('')||'<p class="muted" style="padding:15px; text-align:center;">Nenhum bloco agendado para hoje.</p>';
   if(activeStudy){const el2=document.getElementById('dashTimer-'+activeStudy.index);if(el2)el2.textContent=formatClock(activeStudy.remaining);}
@@ -870,7 +904,6 @@ function renderDashboard(){
   renderDashboardToday();
 }
 
-// RESTANTE DO CÓDIGO (AGENDA, CRONÔMETRO, QUESTÕES, GRÁFICOS E LEMBRETES) MANTIDO INTACTO
 function openCycle(i=-1){modalMode=i<0?'cycle':'cycleEdit';editingIndex=i;let subs=subjects();if(!subs.length) return alert('Cadastre o edital.');let c=i<0?{d:todayDay(),s:subs[0]?.name||'',topic:subs[0]?.topics?.[0]||'',m:60}:state.cycles[i];let sub=subs.find(x=>x.name===c.s)||subs[0], topics=sub?.topics||[];document.getElementById('modalTitle').textContent=i<0?'Adicionar bloco':'Editar bloco';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="mDay">Dia</label><select id="mDay">${DAYS.map(d=>`<option ${d===c.d?'selected':''}>${d}</option>`).join('')}</select></div><div class="field"><label for="mSub">Matéria</label><select id="mSub" onchange="cycleTopicOptions()">${subs.map(x=>`<option ${x.name===c.s?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div><div class="field"><label for="mTopic">Assunto</label><select id="mTopic">${topics.map(t=>`<option ${t===c.topic?'selected':''}>${esc(t)}</option>`).join('')}</select></div><div class="field"><label for="mMin">Minutos</label><input id="mMin" type="number" min="10" value="${c.m}"></div>`;document.getElementById('modal').style.display='grid'}
 function cycleTopicOptions(){let s=subjects().find(x=>x.name===document.getElementById('mSub').value),sel=document.getElementById('mTopic');sel.innerHTML=(s?.topics||[]).map(t=>`<option>${esc(t)}</option>`).join('')}
 function openCycleGenerator(){if(!subjects().length)return alert('Adicione o edital.');modalMode='cycleGenerate';document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="gDays">Dias de estudo/sem</label><input id="gDays" type="number" min="1" max="7" value="6"></div><div class="field"><label for="gMinutes">Minutos diários</label><input id="gMinutes" type="number" min="30" value="${state.goal}"></div></div><div class="field"><label for="gMode">Estratégia de distribuição</label><select id="gMode"><option value="weighted">Dar peso às mais importantes</option><option value="balanced">Equilibrar todas as matérias</option></select></div>`;document.getElementById('modal').style.display='grid'}
@@ -896,7 +929,14 @@ function streak(){let n=0,d=new Date();while(true){let k=d.toISOString().slice(0
 
 let activeStudy=null;
 function formatClock(sec){sec=Math.max(0,Math.floor(sec));return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
-function closeModal(){document.getElementById('modal').style.display='none';document.querySelector('#modal .actions').style.display='flex';modalMode='';}
+
+function closeModal(){
+  document.getElementById('modal').style.display='none';
+  document.querySelector('#modal .actions').style.display='flex';
+  document.getElementById('modalSave').textContent='Salvor';
+  modalMode='';
+}
+
 function startStudy(i){if(activeStudy){alert('Já existe um estudo em andamento.');return}const c=state.cycles[i];if(!c)return;activeStudy={index:i,remaining:Math.max(60,(+c.m||50)*60),elapsed:0,running:true};renderAgenda();renderDashboard();activeStudy.intv=setInterval(()=>{if(!activeStudy||!activeStudy.running)return;activeStudy.remaining--;activeStudy.elapsed++;updateMiniTimer();if(activeStudy.remaining<=0) finishStudy(i,true);},1000);}
 function updateMiniTimer(){if(!activeStudy)return;const text=formatClock(activeStudy.remaining);const el=document.getElementById('miniTimer-'+activeStudy.index);if(el)el.textContent=text;const de=document.getElementById('dashTimer-'+activeStudy.index);if(de)de.textContent=text;}
 function pauseResumeStudy(i){if(!activeStudy||activeStudy.index!==i)return;activeStudy.running=!activeStudy.running;renderAgenda();renderDashboard();}
@@ -911,7 +951,6 @@ document.getElementById('modalSave').addEventListener('click',async()=>{if(modal
 
 document.documentElement.dataset.theme=state.theme;
 showTimer();
-// renderAll chamado quando o Auth passar no onload
 </script>
 </body>
 </html>
