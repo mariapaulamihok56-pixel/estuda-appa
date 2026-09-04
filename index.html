@@ -1012,8 +1012,41 @@ function renderDashboard(){
 function openCycle(i=-1){modalMode=i<0?'cycle':'cycleEdit';editingIndex=i;let subs=subjects();if(!subs.length) return alert('Cadastre o edital.');let c=i<0?{d:todayDay(),s:subs[0]?.name||'',topic:subs[0]?.topics?.[0]||'',m:60}:cycles()[i];let sub=subs.find(x=>x.name===c.s)||subs[0], topics=sub?.topics||[];document.getElementById('modalTitle').textContent=i<0?'Adicionar bloco':'Editar bloco';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="mDay">Dia</label><select id="mDay">${DAYS.map(d=>`<option ${d===c.d?'selected':''}>${d}</option>`).join('')}</select></div><div class="field"><label for="mSub">Matéria</label><select id="mSub" onchange="cycleTopicOptions()">${subs.map(x=>`<option ${x.name===c.s?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div><div class="field"><label for="mTopic">Assunto</label><select id="mTopic">${topics.map(t=>`<option ${t===c.topic?'selected':''}>${esc(t)}</option>`).join('')}</select></div><div class="field"><label for="mMin">Minutos</label><input id="mMin" type="number" min="10" value="${c.m}"></div>`;document.getElementById('modal').style.display='grid'}
 function cycleTopicOptions(){let s=subjects().find(x=>x.name===document.getElementById('mSub').value),sel=document.getElementById('mTopic');sel.innerHTML=(s?.topics||[]).map(t=>`<option>${esc(t)}</option>`).join('')}
 function openCycleGenerator(){if(!subjects().length)return alert('Adicione o edital.');modalMode='cycleGenerate';let activeConcert=currentContest();let defaultMins=(activeConcert.goalHours||4)*60;document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="gDays">Dias de estudo/sem</label><input id="gDays" type="number" min="1" max="7" value="6"></div><div class="field"><label for="gMinutes">Minutos diários</label><input id="gMinutes" type="number" min="30" value="${defaultMins}"></div></div><div class="field"><label for="gMode">Estratégia</label><select id="gMode"><option value="weighted">Dar peso às mais importantes</option><option value="balanced">Equilibrar todas</option></select></div>`;document.getElementById('modal').style.display='grid'}
-function generateCycle(){const days=Math.max(1,Math.min(7,+document.getElementById('gDays').value||6));let activeConcert=currentContest();const mins=Math.max(30,+document.getElementById('gMinutes').value||((activeConcert.goalHours||4)*60));const dayNames=DAYS.slice(0,days);const arr=subjects().filter(s=>Array.isArray(s.topics)&&s.topics.length);if(!arr.length)return alert('Sem assuntos.');const slots=[];dayNames.forEach(d=>{let used=0;while(used<mins){const m=Math.min(60,mins-used);slots.push({d,m});used+=m;}});let result=[];slots.forEach((slot,idx)=>{let s=arr[idx%arr.length];let topic=s.topics[Math.floor(idx/arr.length)%s.topics.length];result.push({d:slot.d,s:s.name,topic,m:slot.m,done:false});});currentContest().cycles=result;save();closeModal();renderAgenda();renderDashboard();alert('Ciclo gerado!');}
-function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}}
+function generateCycle(){
+  const days = Math.max(1, Math.min(7, +document.getElementById('gDays').value || 6));
+  let activeConcert = currentContest();
+  const mins = Math.max(30, +document.getElementById('gMinutes').value || ((activeConcert.goalHours||4)*60));
+  
+  let startIndex = saoPauloDayIndex() === 0 ? 6 : saoPauloDayIndex() - 1;
+  const dayNames = [];
+  
+  for(let i = 0; i < days; i++){
+    dayNames.push(DAYS[(startIndex + i) % 7]);
+  }
+
+  const arr = subjects().filter(s => Array.isArray(s.topics) && s.topics.length);
+  if(!arr.length) return alert('Sem assuntos.');
+  
+  const slots = [];
+  dayNames.forEach(d => {
+    let used = 0;
+    while(used < mins){
+      const m = Math.min(60, mins - used);
+      slots.push({d, m});
+      used += m;
+    }
+  });
+  
+  let result = [];
+  slots.forEach((slot, idx) => {
+    let s = arr[idx % arr.length];
+    let topic = s.topics[Math.floor(idx / arr.length) % s.topics.length];
+    result.push({d: slot.d, s: s.name, topic, m: slot.m, done: false});
+  });
+  
+  currentContest().cycles = result;
+  save(); closeModal(); renderAgenda(); renderDashboard(); alert('Ciclo gerado!');
+}function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}}
 function toggleCycle(i){cycles()[i].done=!cycles()[i].done;save();renderAgenda();renderDashboard()}
 function renderAgenda(){let now=saoPauloNow(), base=new Date(now.getFullYear(),now.getMonth(),now.getDate());let dates=DAYS.map((_,i)=>{let d=new Date(base);let current=base.getDay()===0?6:base.getDay()-1;d.setDate(base.getDate()+i-current);return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`});document.getElementById('agenda').innerHTML=DAYS.map((d,i)=>`<div class="day"><div class="dayhead">${d}<span>${dates[i]}${d===todayDay()?' • HOJE':''}</span></div>${cycles().map((c,j)=>({c,j})).filter(x=>x.c.d===d).map(x=>`<div class="lesson ${x.c.done?'done':''}"><div style="display:flex;align-items:center;gap:8px"><b>${esc(x.c.s)}</b><span class="badge">${x.c.m}m</span></div><div class="cycleTopic">${esc(x.c.topic||'Geral')}</div><div style="display:flex;gap:5px;margin-top:10px;"><button class="iconbtn" title="Intro" onclick="showIntro(${x.j})">📖</button><button class="iconbtn" onclick="toggleCycle(${x.j})">✓</button><button class="iconbtn" onclick="openCycle(${x.j})">✎</button><button class="iconbtn" style="color:var(--red);" onclick="deleteCycle(${x.j})">🗑</button></div></div>`).join('')||'<div class="muted" style="text-align:center;padding:20px;">—</div>'}</div>`).join('');}
 function saveReminder(){const text=document.getElementById('reminderText').value.slice(0, 50);const date=document.getElementById('reminderDate').value;state.reminder={text, date};save();const status=document.getElementById('reminderStatus');status.textContent='Salvo!';setTimeout(()=>{status.textContent='Salvo';},1000);renderDashboard();}
