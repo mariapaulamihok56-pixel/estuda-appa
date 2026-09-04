@@ -807,9 +807,12 @@ function saveModal(){
  else if(modalMode==='cycleEdit'){
    Object.assign(cycles()[editingIndex],{d:document.getElementById('mDay').value,s:document.getElementById('mSub').value,topic:document.getElementById('mTopic').value,m:+document.getElementById('mMin').value||60});
  }
+ else if(modalMode==='cycleGenerate'){
+   generateCycle();
+   return;
+ }
  save();closeModal();renderAll();
-}
-function deleteSubject(i){
+}function deleteSubject(i){
   let subs = subjects();
   subs.splice(i, 1);
   save(); renderAll();
