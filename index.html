@@ -1048,8 +1048,47 @@ function generateCycle(){
   save(); closeModal(); renderAgenda(); renderDashboard(); alert('Ciclo gerado!');
 }function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}}
 function toggleCycle(i){cycles()[i].done=!cycles()[i].done;save();renderAgenda();renderDashboard()}
-function renderAgenda(){let now=saoPauloNow(), base=new Date(now.getFullYear(),now.getMonth(),now.getDate());let dates=DAYS.map((_,i)=>{let d=new Date(base);let current=base.getDay()===0?6:base.getDay()-1;d.setDate(base.getDate()+i-current);return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`});document.getElementById('agenda').innerHTML=DAYS.map((d,i)=>`<div class="day"><div class="dayhead">${d}<span>${dates[i]}${d===todayDay()?' • HOJE':''}</span></div>${cycles().map((c,j)=>({c,j})).filter(x=>x.c.d===d).map(x=>`<div class="lesson ${x.c.done?'done':''}"><div style="display:flex;align-items:center;gap:8px"><b>${esc(x.c.s)}</b><span class="badge">${x.c.m}m</span></div><div class="cycleTopic">${esc(x.c.topic||'Geral')}</div><div style="display:flex;gap:5px;margin-top:10px;"><button class="iconbtn" title="Intro" onclick="showIntro(${x.j})">📖</button><button class="iconbtn" onclick="toggleCycle(${x.j})">✓</button><button class="iconbtn" onclick="openCycle(${x.j})">✎</button><button class="iconbtn" style="color:var(--red);" onclick="deleteCycle(${x.j})">🗑</button></div></div>`).join('')||'<div class="muted" style="text-align:center;padding:20px;">—</div>'}</div>`).join('');}
-function saveReminder(){const text=document.getElementById('reminderText').value.slice(0, 50);const date=document.getElementById('reminderDate').value;state.reminder={text, date};save();const status=document.getElementById('reminderStatus');status.textContent='Salvo!';setTimeout(()=>{status.textContent='Salvo';},1000);renderDashboard();}
+function renderAgenda(){
+  let now = saoPauloNow();
+  let base = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  
+  // Descobre qual o dia da semana hoje na nossa lista
+  let currentIdx = saoPauloDayIndex() === 0 ? 6 : saoPauloDayIndex() - 1;
+  
+  // Reordena os dias para a tela sempre começar pelo dia de HOJE
+  let orderedDays = [];
+  for(let i = 0; i < 7; i++){
+    orderedDays.push(DAYS[(currentIdx + i) % 7]);
+  }
+  
+  // Calcula as datas certinhas pra frente (Hoje, amanhã, depois...)
+  let dates = orderedDays.map((_, i) => {
+    let d = new Date(base);
+    d.setDate(base.getDate() + i);
+    return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
+  });
+  
+  // Desenha os bloquinhos na tela
+  document.getElementById('agenda').innerHTML = orderedDays.map((d, i) => `
+    <div class="day">
+      <div class="dayhead">${d}<span>${dates[i]}${i === 0 ? ' • HOJE' : ''}</span></div>
+      ${cycles().map((c, j) => ({c, j})).filter(x => x.c.d === d).map(x => `
+        <div class="lesson ${x.c.done ? 'done' : ''}">
+          <div style="display:flex;align-items:center;gap:8px">
+            <b>${esc(x.c.s)}</b><span class="badge">${x.c.m}m</span>
+          </div>
+          <div class="cycleTopic">${esc(x.c.topic || 'Geral')}</div>
+          <div style="display:flex;gap:5px;margin-top:10px;">
+            <button class="iconbtn" title="Intro" onclick="showIntro(${x.j})">📖</button>
+            <button class="iconbtn" onclick="toggleCycle(${x.j})">✓</button>
+            <button class="iconbtn" onclick="openCycle(${x.j})">✎</button>
+            <button class="iconbtn" style="color:var(--red);" onclick="deleteCycle(${x.j})">🗑</button>
+          </div>
+        </div>
+      `).join('') || '<div class="muted" style="text-align:center;padding:20px;">—</div>'}
+    </div>
+  `).join('');
+}function saveReminder(){const text=document.getElementById('reminderText').value.slice(0, 50);const date=document.getElementById('reminderDate').value;state.reminder={text, date};save();const status=document.getElementById('reminderStatus');status.textContent='Salvo!';setTimeout(()=>{status.textContent='Salvo';},1000);renderDashboard();}
 function clearReminder(){state.reminder={text:'', date:''};save();document.getElementById('reminderText').value='';document.getElementById('reminderDate').value='';renderDashboard();renderLembretesPage();alert('Limpo!');}
 function renderLembretesPage(){const box=document.getElementById('activeReminderBox');if(!state.reminder||!state.reminder.text){box.innerHTML='<p class="muted">Nenhum lembrete.</p>';document.getElementById('pageReminderText').value='';document.getElementById('pageReminderDate').value='';}else{box.innerHTML=`<b>Data:</b> ${state.reminder.date}<br><b style="font-size:16px">${esc(state.reminder.text)}</b>`;document.getElementById('pageReminderText').value=state.reminder.text;document.getElementById('pageReminderDate').value=state.reminder.date;}}
 function savePageReminder(){const text=document.getElementById('pageReminderText').value.slice(0, 50);const date=document.getElementById('pageReminderDate').value;if(!text||!date)return alert('Preencha mensagem e data.');state.reminder={text, date};save();renderLembretesPage();renderDashboard();alert('Salvo!');}
