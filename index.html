@@ -1011,24 +1011,53 @@ function renderDashboard(){
 
 function openCycle(i=-1){modalMode=i<0?'cycle':'cycleEdit';editingIndex=i;let subs=subjects();if(!subs.length) return alert('Cadastre o edital.');let c=i<0?{d:todayDay(),s:subs[0]?.name||'',topic:subs[0]?.topics?.[0]||'',m:60}:cycles()[i];let sub=subs.find(x=>x.name===c.s)||subs[0], topics=sub?.topics||[];document.getElementById('modalTitle').textContent=i<0?'Adicionar bloco':'Editar bloco';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="mDay">Dia</label><select id="mDay">${DAYS.map(d=>`<option ${d===c.d?'selected':''}>${d}</option>`).join('')}</select></div><div class="field"><label for="mSub">Matéria</label><select id="mSub" onchange="cycleTopicOptions()">${subs.map(x=>`<option ${x.name===c.s?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div><div class="field"><label for="mTopic">Assunto</label><select id="mTopic">${topics.map(t=>`<option ${t===c.topic?'selected':''}>${esc(t)}</option>`).join('')}</select></div><div class="field"><label for="mMin">Minutos</label><input id="mMin" type="number" min="10" value="${c.m}"></div>`;document.getElementById('modal').style.display='grid'}
 function cycleTopicOptions(){let s=subjects().find(x=>x.name===document.getElementById('mSub').value),sel=document.getElementById('mTopic');sel.innerHTML=(s?.topics||[]).map(t=>`<option>${esc(t)}</option>`).join('')}
-function openCycleGenerator(){if(!subjects().length)return alert('Adicione o edital.');modalMode='cycleGenerate';let activeConcert=currentContest();let defaultMins=(activeConcert.goalHours||4)*60;document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';document.getElementById('modalBody').innerHTML=`<div class="formgrid"><div class="field"><label for="gDays">Dias de estudo/sem</label><input id="gDays" type="number" min="1" max="7" value="6"></div><div class="field"><label for="gMinutes">Minutos diários</label><input id="gMinutes" type="number" min="30" value="${defaultMins}"></div></div><div class="field"><label for="gMode">Estratégia</label><select id="gMode"><option value="weighted">Dar peso às mais importantes</option><option value="balanced">Equilibrar todas</option></select></div>`;document.getElementById('modal').style.display='grid'}
-function generateCycle(){
-  const days = Math.max(1, Math.min(7, +document.getElementById('gDays').value || 6));
-  let activeConcert = currentContest();
-  const mins = Math.max(30, +document.getElementById('gMinutes').value || ((activeConcert.goalHours||4)*60));
+function openCycleGenerator(){
+  if(!subjects().length) return alert('Adicione o edital.');
+  modalMode='cycleGenerate';
+  let activeConcert=currentContest();
+  let defaultMins=(activeConcert.goalHours||4)*60;
   
-  let startIndex = saoPauloDayIndex() === 0 ? 6 : saoPauloDayIndex() - 1;
-  const dayNames = [];
+  document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';
   
-  for(let i = 0; i < days; i++){
-    dayNames.push(DAYS[(startIndex + i) % 7]);
-  }
+  // Caixinhas para selecionar os dias (Seg a Sex já vêm marcados)
+  let daysHtml = `
+    <div class="field" style="grid-column: 1 / -1;">
+      <label>Dias de estudo (Ciclo Dinâmico)</label>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;">
+        ${DAYS.map(d => `
+          <label style="display:flex; align-items:center; gap:8px; background:var(--card2); padding:10px 14px; border:1px solid var(--line); border-radius:12px; cursor:pointer;">
+            <input type="checkbox" class="gDayCheck check" value="${d}" ${d!=='SÁB' && d!=='DOM' ? 'checked' : ''}> 
+            <span style="font-weight:700; font-size:13px; color:var(--txt);">${d}</span>
+          </label>
+        `).join('')}
+      </div>
+    </div>
+  `;
 
+  document.getElementById('modalBody').innerHTML=`
+    <div class="formgrid">
+      ${daysHtml}
+      <div class="field"><label for="gMinutes">Minutos diários</label><input id="gMinutes" type="number" min="30" value="${defaultMins}"></div>
+      <div class="field"><label for="gMode">Estratégia</label><select id="gMode"><option value="weighted">Dar peso às mais importantes</option><option value="balanced">Equilibrar todas</option></select></div>
+    </div>
+  `;
+  document.getElementById('modal').style.display='grid';
+}
+
+function generateCycle(){
+  const checkboxes = document.querySelectorAll('.gDayCheck:checked');
+  const studyDays = Array.from(checkboxes).map(cb => cb.value);
+  if(studyDays.length === 0) return alert('Selecione pelo menos um dia.');
+
+  let activeConcert = currentContest();
+  activeConcert.studyDays = studyDays; // Salva os dias que você escolheu!
+  
+  const mins = Math.max(30, +document.getElementById('gMinutes').value || ((activeConcert.goalHours||4)*60));
   const arr = subjects().filter(s => Array.isArray(s.topics) && s.topics.length);
   if(!arr.length) return alert('Sem assuntos.');
-  
+
   const slots = [];
-  dayNames.forEach(d => {
+  studyDays.forEach(d => {
     let used = 0;
     while(used < mins){
       const m = Math.min(60, mins - used);
@@ -1045,30 +1074,71 @@ function generateCycle(){
   });
   
   currentContest().cycles = result;
-  save(); closeModal(); renderAgenda(); renderDashboard(); alert('Ciclo gerado!');
+  save(); closeModal(); renderAgenda(); renderDashboard(); alert('Ciclo dinâmico gerado!');
+}
 }function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}}
 function toggleCycle(i){cycles()[i].done=!cycles()[i].done;save();renderAgenda();renderDashboard()}
-function renderAgenda(){
-  let now = saoPauloNow();
-  let base = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  
-  // Descobre qual o dia da semana hoje na nossa lista
+function autoReprogramar() {
+  let activeConcert = currentContest();
+  let ciclos = activeConcert.cycles;
+  if (!ciclos || !ciclos.length) return;
+
+  let studyDays = activeConcert.studyDays || [...new Set(ciclos.map(c => c.d))];
+  if (studyDays.length === 0) return;
+
+  let pendentes = ciclos.filter(c => !c.done);
+  if (pendentes.length === 0) return;
+
+  let minsLimit = (activeConcert.goalHours || 4) * 60;
   let currentIdx = saoPauloDayIndex() === 0 ? 6 : saoPauloDayIndex() - 1;
   
-  // Reordena os dias para a tela sempre começar pelo dia de HOJE
-  let orderedDays = [];
-  for(let i = 0; i < 7; i++){
-    orderedDays.push(DAYS[(currentIdx + i) % 7]);
-  }
+  let pendingIndex = 0;
+  let dayOffset = 0;
   
-  // Calcula as datas certinhas pra frente (Hoje, amanhã, depois...)
+  while (pendingIndex < pendentes.length && dayOffset < 30) {
+    let loopDayStr = DAYS[(currentIdx + dayOffset) % 7];
+    
+    if (studyDays.includes(loopDayStr)) {
+      let timeAlreadyDoneToday = ciclos
+            .filter(c => c.done && c.d === loopDayStr)
+            .reduce((acc, curr) => acc + (curr.m || 60), 0);
+            
+      let usedMins = timeAlreadyDoneToday;
+      
+      while (pendingIndex < pendentes.length && usedMins < minsLimit) {
+        let task = pendentes[pendingIndex];
+        let m = task.m || 60;
+        
+        if (usedMins + m <= minsLimit || usedMins === timeAlreadyDoneToday) {
+          task.d = loopDayStr;
+          usedMins += m;
+          pendingIndex++;
+        } else {
+          break; 
+        }
+      }
+    }
+    dayOffset++;
+  }
+  save();
+}
+
+function renderAgenda(){
+  autoReprogramar(); // Executa a reprogramação antes de desenhar a tela
+  
+  let now = saoPauloNow();
+  let base = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let currentIdx = saoPauloDayIndex() === 0 ? 6 : saoPauloDayIndex() - 1;
+  
+  let orderedDays = [];
+  for(let i = 0; i < 7; i++){ orderedDays.push(DAYS[(currentIdx + i) % 7]); }
+  
   let dates = orderedDays.map((_, i) => {
     let d = new Date(base);
     d.setDate(base.getDate() + i);
     return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
   });
   
-  // Desenha os bloquinhos na tela
   document.getElementById('agenda').innerHTML = orderedDays.map((d, i) => `
     <div class="day">
       <div class="dayhead">${d}<span>${dates[i]}${i === 0 ? ' • HOJE' : ''}</span></div>
@@ -1088,7 +1158,7 @@ function renderAgenda(){
       `).join('') || '<div class="muted" style="text-align:center;padding:20px;">—</div>'}
     </div>
   `).join('');
-}function saveReminder(){const text=document.getElementById('reminderText').value.slice(0, 50);const date=document.getElementById('reminderDate').value;state.reminder={text, date};save();const status=document.getElementById('reminderStatus');status.textContent='Salvo!';setTimeout(()=>{status.textContent='Salvo';},1000);renderDashboard();}
+}}function saveReminder(){const text=document.getElementById('reminderText').value.slice(0, 50);const date=document.getElementById('reminderDate').value;state.reminder={text, date};save();const status=document.getElementById('reminderStatus');status.textContent='Salvo!';setTimeout(()=>{status.textContent='Salvo';},1000);renderDashboard();}
 function clearReminder(){state.reminder={text:'', date:''};save();document.getElementById('reminderText').value='';document.getElementById('reminderDate').value='';renderDashboard();renderLembretesPage();alert('Limpo!');}
 function renderLembretesPage(){const box=document.getElementById('activeReminderBox');if(!state.reminder||!state.reminder.text){box.innerHTML='<p class="muted">Nenhum lembrete.</p>';document.getElementById('pageReminderText').value='';document.getElementById('pageReminderDate').value='';}else{box.innerHTML=`<b>Data:</b> ${state.reminder.date}<br><b style="font-size:16px">${esc(state.reminder.text)}</b>`;document.getElementById('pageReminderText').value=state.reminder.text;document.getElementById('pageReminderDate').value=state.reminder.date;}}
 function savePageReminder(){const text=document.getElementById('pageReminderText').value.slice(0, 50);const date=document.getElementById('pageReminderDate').value;if(!text||!date)return alert('Preencha mensagem e data.');state.reminder={text, date};save();renderLembretesPage();renderDashboard();alert('Salvo!');}
