@@ -1158,7 +1158,8 @@ function renderAgenda(){
       `).join('') || '<div class="muted" style="text-align:center;padding:20px;">—</div>'}
     </div>
   `).join('');
-}}function saveReminder(){const text=document.getElementById('reminderText').value.slice(0, 50);const date=document.getElementById('reminderDate').value;state.reminder={text, date};save();const status=document.getElementById('reminderStatus');status.textContent='Salvo!';setTimeout(()=>{status.textContent='Salvo';},1000);renderDashboard();}
+}
+function saveReminder(){const text=document.getElementById('reminderText').value.slice(0, 50);const date=document.getElementById('reminderDate').value;state.reminder={text, date};save();const status=document.getElementById('reminderStatus');status.textContent='Salvo!';setTimeout(()=>{status.textContent='Salvo';},1000);renderDashboard();}
 function clearReminder(){state.reminder={text:'', date:''};save();document.getElementById('reminderText').value='';document.getElementById('reminderDate').value='';renderDashboard();renderLembretesPage();alert('Limpo!');}
 function renderLembretesPage(){const box=document.getElementById('activeReminderBox');if(!state.reminder||!state.reminder.text){box.innerHTML='<p class="muted">Nenhum lembrete.</p>';document.getElementById('pageReminderText').value='';document.getElementById('pageReminderDate').value='';}else{box.innerHTML=`<b>Data:</b> ${state.reminder.date}<br><b style="font-size:16px">${esc(state.reminder.text)}</b>`;document.getElementById('pageReminderText').value=state.reminder.text;document.getElementById('pageReminderDate').value=state.reminder.date;}}
 function savePageReminder(){const text=document.getElementById('pageReminderText').value.slice(0, 50);const date=document.getElementById('pageReminderDate').value;if(!text||!date)return alert('Preencha mensagem e data.');state.reminder={text, date};save();renderLembretesPage();renderDashboard();alert('Salvo!');}
