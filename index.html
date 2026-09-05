@@ -1019,7 +1019,6 @@ function openCycleGenerator(){
   
   document.getElementById('modalTitle').textContent='✨ Gerar Ciclo por IA';
   
-  // Caixinhas para selecionar os dias (Seg a Sex já vêm marcados)
   let daysHtml = `
     <div class="field" style="grid-column: 1 / -1;">
       <label>Dias de estudo (Ciclo Dinâmico)</label>
@@ -1050,7 +1049,7 @@ function generateCycle(){
   if(studyDays.length === 0) return alert('Selecione pelo menos um dia.');
 
   let activeConcert = currentContest();
-  activeConcert.studyDays = studyDays; // Salva os dias que você escolheu!
+  activeConcert.studyDays = studyDays; 
   
   const mins = Math.max(30, +document.getElementById('gMinutes').value || ((activeConcert.goalHours||4)*60));
   const arr = subjects().filter(s => Array.isArray(s.topics) && s.topics.length);
@@ -1076,8 +1075,10 @@ function generateCycle(){
   currentContest().cycles = result;
   save(); closeModal(); renderAgenda(); renderDashboard(); alert('Ciclo dinâmico gerado!');
 }
-}function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}
+
+function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}}
 function toggleCycle(i){cycles()[i].done=!cycles()[i].done;save();renderAgenda();renderDashboard()}
+
 function autoReprogramar() {
   let activeConcert = currentContest();
   let ciclos = activeConcert.cycles;
@@ -1124,7 +1125,7 @@ function autoReprogramar() {
 }
 
 function renderAgenda(){
-  autoReprogramar(); // Executa a reprogramação antes de desenhar a tela
+  autoReprogramar();
   
   let now = saoPauloNow();
   let base = new Date(now.getFullYear(), now.getMonth(), now.getDate());
