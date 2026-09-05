@@ -1076,7 +1076,7 @@ function generateCycle(){
   currentContest().cycles = result;
   save(); closeModal(); renderAgenda(); renderDashboard(); alert('Ciclo dinâmico gerado!');
 }
-}function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}}
+}function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}
 function toggleCycle(i){cycles()[i].done=!cycles()[i].done;save();renderAgenda();renderDashboard()}
 function autoReprogramar() {
   let activeConcert = currentContest();
