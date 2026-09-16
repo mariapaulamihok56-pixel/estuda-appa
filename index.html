@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>ESTUDA. • Cronograma de Estudos</title>
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2309090b'/><rect x='6' y='6' width='88' height='88' rx='16' fill='none' stroke='%239f1239' stroke-width='6'/><text x='50' y='65' font-family='Inter, sans-serif' font-weight='900' font-size='42' fill='%23ffffff' text-anchor='middle'>EK</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2309090b'/><rect x='6' y='6' width='88' height='88' rx='16' fill='none' stroke='%23ffffff' stroke-width='6'/><text x='50' y='65' font-family='Inter, sans-serif' font-weight='900' font-size='42' fill='%23ffffff' text-anchor='middle'>EK</text></svg>">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -15,7 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
 <style>
-:root{
+:root {
   --bg: #09090b;          
   --panel: #111116;       
   --card: #15151c;        
@@ -24,31 +24,31 @@
   --txt: #f8fafc;         
   --muted: #94a3b8;       
   
-  --brand-grad: linear-gradient(90deg, #881337, #4c0519);
-  --blue: #e11d48;        
-  --p2: #fb7185;          
-  --pink: #9f1239;        
-  --green: #10b981;       
-  --red: #f43f5e;         
+  --brand-grad: linear-gradient(90deg, #2a2a2a, #111111);
+  --blue: #ffffff; /* Destaques em branco */
+  --p2: #cccccc;
+  --pink: #ffffff;
+  --green: #8b5a2b; /* Marrom escuro - Vai Corinthians! */
+  --red: #555555; /* Cinza escuro */
   
   --shadow: 0 15px 45px rgba(0,0,0,0.5);
 }
 
-[data-theme=light]{
-  --bg:#f8fafc;
-  --panel:#ffffff;
-  --card:#ffffff;
-  --card2:#f1f5f9;
-  --line:#e2e8f0;
-  --txt:#0f172a;
-  --muted:#64748b;
-  --brand-grad: linear-gradient(90deg, #881337, #9f1239);
-  --blue:#be123c;
-  --p2:#9f1239;
-  --pink:#881337;
-  --green:#059669;
-  --red:#e11d48;
-  --shadow:0 12px 35px rgba(15,23,42,0.08);
+[data-theme=light] {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --card: #ffffff;
+  --card2: #f1f5f9;
+  --line: #e2e8f0;
+  --txt: #0f172a;
+  --muted: #64748b;
+  --brand-grad: linear-gradient(90deg, #e5e5e5, #cccccc);
+  --blue: #111111;
+  --p2: #333333;
+  --pink: #000000;
+  --green: #8b5a2b;
+  --red: #888888;
+  --shadow: 0 12px 35px rgba(15,23,42,0.08);
 }
 
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -118,15 +118,39 @@ select option {
 .login-box .field {text-align:left;margin-bottom:18px;}
 .login-box .field label {display:block;color:var(--muted);font-size:13px;margin-bottom:8px; font-weight:500;}
 .login-box .field input {width:100%;background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:14px;font-size:15px;transition:0.2s; outline:none;}
-.login-box .field input:focus {border-color:var(--blue); box-shadow:0 0 0 3px rgba(136, 19, 55, 0.2);}
+.login-box .field input:focus {border-color:var(--blue); box-shadow:0 0 0 3px rgba(255, 255, 255, 0.1);}
 .auth-switch {margin-top:24px;font-size:14px;color:var(--muted);}
 .auth-switch span {color:var(--p2);cursor:pointer;font-weight:700;}
 .auth-switch span:hover {text-decoration:underline;}
 .forgot-pass {display:block;text-align:right;font-size:12px;color:var(--muted);margin-top:-10px;margin-bottom:20px;cursor:pointer;}
 .forgot-pass:hover {color:var(--p2);}
 
-aside{position:fixed;inset:0 auto 0 0;width:260px;background:var(--panel);border-right:1px solid var(--line);padding:25px 18px;z-index:10;transition:.2s}
-.brand{font-weight:950;font-size:30px;letter-spacing:-.05em;padding:4px 10px}
+/* MENU LATERAL RETRÁTIL */
+aside {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 80px;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  padding: 25px 18px;
+  z-index: 10;
+  transition: width 0.2s ease;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+aside:hover {
+  width: 260px;
+}
+aside .brand span, aside nav button span, aside .sidebottom {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+aside:hover .brand span, aside:hover nav button span, aside:hover .sidebottom {
+  opacity: 1;
+  pointer-events: auto;
+}
+.brand{font-weight:950;font-size:30px;letter-spacing:-.05em;padding:4px 10px; color:var(--txt);}
 .brand span{color:var(--pink);}
 
 nav button{display:flex;align-items:center;width:100%;border:1px solid transparent;background:transparent;color:var(--muted);padding:12px 16px;border-radius:12px;text-align:left;cursor:pointer;margin:4px 0;font-size:14px; font-weight:500; transition:.2s}
@@ -138,10 +162,10 @@ nav b{display:inline-block;width:32px;color:var(--blue);font-size:17px}
 .theme{display:flex;gap:8px}
 .theme button{flex:1;background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:10px;border-radius:10px;cursor:pointer;transition:0.2s}
 .theme button:hover{background:var(--line)}
-.logout-btn{background:#f43f5e15;border:1px solid #f43f5e33;color:var(--red);padding:11px;border-radius:10px;cursor:pointer;width:100%;font-weight:600;font-size:13px;transition:.2s}
-.logout-btn:hover{background:#f43f5e25;border-color:#f43f5e55;}
+.logout-btn{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:11px;border-radius:10px;cursor:pointer;width:100%;font-weight:600;font-size:13px;transition:.2s}
+.logout-btn:hover{background:var(--line);}
 
-main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
+main{margin-left:80px;padding:35px 40px 50px;max-width:1720px;transition:margin-left 0.2s ease;}
 .top{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:28px}
 .eyebrow{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:700;}
 .h1{font-size:36px;line-height:1.15;font-weight:850;letter-spacing:-.04em;margin:6px 0}
@@ -152,12 +176,11 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 }
 .command-clock { font-weight: 800; font-size: 15px; font-family: monospace; color: var(--txt); }
 
-.btn{border:0;border-radius:12px;padding:12px 20px;background:var(--brand-grad);color:white;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 8px 25px rgba(136,19,55,0.25);transition:.2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(136,19,55,0.35);filter:brightness(1.05)}
-.btn.secondary{background:var(--card2);border:1px solid var(--line);color:var(--txt);box-shadow:none}
-.btn.secondary:hover{background:var(--line);}
-.btn.danger{background:#f43f5e15;color:var(--red);border:1px solid #f43f5e44;box-shadow:none}
-.btn.danger:hover{background:#f43f5e25;}
+.btn{border:0;border-radius:12px;padding:12px 20px;background:var(--card2);border:1px solid var(--line);color:var(--txt);font-weight:700;font-size:14px;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--line);}
+.btn.secondary{background:transparent;border:1px solid var(--line);color:var(--txt);}
+.btn.danger{background:transparent;color:var(--muted);border:1px solid var(--line);}
+.btn.danger:hover{background:var(--line); color:var(--txt);}
 .btn.small{padding:8px 12px;font-size:13px;border-radius:9px;}
 
 .page{display:none}.page.active{display:block; animation: fadeIn 0.3s ease-out;}
@@ -167,10 +190,10 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
 
 .hero{background:linear-gradient(135deg, #181116 0%, #15151c 60%); border-color:var(--line);min-height:220px; position:relative; overflow:hidden;}
-.hero::before {content:""; position:absolute; top:-50px; right:-50px; width:200px; height:200px; background:var(--blue); filter:blur(100px); opacity:0.12; border-radius:50%;}
+.hero::before {content:""; position:absolute; top:-50px; right:-50px; width:200px; height:200px; background:var(--blue); filter:blur(100px); opacity:0.05; border-radius:50%;}
 
 .bar{height:10px;background:var(--card2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:var(--brand-grad);border-radius:10px; transition:width 0.5s ease-out;}
+.bar i{display:block;height:100%;width:0;background:var(--txt);border-radius:10px; transition:width 0.5s ease-out;}
 
 .muted{color:var(--muted)}
 .section{margin-top:20px}
@@ -182,7 +205,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .subjectrow{display:grid;grid-template-columns:28px 1fr 60px 70px;align-items:center;gap:12px;padding:14px;background:var(--card2);border:1px solid var(--line);border-radius:14px;margin:8px 0}
 .tabs{display:flex;gap:10px;flex-wrap:wrap}
 .tab{padding:10px 16px;border:1px solid var(--line);background:var(--card2);border-radius:12px;color:var(--muted);cursor:pointer;font-weight:600;font-size:13px;transition:0.2s}
-.tab.active{color:white;background:var(--brand-grad);border-color:transparent;box-shadow:0 6px 15px rgba(136,19,55,0.2);}
+.tab.active{color:var(--bg);background:var(--txt);border-color:transparent;}
 .tab:hover:not(.active){background:var(--line);color:var(--txt)}
 
 .toolbar{display:flex;gap:10px;flex-wrap:wrap}
@@ -196,8 +219,8 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .headrow>div{background:var(--panel);color:var(--muted);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;}
 .discipline{grid-column:1/-1!important;display:flex!important;justify-content:space-between!important;align-items:center!important;background:var(--card)!important;font-weight:800;padding:14px 20px!important;border-bottom:2px solid var(--line)!important;cursor:pointer;}
 .check{appearance:none;width:22px;height:22px;border:2px solid var(--line);border-radius:6px;background:var(--card);cursor:pointer;transition:0.2s}
-.check:checked{background:var(--blue);border-color:var(--blue);}
-.check:checked:after{content:"✓";display:block;text-align:center;color:white;line-height:19px;font-weight:bold;}
+.check:checked{background:var(--txt);border-color:var(--txt);}
+.check:checked:after{content:"✓";display:block;text-align:center;color:var(--bg);line-height:19px;font-weight:bold;}
 .done .topic{opacity:.5;text-decoration:line-through}
 
 .agenda{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
@@ -209,60 +232,12 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .iconbtn{border:0;background:var(--card2);color:var(--muted);cursor:pointer;padding:8px;border-radius:8px;transition:0.2s;}
 .iconbtn:hover{color:var(--txt);background:var(--line);}
 
-.dashStats{
-  margin:0 0 20px;
-  grid-template-columns:repeat(4,1fr);
-  display:grid;
-  gap:12px;
-}
-
-.dashStats .stat:nth-child(1){
-  background:linear-gradient(135deg,#301016 0%,#15151c 100%);
-  border-color:#5a1422;
-}
-
-.dashStats .stat:nth-child(2){
-  background:linear-gradient(135deg,#102430 0%,#15151c 100%);
-  border-color:#143d5a;
-}
-
-.dashStats .stat:nth-child(3){
-  background:linear-gradient(135deg,#301810 0%,#15151c 100%);
-  border-color:#5a2c14;
-}
-
-.dashStats .stat:nth-child(4){
-  background:var(--card2);
-}
-
-.stat{
-  background:var(--card);
-  border:1px solid var(--line);
-  padding:14px 18px;
-  border-radius:14px;
-  min-height:82px;
-}
-
-.stat strong{
-  display:block;
-  font-size:28px;
-  margin-top:4px;
-  letter-spacing:-.04em;
-  font-weight:850;
-}
-  .dashboardGrid{
+.dashboardGrid{
   display:grid;
   grid-template-columns:1.35fr .65fr;
   gap:20px;
 }
 
-.dashLeft .hero{
-  min-height:310px;
-}
-
-#todayMatériasContainer{
-  max-height:330px !important;
-}
 .chartbox{height:320px;margin-top:16px}.chart{width:100%;height:100%}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .field{margin:12px 0}
@@ -281,22 +256,6 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .badge{display:inline-block;padding:4px 10px;border-radius:99px;background:var(--card2);color:var(--p2);font-size:11px;font-weight:700;}
 .insight{padding:16px 20px;border:1px solid var(--line);border-radius:16px;margin:10px 0;background:var(--card2)}
 
-.dashboardGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
-.dashLeft,.dashRight{min-width:0}
-
-.dashList .lesson{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:14px;padding:16px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
-.dashList .lesson b{font-size:14px;letter-spacing:.02em;}
-.dashAction{background:transparent!important;border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:600;transition:.2s;color:var(--txt)}
-.dashAction:hover{background:var(--card2)!important}
-.dashAction.start{border-color:var(--blue);color:var(--blue)}
-.dashAction.start:hover{background:var(--blue)!important; color:white;}
-.dashAction.details{border-color:var(--line);color:var(--muted)}
-
-.timeDistribution{min-height:150px;display:flex;align-items:center;gap:25px;border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--card2)}
-.fakeDonut{width:100px;height:100px;border-radius:50%;background:conic-gradient(var(--blue) 0 0%,var(--line) 0);position:relative;display:grid;place-items:center;flex:none}
-.fakeDonut:after{content:"";position:absolute;inset:14px;background:var(--card2);border-radius:50%}
-.fakeDonut span{z-index:1;font-weight:850;font-size:18px;}
-
 @media(max-width:1000px){
   aside{position:fixed;bottom:0;top:auto;left:0;right:0;width:100%;height:70px;display:flex;flex-direction:row;align-items:center;justify-content:space-around;padding:0 10px;border-right:0;border-top:1px solid var(--line);background:var(--panel);z-index:999}
   .brand,.subtitle,.sidebottom{display:none}
@@ -313,25 +272,8 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   .h1{font-size:28px}
   .formgrid{grid-template-columns:1fr}
 }
-  /* --- AJUSTES DO DASHBOARD (ESTILO CAVEIRA) --- */
 
-/* 1. Diminuindo os quadros de estatísticas superiores */
-.dashStats .stat {
-  min-height: auto !important;
-  padding: 12px 14px !important;
-}
-.dashStats .stat strong {
-  font-size: 20px !important;
-  margin-top: 2px !important;
-}
-.dashStats .stat .kpi {
-  font-size: 11px !important;
-}
-.dashStats .stat .muted {
-  font-size: 10px !important;
-}
-
-/* 2. Layout do Quadro Maior (Estudos esq / Revisões dir) */
+/* --- AJUSTES DO DASHBOARD (ESTILO CAVEIRA) --- */
 .caveira-layout {
   display: grid;
   grid-template-columns: 1fr;
@@ -344,15 +286,15 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 .caveira-card {
   background-color: #121212;
   border: 1px solid var(--line);
-  border-top: 4px solid #881337; /* Detalhe em vinho/burgundy */
+  border-top: 4px solid #333333; /* Detalhe cinza escuro */
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  min-height: 500px;
+  min-height: 65vh;
   overflow: hidden;
 }
 .dashRight .caveira-card {
-  border-top: 4px solid #4a3b32; /* Detalhe marrom para revisões */
+  border-top: 4px solid var(--green); /* Detalhe marrom para revisões */
 }
 
 .caveira-header {
@@ -381,9 +323,9 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   align-items: center;
   transition: 0.2s;
 }
-.sessao-item:hover { border-color: #881337; }
+.sessao-item:hover { border-color: var(--txt); }
 .sessao-info { display: flex; flex-direction: column; gap: 4px; }
-.sessao-info .sessao-num { font-size: 11px; font-weight: 800; color: #881337; letter-spacing: 0.05em; text-transform: uppercase; }
+.sessao-info .sessao-num { font-size: 11px; font-weight: 800; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
 .sessao-info b { font-size: 14px; text-transform: uppercase; color: var(--txt); }
 .sessao-info span { font-size: 12px; color: var(--muted); }
 
@@ -401,7 +343,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   align-items: center;
   gap: 6px;
 }
-.btn-iniciar:hover { background: #881337; border-color: #881337; color: #fff; }
+.btn-iniciar:hover { background: var(--txt); color: var(--bg); }
 </style>
 </head>
 <body>
@@ -411,7 +353,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
     <div style="display:flex; justify-content:center; margin-bottom:15px;">
       <svg width="65" height="65" viewBox="0 0 100 100">
         <rect width="100" height="100" rx="22" fill="#09090b"/>
-        <rect x="6" y="6" width="88" height="88" rx="16" fill="none" stroke="#9f1239" stroke-width="6"/>
+        <rect x="6" y="6" width="88" height="88" rx="16" fill="none" stroke="#ffffff" stroke-width="6"/>
         <text x="50" y="65" font-family="Inter, sans-serif" font-weight="900" font-size="42" fill="#ffffff" text-anchor="middle">EK</text>
       </svg>
     </div>
@@ -434,7 +376,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
     <span class="forgot-pass" id="forgotPassLink" onclick="alert('Funcionalidade de redefinição será ativada com o banco de dados final.')">Esqueceu sua senha?</span>
     
-    <button class="btn" id="authBtn" style="width:100%; margin-top:10px; font-size:16px; padding:14px;" onclick="realizarAcessoSupabase()">Entrar</button>
+    <button class="btn" id="authBtn" style="width:100%; margin-top:10px; font-size:16px; padding:14px; background:var(--txt); color:var(--bg);" onclick="realizarAcessoSupabase()">Entrar</button>
     
     <div class="auth-switch" id="authSwitchText">
       Não tem uma conta? <span onclick="alternarModoAuth()">Inscreva-se</span>
@@ -444,9 +386,9 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
 <aside>
   <div style="display:flex; align-items:center; gap:12px; padding:4px 10px; margin-bottom:15px;">
-    <svg width="36" height="36" viewBox="0 0 100 100">
+    <svg width="36" height="36" viewBox="0 0 100 100" style="flex-shrink:0;">
       <rect width="100" height="100" rx="22" fill="#15151c"/>
-      <rect x="6" y="6" width="88" height="88" rx="16" fill="none" stroke="#9f1239" stroke-width="6"/>
+      <rect x="6" y="6" width="88" height="88" rx="16" fill="none" stroke="#ffffff" stroke-width="6"/>
       <text x="50" y="65" font-family="Inter, sans-serif" font-weight="900" font-size="42" fill="#ffffff" text-anchor="middle">EK</text>
     </svg>
     <div class="brand" style="padding:0">ESTUDA<span>.</span></div>
@@ -480,8 +422,18 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
     <div class="custom-dropdown-menu" id="contestMenu"></div>
   </div>
 
-  <div style="display:flex; align-items:center; gap:15px;">
-    <div class="command-center">
+  <div style="display:flex; align-items:center; gap:12px;">
+    <!-- Caixinha 1: Edital -->
+    <div id="headerEditalPct" style="background:var(--card); border:1px solid var(--line); padding:8px 16px; border-radius:14px; font-size:15px; font-weight:750; color:var(--txt); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      0% do edital estudado
+    </div>
+    
+    <!-- Caixinha 2: Sequência -->
+    <div id="headerStreak" style="background:var(--card); border:1px solid var(--line); padding:8px 16px; border-radius:14px; font-size:15px; font-weight:750; color:var(--txt); box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      Sequência: 0d
+    </div>
+    
+    <div class="command-center" style="margin-left: 8px;">
       <span class="command-clock" id="globalClock">00:00:00</span>
       <button class="iconbtn small" id="globalPlayBtn" onclick="toggleGlobalTimer()">▶</button>
       <button class="iconbtn small" onclick="resetGlobalTimer()">↺</button>
@@ -502,14 +454,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
   <div id="reminderAlertContainer"></div>
 
-  <div class="statgrid dashStats">
-    <div class="stat"><span class="kpi">Questões hoje</span><strong id="dashQ">0</strong><span class="muted">questões registradas</span></div>
-    <div class="stat"><span class="kpi">Aproveitamento</span><strong id="dashA">0%</strong><span class="muted">acertos hoje</span></div>
-    <div class="stat"><span class="kpi">Conteúdo estudado</span><strong id="dashTopics">0%</strong><span class="muted">do edital concluído</span></div>
-    <div class="stat"><span class="kpi">Sequência</span><strong id="dashStreak">0d</strong><span class="muted">dias seguidos</span></div>
-  </div>
-
-<div class="caveira-layout">
+  <div class="caveira-layout">
     <div class="dashLeft">
       <div class="caveira-card">
         <div class="caveira-header">
@@ -534,12 +479,12 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   </div>
 </section>
 
-<!-- ABA: ESTUDA AI (VIA PROXY SEGURO DA VERCEL) -->
+<!-- ABA: ESTUDA AI -->
 <section id="estudaai" class="page">
   <div class="top"><div><div class="eyebrow">ASSISTENTE INTELIGENTE</div><div class="h1">Estuda AI Operacional</div><div class="muted">Gere resumos e estratégias com IA sem precisar de chave no navegador.</div></div></div>
   <div class="card" style="display:flex; flex-direction:column; gap:20px; min-height:calc(100vh - 200px);">
     <div style="background:var(--panel); border:1px solid var(--line); padding:16px; border-radius:14px; display:flex; align-items:center; gap:12px;">
-      <div style="background:var(--brand-grad); width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-weight:bold; color:white;">AI</div>
+      <div style="background:var(--txt); width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-weight:bold; color:var(--bg);">AI</div>
       <div>
         <b>Estuda AI Conectada (Segura)</b>
         <p class="muted" style="margin:2px 0 0; font-size:13px;">Pronta para gerar resumos direcionados ao seu edital atual.</p>
@@ -554,7 +499,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 
     <div style="display:flex; gap:10px; margin-top:auto;">
       <input type="text" id="aiChatInput" placeholder="Ex: Crie um resumo sobre Inquérito Policial para o meu edital..." style="flex:1; background:var(--panel); border:1px solid var(--line); color:var(--txt); border-radius:12px; padding:16px; font-size:15px; outline:none;" onkeydown="if(event.key==='Enter')enviarMensagemEstudaAI()">
-      <button class="btn" onclick="enviarMensagemEstudaAI()">Enviar ➔</button>
+      <button class="btn" style="background:var(--txt); color:var(--bg);" onclick="enviarMensagemEstudaAI()">Enviar ➔</button>
     </div>
   </div>
 </section>
@@ -589,7 +534,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 <section id="disciplinas" class="page">
   <div class="top"><div><div class="eyebrow">EDITAL VERTICALIZADO</div><div class="h1">Disciplinas e assuntos</div></div>
   <div class="toolbar">
-    <button class="btn" onclick="openSubject()">+ Adicionar matéria</button>
+    <button class="btn" style="background:var(--txt); color:var(--bg);" onclick="openSubject()">+ Adicionar matéria</button>
     <button class="btn secondary" onclick="openImport()">📄 Importar edital</button>
     <button class="btn secondary" onclick="openPersonalizeEditalModal()">⚙ Personalizar Edital</button>
     <button class="btn danger" onclick="resetChecks()">↺ Zerar</button>
@@ -599,7 +544,11 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
 </section>
 
 <section id="ciclo" class="page">
-  <div class="top"><div><div class="eyebrow">PLANEJAMENTO SEMANAL</div><div class="h1">Agenda de estudos</div></div><div class="toolbar"><button class="btn secondary" onclick="openCycleGenerator()">✨ Gerar ciclo</button><button class="btn" onclick="openCycle()">+ Bloco</button></div></div>
+  <div class="top"><div><div class="eyebrow">PLANEJAMENTO SEMANAL</div><div class="h1">Agenda de estudos</div></div><div class="toolbar">
+    <button class="btn secondary" onclick="openCycleGenerator()">✨ Gerar ciclo</button>
+    <button class="btn" style="background:var(--txt); color:var(--bg);" onclick="openCycle()">+ Bloco</button>
+    <button class="btn danger" onclick="clearCycle()">🗑 Excluir ciclo</button>
+  </div></div>
   <div class="card"><div class="agenda" id="agenda"></div></div>
 </section>
 
@@ -615,7 +564,7 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
       <div class="field"><label for="qWrong">Erros</label><input id="qWrong" type="number" min="0" value="0"></div>
       <div class="field"><label for="qLink">Link do site de questões (opcional)</label><input id="qLink" placeholder="https://..."></div>
     </div>
-    <div class="actions"><button class="btn secondary" onclick="openQuestionSite()">Abrir site</button><button class="btn" onclick="saveQuestions()">Salvar</button></div>
+    <div class="actions"><button class="btn secondary" onclick="openQuestionSite()">Abrir site</button><button class="btn" style="background:var(--txt); color:var(--bg);" onclick="saveQuestions()">Salvar</button></div>
   </div>
   <div class="card section"><div class="head"><h3>Histórico</h3><button class="btn small secondary" onclick="clearQuestionData()">Limpar</button></div><div id="qHistory"></div></div>
 </section>
@@ -624,12 +573,17 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
   <div class="top"><div><div class="eyebrow">ANÁLISE</div><div class="h1">Desempenho</div></div>
   <div class="tabs"><button class="tab active" onclick="setRange('today',this)">Hoje</button><button class="tab" onclick="setRange('15',this)">15 dias</button><button class="tab" onclick="setRange('month',this)">Mensal</button><button class="tab" onclick="setRange('custom',this)">Personalizado</button></div></div>
   <div class="card" id="customRange" style="display:none"><div class="formgrid"><div class="field"><label for="fromDate">De</label><input id="fromDate" type="date"></div><div class="field"><label for="toDate">Até</label><input id="toDate" type="date"></div></div><button class="btn small" onclick="drawPerformance()">Aplicar</button></div>
-  <div class="card"><div class="statgrid"><div class="stat"><span class="kpi">Questões</span><strong id="pTotal">0</strong></div><div class="stat"><span class="kpi">Acertos</span><strong id="pCorrect">0%</strong></div><div class="stat"><span class="kpi">Erros</span><strong id="pWrong">0%</strong></div><div class="stat"><span class="kpi">Horas</span><strong id="pHours">0h</strong></div></div><div class="chartbox"><canvas id="chart" class="chart"></canvas></div></div>
+  <div class="card"><div class="statgrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px;">
+    <div class="stat"><span class="kpi">Questões</span><strong id="pTotal">0</strong></div>
+    <div class="stat"><span class="kpi">Acertos</span><strong id="pCorrect">0%</strong></div>
+    <div class="stat"><span class="kpi">Erros</span><strong id="pWrong">0%</strong></div>
+    <div class="stat"><span class="kpi">Horas</span><strong id="pHours">0h</strong></div>
+  </div><div class="chartbox"><canvas id="chart" class="chart"></canvas></div></div>
 </section>
 
 </main>
 
-<div class="modalbg" id="modal" onclick="if(event.target===this)closeModal()"><div class="modal"><h3 id="modalTitle">Adicionar</h3><div id="modalBody"></div><div class="actions"><button class="btn secondary" onclick="closeModal()">Cancelar</button><button class="btn" id="modalSave" onclick="saveModal()">Salvar</button></div></div></div>
+<div class="modalbg" id="modal" onclick="if(event.target===this)closeModal()"><div class="modal"><h3 id="modalTitle">Adicionar</h3><div id="modalBody"></div><div class="actions"><button class="btn secondary" onclick="closeModal()">Cancelar</button><button class="btn" id="modalSave" style="background:var(--txt); color:var(--bg);" onclick="saveModal()">Salvar</button></div></div></div>
 
 <script>
 const supabaseUrl = 'https://otvoarwzylbjuzomudkv.supabase.co';
@@ -658,7 +612,7 @@ async function enviarMensagemEstudaAI() {
   input.value = '';
   
   const loadingId = 'loading_' + Date.now();
-  box.innerHTML += `<div id="${loadingId}" class="insight" style="background:var(--card2); border-color:var(--blue);"><b>Estuda AI:</b> Pensando...</div>`;
+  box.innerHTML += `<div id="${loadingId}" class="insight" style="background:var(--card2); border-color:var(--txt);"><b>Estuda AI:</b> Pensando...</div>`;
   box.scrollTop = box.scrollHeight;
 
   try {
@@ -677,7 +631,7 @@ async function enviarMensagemEstudaAI() {
       throw new Error(data.error);
     }
 
-    box.innerHTML += `<div class="insight" style="background:var(--card2); border-color:var(--blue); line-height:1.6; white-space:pre-line;"><b>Estuda AI:</b>\n\n${esc(data.text)}</div>`;
+    box.innerHTML += `<div class="insight" style="background:var(--card2); border-color:var(--txt); line-height:1.6; white-space:pre-line;"><b>Estuda AI:</b>\n\n${esc(data.text)}</div>`;
   } catch (err) {
     document.getElementById(loadingId)?.remove();
     box.innerHTML += `<div class="insight" style="background:var(--panel); border-color:var(--red);"><b>Erro ao conectar com a IA:</b> ${esc(err.message)}</div>`;
@@ -1110,7 +1064,7 @@ function renderDashboardMatériasDoDia(){
         </div>
       </div>
       <div>
-        <button class="btn-iniciar" onclick="go('questoes', document.querySelectorAll('#nav button')[3]); populateQ(); document.getElementById('qSubject').value='${esc(x.c.s)}'; populateQTopics(); document.getElementById('qTopic').value='${esc(x.c.topic||'')}';">
+        <button class="btn-iniciar" onclick="if(typeof globalRunning !== 'undefined' && !globalRunning) { toggleGlobalTimer(); } this.innerHTML='⏱ EM ANDAMENTO'; this.style.borderColor='var(--green)'; this.style.color='var(--green)';">
           ⏱ INICIAR
         </button>
       </div>
@@ -1118,38 +1072,21 @@ function renderDashboardMatériasDoDia(){
   `).join('');
 }
 
-function renderSmartInsights(){
-  const el=document.getElementById('smartInsights');if(!el)return;
-  const qs=questions(),arr=subjects();
-  if(!arr.length){el.innerHTML='<p class="muted">Importe o edital.</p>';return}
-  let topics=[];
-  arr.forEach((s,si)=>s.topics.forEach((topic,ti)=>{
-    const q=qs.filter(x=>x.subject===s.name&&x.topic===topic);
-    const total=q.reduce((a,x)=>a+x.total,0),correct=q.reduce((a,x)=>a+x.correct,0);
-    topics.push({s:s.name,topic,si,ti,total,pct:total?Math.round(correct/total*100):null,checked:done(si,ti)});
-  }));
-  const weak=topics.filter(x=>x.total>=5&&x.pct<60).sort((a,b)=>a.pct-b.pct).slice(0,3);
-  const untouched=topics.filter(x=>!x.checked).slice(0,3);
-  let blocks=[];
-  if(weak.length)blocks.push('<div class="insight" style="border-color:var(--red);"><b>🔴 Revisão Urgente</b><div class="muted" style="margin-top:5px;">'+weak.map(x=>esc(x.s)+' ('+x.pct+'% acertos)').join('<br>')+'</div></div>');
-  if(untouched.length)blocks.push('<div class="insight" style="border-color:var(--blue);"><b>📚 Próximos na Fila</b><div class="muted" style="margin-top:5px;">'+untouched.map(x=>esc(x.s)+' → '+esc(x.topic)).join('<br>')+'</div></div>');
-  if(!blocks.length)blocks.push('<div class="insight"><b>🟢 Tudo sob controle!</b></div>');
-  el.innerHTML=blocks.join('');
-}
-
 function renderDashboard(){
   populateContest();
   const hora = saoPauloNow().getHours();
   let saudacao = "Bom dia"; if (hora >= 12 && hora < 18) saudacao = "Boa tarde"; else if (hora >= 18) saudacao = "Boa noite";
   document.getElementById('greetingTitle').innerHTML = `${saudacao}! Vamos estudar? 👋`;
-  const q=questions().filter(x=>x.date===todayKey()),tot=q.reduce((a,x)=>a+x.total,0),cor=q.reduce((a,x)=>a+x.correct,0);
+  
   let allTopics=subjects().reduce((a,s)=>a+s.topics.length,0);
   let doneTopics=subjects().reduce((a,s)=>a+s.topics.filter((_,t)=>done(subjects().indexOf(s),t)).length,0);
-  document.getElementById('dashQ').textContent=tot;
-  document.getElementById('dashA').textContent=(tot?Math.round(cor/tot*100):0)+'%';
-  document.getElementById('dashTopics').textContent=(allTopics?Math.round(doneTopics/allTopics*100):0)+'%';
-  document.getElementById('dashStreak').textContent=streak()+'d';
-  renderSmartInsights();
+  let pct = allTopics ? Math.round(doneTopics/allTopics*100) : 0;
+  
+  let headPct = document.getElementById('headerEditalPct');
+  let headStrk = document.getElementById('headerStreak');
+  if(headPct) headPct.textContent = pct + '% do edital estudado';
+  if(headStrk) headStrk.textContent = 'Sequência: ' + streak() + 'd';
+
   renderDashboardMatériasDoDia();
   updateNavProfile();
 }
@@ -1198,19 +1135,26 @@ function generateCycle(){
   
   const mins = Math.max(30, +document.getElementById('gMinutes').value || ((activeConcert.goalHours||4)*60));
   
-  // A MÁGICA ACONTECE AQUI:
-  // Só joga para o array as matérias e tópicos que NÃO foram concluídos
-  const arr = [];
-  subjects().forEach((s, subjectIndex) => {
-    if(Array.isArray(s.topics) && s.topics.length) {
-      const unstudiedTopics = s.topics.filter((_, topicIndex) => !done(subjectIndex, topicIndex));
-      if(unstudiedTopics.length > 0) {
-        arr.push({ name: s.name, topics: unstudiedTopics });
+  const pendingArr = [];
+  const allSubjects = subjects();
+
+  for(let i = 0; i < allSubjects.length; i++) {
+    let s = allSubjects[i];
+    if(!s.topics) continue;
+    
+    let pendingTopics = [];
+    for(let j = 0; j < s.topics.length; j++) {
+      if(!done(i, j, 'teoria')) {
+        pendingTopics.push(s.topics[j]);
       }
     }
-  });
+    
+    if(pendingTopics.length > 0) {
+      pendingArr.push({ name: s.name, topics: pendingTopics });
+    }
+  }
 
-  if(!arr.length) return alert('Parabéns! Todos os assuntos marcados no edital já foram concluídos. Você precisa zerar o progresso ou adicionar mais matérias para gerar um novo ciclo.');
+  if(!pendingArr.length) return alert('Todos os assuntos marcados no Edital já foram concluídos! Desmarque-os na aba "Disciplinas" se quiser revisá-los.');
 
   const slots = [];
   studyDays.forEach(d => {
@@ -1224,36 +1168,26 @@ function generateCycle(){
   
   let result = [];
   slots.forEach((slot, idx) => {
-    let s = arr[idx % arr.length];
-    let topic = s.topics[Math.floor(idx / arr.length) % s.topics.length];
+    let s = pendingArr[idx % pendingArr.length];
+    let topic = s.topics[Math.floor(idx / pendingArr.length) % s.topics.length];
     result.push({d: slot.d, s: s.name, topic, m: slot.m, done: false});
   });
   
-  currentContest().cycles = result;
+  activeConcert.cycles = result;
   save(); closeModal(); renderAgenda(); renderDashboard(); 
-  alert('Ciclo gerado apenas com os assuntos que faltam estudar!');
-}  });
-  
-  let result = [];
-  slots.forEach((slot, idx) => {
-    let s = arr[idx % arr.length];
-    let topic = s.topics[Math.floor(idx / arr.length) % s.topics.length];
-    result.push({d: slot.d, s: s.name, topic, m: slot.m, done: false});
-  });
-  
- currentContest().cycles = result;
-  save(); closeModal(); renderAgenda(); renderDashboard(); alert('Ciclo dinâmico gerado!');
+  alert('Ciclo gerado APENAS com os assuntos pendentes!');
 }
 
-function deleteCycle(i){
-  if(confirm('Excluir?')){
-    cycles().splice(i,1);
+function clearCycle() {
+  if(confirm('Tem certeza que deseja excluir todo o planejamento do ciclo atual? Suas matérias salvas NÃO serão perdidas.')) {
+    currentContest().cycles = [];
     save();
     renderAgenda();
+    renderDashboard();
   }
 }
 
-function deleteCycle(i){if(confirm('Excluir?')){cycles().splice(i,1);save();renderAgenda()}}
+function deleteCycle(i){if(confirm('Excluir bloco?')){cycles().splice(i,1);save();renderAgenda()}}
 function toggleCycle(i){cycles()[i].done=!cycles()[i].done;save();renderAgenda();renderDashboard()}
 
 function autoReprogramar() {
@@ -1350,7 +1284,7 @@ function delQ(i){questions().splice(i,1);save();renderQuestions();drawPerformanc
 function clearQuestionData(){if(confirm('Apagar histórico?')){currentContest().questions=[];save();renderQuestions();drawPerformance();renderDashboard()}}
 function setRange(r,b){range=r;document.querySelectorAll('#desempenho .tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('customRange').style.display=r==='custom'?'block':'none';drawPerformance()}
 function datesForRange(){let end=saoPauloNow(),start=saoPauloNow();if(range==='today')start=end;else if(range==='15')start.setDate(end.getDate()-14);else if(range==='month')start=new Date(end.getFullYear(),end.getMonth(),1);else start=new Date((document.getElementById('fromDate').value||todayKey())+'T00:00:00'),end=new Date((document.getElementById('toDate').value||todayKey())+'T00:00:00');let a=[];for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1))a.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`);return a}
-function drawPerformance(){let dates=datesForRange(),ctx=document.getElementById('chart').getContext('2d'),cv=document.getElementById('chart');let w=cv.clientWidth||700,h=cv.clientHeight||300,ratio=devicePixelRatio||1;cv.width=w*ratio;cv.height=h*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,h);let vals=dates.map(d=>{let q=questions().filter(x=>x.date===d),t=q.reduce((a,x)=>a+x.total,0),c=q.reduce((a,x)=>a+x.correct,0);return t?Math.round(c/t*100):0});ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--line');ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--muted');ctx.font='12px Inter';for(let i=0;i<5;i++){let y=20+i*(h-55)/4;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(w-15,y);ctx.stroke();ctx.fillText((100-i*25)+'%',5,y+4)}ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--blue');ctx.lineWidth=4;ctx.beginPath();vals.forEach((v,i)=>{let x=50+(i*(w-70)/Math.max(1,vals.length-1)),y=20+(100-v)*(h-55)/100;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();let qs=questions().filter(x=>dates.includes(x.date)),t=qs.reduce((a,x)=>a+x.total,0),c=qs.reduce((a,x)=>a+x.correct,0),wr=qs.reduce((a,x)=>a+x.wrong,0),mins=dates.reduce((a,d)=>a+(state.study[d]||0),0);document.getElementById('pTotal').textContent=t;document.getElementById('pCorrect').textContent=(t?Math.round(c/t*100):0)+'%';document.getElementById('pWrong').textContent=(t?Math.round(wr/t*100):0)+'%';document.getElementById('pHours').textContent=Math.floor(mins/60)+'h '+mins%60+'m'}
+function drawPerformance(){let dates=datesForRange(),ctx=document.getElementById('chart').getContext('2d'),cv=document.getElementById('chart');let w=cv.clientWidth||700,h=cv.clientHeight||300,ratio=devicePixelRatio||1;cv.width=w*ratio;cv.height=h*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,h);let vals=dates.map(d=>{let q=questions().filter(x=>x.date===d),t=q.reduce((a,x)=>a+x.total,0),c=q.reduce((a,x)=>a+x.correct,0);return t?Math.round(c/t*100):0});ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--line');ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--muted');ctx.font='12px Inter';for(let i=0;i<5;i++){let y=20+i*(h-55)/4;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(w-15,y);ctx.stroke();ctx.fillText((100-i*25)+'%',5,y+4)}ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--txt');ctx.lineWidth=4;ctx.beginPath();vals.forEach((v,i)=>{let x=50+(i*(w-70)/Math.max(1,vals.length-1)),y=20+(100-v)*(h-55)/100;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();let qs=questions().filter(x=>dates.includes(x.date)),t=qs.reduce((a,x)=>a+x.total,0),c=qs.reduce((a,x)=>a+x.correct,0),wr=qs.reduce((a,x)=>a+x.wrong,0),mins=dates.reduce((a,d)=>a+(state.study[d]||0),0);document.getElementById('pTotal').textContent=t;document.getElementById('pCorrect').textContent=(t?Math.round(c/t*100):0)+'%';document.getElementById('pWrong').textContent=(t?Math.round(wr/t*100):0)+'%';document.getElementById('pHours').textContent=Math.floor(mins/60)+'h '+mins%60+'m'}
 function streak(){let n=0,d=new Date();while(true){let k=d.toISOString().slice(0,10);if((state.study[k]||0)>0||questions().some(q=>q.date===k)){n++;d.setDate(d.getDate()-1)}else break}return n}
 
 function closeModal(){
