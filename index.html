@@ -509,33 +509,27 @@ main{margin-left:260px;padding:35px 40px 50px;max-width:1720px;transition:.2s}
     <div class="stat"><span class="kpi">Sequência</span><strong id="dashStreak">0d</strong><span class="muted">dias seguidos</span></div>
   </div>
 
-  <div class="dashboardGrid">
+<div class="caveira-layout">
     <div class="dashLeft">
-      <div class="card hero">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-          <div>
-            <div class="eyebrow" style="color:var(--p2); margin-bottom:4px;">ESTUDOS DO DIA</div>
-            <h2 style="font-size:22px; margin:0; font-weight:800;">Matérias programadas para hoje</h2>
-          </div>
-          <span class="badge" id="todayDayBadge">HOJE</span>
+      <div class="caveira-card">
+        <div class="caveira-header">
+          <h3>Estudos</h3>
+          <span class="muted" id="studySubtitle">Itens programados para hoje</span>
         </div>
-        <div id="todayMatériasContainer" style="display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; padding-right:5px;"></div>
+        <div id="todayMatériasContainer" class="caveira-body"></div>
       </div>
-      <div class="card section"><div class="head"><h3>Próximo estudo</h3><span class="eyebrow">hoje</span></div><div id="today" class="dashList"></div><button class="btn" style="width:100%;margin-top:16px; background:var(--card2); border:1px solid var(--line);" onclick="go('ciclo',document.querySelectorAll('#nav button')[2])">▶ Abrir ciclo completo</button></div>
     </div>
     
     <div class="dashRight">
-      <div class="card"><div class="head"><h3>📌 Lembrete Rápido</h3><button class="btn small danger" style="padding:6px 10px;font-size:11px;" onclick="clearReminder()">Limpar</button></div>
-        <div class="field" style="margin-bottom:12px">
-          <input type="text" id="reminderText" maxlength="50" placeholder="Ex: Revisar crase" oninput="saveReminder()">
+      <div class="caveira-card">
+        <div class="caveira-header">
+          <h3>Revisões</h3>
+          <span class="muted">Nenhuma revisão automática agendada.</span>
         </div>
-        <div class="formgrid" style="grid-template-columns: 1fr auto; gap:12px; align-items:center;">
-          <div class="field" style="margin:0"><input type="date" id="reminderDate" class="select" style="width:100%; padding:10px" onchange="saveReminder()"></div>
-          <span class="badge" id="reminderStatus" style="padding:10px;">Salvo</span>
+        <div class="caveira-body" style="display:flex; justify-content:center; align-items:center;">
+          <p class="muted">Nenhuma revisão para hoje.</p>
         </div>
       </div>
-      <div class="card section"><div class="head"><h3>🧠 Análise inteligente</h3><span class="eyebrow">edital + questões</span></div><div id="smartInsights"></div></div>
-      <div class="card section"><div class="head"><h3>Distribuição do tempo</h3><span class="link" onclick="go('desempenho',document.querySelectorAll('#nav button')[4])">Ver todas →</span></div><div class="timeDistribution"><div class="fakeDonut"><span id="dashTimePct">0%</span></div><div><b id="dashTimeTitle">Ainda sem dados</b><p class="muted" style="margin:7px 0 0">Seu tempo de estudo aparecerá aqui.</p></div></div></div>
     </div>
   </div>
 </section>
