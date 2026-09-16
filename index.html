@@ -1197,8 +1197,20 @@ function generateCycle(){
   activeConcert.studyDays = studyDays; 
   
   const mins = Math.max(30, +document.getElementById('gMinutes').value || ((activeConcert.goalHours||4)*60));
-  const arr = subjects().filter(s => Array.isArray(s.topics) && s.topics.length);
-  if(!arr.length) return alert('Sem assuntos.');
+  
+  // A MÁGICA ACONTECE AQUI:
+  // Só joga para o array as matérias e tópicos que NÃO foram concluídos
+  const arr = [];
+  subjects().forEach((s, subjectIndex) => {
+    if(Array.isArray(s.topics) && s.topics.length) {
+      const unstudiedTopics = s.topics.filter((_, topicIndex) => !done(subjectIndex, topicIndex));
+      if(unstudiedTopics.length > 0) {
+        arr.push({ name: s.name, topics: unstudiedTopics });
+      }
+    }
+  });
+
+  if(!arr.length) return alert('Parabéns! Todos os assuntos marcados no edital já foram concluídos. Você precisa zerar o progresso ou adicionar mais matérias para gerar um novo ciclo.');
 
   const slots = [];
   studyDays.forEach(d => {
@@ -1209,6 +1221,18 @@ function generateCycle(){
       used += m;
     }
   });
+  
+  let result = [];
+  slots.forEach((slot, idx) => {
+    let s = arr[idx % arr.length];
+    let topic = s.topics[Math.floor(idx / arr.length) % s.topics.length];
+    result.push({d: slot.d, s: s.name, topic, m: slot.m, done: false});
+  });
+  
+  currentContest().cycles = result;
+  save(); closeModal(); renderAgenda(); renderDashboard(); 
+  alert('Ciclo gerado apenas com os assuntos que faltam estudar!');
+}  });
   
   let result = [];
   slots.forEach((slot, idx) => {
