@@ -1083,20 +1083,36 @@ function resetChecks(){if(confirm('Zerar marcações?')){Object.keys(state.check
 
 function renderDashboardMatériasDoDia(){
   const container = document.getElementById('todayMatériasContainer');
+  const subtitle = document.getElementById('studySubtitle');
   if(!container) return;
+  
   const td = todayDay();
-  document.getElementById('todayDayBadge').textContent = td;
   const items = cycles().map((c,i)=>({c,i})).filter(x=>x.c.d===td);
-  if(!items.length) { container.innerHTML = `<p class="muted" style="padding:15px; text-align:center;">Nenhuma matéria para hoje.</p>`; return; }
-  container.innerHTML = items.map(({c,i})=>`
-    <div style="background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; display:flex; justify-content:space-between; align-items:center;">
-      <div>
-        <div style="display:flex; align-items:center; gap:10px;"><b>${esc(c.s)}</b><span class="badge">${c.m} min</span></div>
-        <div class="cycleTopic" style="margin-top:4px;">${esc(c.topic||'Geral')}</div>
+  
+  if(!items.length) { 
+    if(subtitle) subtitle.textContent = "Dia livre. Nenhuma meta para hoje.";
+    container.innerHTML = `<p class="muted" style="text-align:center;">Nenhuma matéria para hoje.</p>`; 
+    return; 
+  }
+
+  let pendentes = items.filter(x => !x.c.done).length;
+  if(subtitle) subtitle.textContent = `Você tem ${pendentes} itens pendentes de ${items.length} programados para hoje.`;
+
+  container.innerHTML = items.map((x, idx) => `
+    <div class="sessao-item" style="${x.c.done ? 'opacity:0.5;' : ''}">
+      <div class="sessao-info">
+        <span class="sessao-num">SESSÃO ${idx + 1}</span>
+        <b>${esc(x.c.s)}</b>
+        <span>${esc(x.c.topic || 'Geral')}</span>
+        <div style="display:flex; gap:10px; margin-top:6px;">
+          <span class="link" onclick="showIntro(${x.i})" style="color:var(--muted); font-size:11px;">📖 Resumo IA</span>
+          <span class="link" onclick="toggleCycle(${x.i})" style="color:var(--muted); font-size:11px;">${x.c.done ? '↺ Desfazer' : '✓ Marcar concluído'}</span>
+        </div>
       </div>
-      <div style="display:flex; gap:6px;">
-        <button class="dashAction details" style="border-color:var(--p2);color:var(--p2)" onclick="showIntro(${i})">📖 Intro</button>
-        <button class="dashAction start" onclick="go('questoes', document.querySelectorAll('#nav button')[3]); populateQ(); document.getElementById('qSubject').value='${esc(c.s)}'; populateQTopics(); document.getElementById('qTopic').value='${esc(c.topic||'')}';">✓ Questões</button>
+      <div>
+        <button class="btn-iniciar" onclick="go('questoes', document.querySelectorAll('#nav button')[3]); populateQ(); document.getElementById('qSubject').value='${esc(x.c.s)}'; populateQTopics(); document.getElementById('qTopic').value='${esc(x.c.topic||'')}';">
+          ⏱ INICIAR
+        </button>
       </div>
     </div>
   `).join('');
